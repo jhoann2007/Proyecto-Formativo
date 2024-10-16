@@ -2,8 +2,8 @@ classDiagram
     class Material {
         +String nombre
         +int cantidad
-        +EstadoMaterial estado
-        +String fechaAgregado
+        +String estado
+        +Datetime fechaAgregado
         +String descripcion
     }
 
@@ -12,9 +12,9 @@ classDiagram
         +String telefono
     }
 
-    class Proyecto {
+    class Empresa {
         +String nombre
-        +String fechaInicio
+        +Datetime fechaInicioContrato
         +String estado
     }
 
@@ -25,18 +25,15 @@ classDiagram
     }
 
     class Bodega {
-        +List~Material~ materiales
-        +List~Proyecto~ proyectos
-        +List~Proveedor~ proveedores
+        +Material[] materiales
+        +Proyecto[] proyectos
+        +Proveedor[] proveedores
     }
 
-    class EstadoMaterial {
-        +String nombre
-    }
+
 
     Bodega "1" --> "muchos" Material
-    Bodega "1" --> "muchos" Proyecto
+    Bodega "1" --> "muchos" Empresa
     Bodega "1" --> "muchos" Proveedor
-    Proyecto "muchos" --> "muchos" Empleado
+    Empresa "muchos" --> "muchos" Empleado
     Material "muchos" --> "1" Proveedor
-    Material "1" --> "1" EstadoMaterial
