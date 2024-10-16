@@ -1,0 +1,42 @@
+classDiagram
+    class Material {
+        +String nombre
+        +int cantidad
+        +EstadoMaterial estado
+        +String fechaAgregado
+        +String descripcion
+    }
+
+    class Proveedor {
+        +String nombre
+        +String telefono
+    }
+
+    class Proyecto {
+        +String nombre
+        +String fechaInicio
+        +String estado
+    }
+
+    class Empleado {
+        +String nombre
+        +String rol
+        +String telefono
+    }
+
+    class Bodega {
+        +List~Material~ materiales
+        +List~Proyecto~ proyectos
+        +List~Proveedor~ proveedores
+    }
+
+    class EstadoMaterial {
+        +String nombre
+    }
+
+    Bodega "1" --> "muchos" Material
+    Bodega "1" --> "muchos" Proyecto
+    Bodega "1" --> "muchos" Proveedor
+    Proyecto "muchos" --> "muchos" Empleado
+    Material "muchos" --> "1" Proveedor
+    Material "1" --> "1" EstadoMaterial
