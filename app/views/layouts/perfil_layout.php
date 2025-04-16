@@ -4,7 +4,7 @@
 <!-- head -->
 
 <head>
-    <?php include 'head.php'; ?>
+    <!-- <?php include 'head.php'; ?> -->
 </head>
 <!-- fin head -->
 

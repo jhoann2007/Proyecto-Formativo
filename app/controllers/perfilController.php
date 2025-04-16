@@ -10,17 +10,7 @@ class PerfilController extends BaseController
 
     public function index()
     {
-        # Crear una instancia del modelo rol 
-        $perfilObj = new PerfilModel();
-        # Obtener todos los roles desde el modelo 
-        $perfiles = $perfilObj->getAll();
-        # Pasar los datos a la vista 
-        $data = [
-            'title' => 'Lista de Perfiles',
-            'perfiles' => $perfiles
-        ];
-        # Renderizar la vista  a traves del metodo de BaseController
-        $this->render('perfil/perfil.php', $data);
+        $this->render('perfil/perfil.php');
     }
 
     public function __construct()
