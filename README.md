@@ -1,14 +1,4 @@
+<p align="center">
+  <img src="![ton618](https://github.com/user-attachments/assets/be336085-838e-4599-9aad-3900dbceccfa)" alt="" width="200"/> 
+</p>
 
-**Ejemplo de URL de GIF (reemplaza esta URL):**
-
-Busca una y pégala donde dice `https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif`. Por ejemplo, podrías usar algo como (verifica que el enlace funcione y sea adecuado):
-
-`https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif`
-
-**Importante:**
-
-*   Reemplaza `https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif` con el enlace directo al GIF que elegiste.
-*   Rellena toda la información entre corchetes `[...]`.
-*   Ajusta las secciones (elimina las que no necesites, añade otras si es necesario).
-*   Puedes cambiar el `width="200"` para ajustar el tamaño del GIF.
-*   Asegúrate de tener los derechos para usar el GIF que elijas, o atribuye la fuente si es necesario.
