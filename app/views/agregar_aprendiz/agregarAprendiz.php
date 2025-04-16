@@ -214,10 +214,10 @@
     <?php include 'assets/config/scripts.php'; ?>
 
     <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="../../../public/js/main.js"></script>
 
     <!-- js calendario -->
-    <script src="assets/js/js.js"></script>
+    <script src="../../../public/js/js.js"></script>
 
 </body>
 
