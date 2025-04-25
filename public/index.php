@@ -1,62 +1,36 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
-<!-- head -->
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <?php include 'assets/config/head.php'; ?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - CPICGYM</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
-<!-- fin head -->
+<body>
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
 
-<body class="index-page">
+        <?php
+        session_start();
+        if (isset($_SESSION['login_error'])) {
+            echo '<p class="error-message">' . htmlspecialchars($_SESSION['login_error']) . '</p>';
+            unset($_SESSION['login_error']);
+        }
+        ?>
 
-  <!-- header -->
-  <header id="header" class="header dark-background d-flex flex-column">
-    <?php include 'assets/config/header.php'; ?>
-  </header>
-  <!-- fin header -->
-
-  <!-- main -->
-  <main class="main ">
-    <!-- Hero Section -->
-    <section id="hero" class="hero section white-background">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>SenGym</h2>
-        <strong>
-          <p id="letra">Bienvenido al <span class="typed" data-typed-items=" aplicativo gimnasio SENA"></span><span
-              class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span
-              class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
-        </strong>
-      </div>
-
-    </section><!-- /Hero Section -->
-
-
-  </main>
-  <!-- fin main -->
-
-  <!-- footer -->
-  <footer id="footer" class="footer position-relative light-background">
-    <?php include 'assets/config/footer.php'; ?>
-  </footer>
-  <!-- fin footer -->
-
-  <!-- Scroll -->
-  <?php include 'assets/config/scroll.php'; ?>
-  </a>
-  <!-- fin Scroll -->
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <?php include 'assets/config/scripts.php'; ?>
-
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-
-  <!-- js calendario -->
-  <script src="assets/js/js.js"></script>
+        <form action="login.php" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Ingresar</button>
+            </div>
+        </form>
+    </div>
 </body>
-
 </html>

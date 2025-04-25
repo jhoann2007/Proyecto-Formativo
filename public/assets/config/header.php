@@ -10,7 +10,7 @@
 
 <nav id="navmenu" class="navmenu">
   <ul>
-    <li><a href="index.php" class="active"><i class="bi bi-house navicon"></i>Inicio</a></li>
+    <li><a href="index2.php" class="active"><i class="bi bi-house navicon"></i>Inicio</a></li>
     <li><a href="perfil.php"><i class="bi bi-person navicon"></i>Perfil</a></li>
     <li><a href="calendario.php"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
     <li><a href="agregarAprendiz.php"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;Agregar Aprendiz</a></li>
