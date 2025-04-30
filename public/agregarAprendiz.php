@@ -65,7 +65,6 @@
                     <button class="btn btn-outline-dark bi bi-person-fill-add" data-bs-toggle="modal" data-bs-target="#modalAprendiz">
                         Agregar Aprendiz
                     </button>
-
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                             Seleccionar Ficha
@@ -214,6 +213,10 @@
     <?php include 'assets/config/scripts.php'; ?>
 
     <!-- Main JS File -->
+    <script src="../../../public/js/main.js"></script>
+
+    <!-- js calendario -->
+    <script src="../../../public/js/js.js"></script>
     <script src="assets/js/main.js"></script>
 
     <!-- js calendario -->

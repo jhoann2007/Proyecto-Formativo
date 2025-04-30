@@ -1,7 +1,22 @@
 <?php
 session_start();
 
-require_once 'conexion.php'; 
+$servername = "localhost"; 
+$username = "root"; 
+$password = ""; 
+$dbname = "gymcpic"; 
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+
+if (!$conn->set_charset("utf8mb4")) {
+    // Manejar el error si es necesario
+    // printf("Error cargando el conjunto de caracteres utf8mb4: %s\n", $conn->error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -10,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($email) || empty($password_ingresada)) {
         $_SESSION['login_error'] = "Email y contraseña son requeridos.";
-        header("Location: index.php");
+        header("Location: /");
         exit;
     }
 
@@ -24,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt === false) {
         error_log("Error preparando statement: " . $conn->error); 
         $_SESSION['login_error'] = "Error del sistema. Intente más tarde.";
-        header("Location: index.php");
+        header("Location: /");
         exit;
     }
 
@@ -49,17 +64,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             unset($_SESSION['login_error']);
 
             $rolUsuario = $_SESSION['user_rol_nombre'];
-            $redirect_url = 'default_dashboard.php'; 
+            //$redirect_url = 'default_dashboard.php'; 
 
             switch ($rolUsuario) {
                 case 'admin':
-                    $redirect_url = 'index2.php';
+                    $redirect_url = '/admin';
                     break;
                 case 'entrenador': 
-                    $redirect_url = 'index3.php';
+                    $redirect_url = '/trainer';
                     break;
-                case 'estudiante': 
-                    $redirect_url = 'index4.php';
+                case 'aprendiz': 
+                    $redirect_url = '/inicio';
                     break;
             }
 
@@ -68,20 +83,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         } else {
             $_SESSION['login_error'] = "Email o contraseña incorrectos.";
-            header("Location: index.php");
+            header("Location: /");
             exit;
         }
 
     } else {
         $_SESSION['login_error'] = "Email o contraseña incorrectos.";
-        header("Location: index.php");
+        header("Location: /");
         exit;
     }
 
     $stmt->close();
 
 } else {
-    header("Location: index.php");
+    header("Location: /");
     exit;
 }
 
