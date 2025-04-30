@@ -15,7 +15,7 @@ abstract class BaseModel
         try {
             $dsn = "{$dbConfig['driver']}:host={$dbConfig['host']};dbname={$dbConfig['database']}";
             $this->dbConnection = new PDO($dsn, $dbConfig['username'], $dbConfig['password']);
-            $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+            $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $ex) {
             throw $ex;
         }
@@ -30,7 +30,8 @@ abstract class BaseModel
             $result = $statement->fetchAll(PDO::FETCH_OBJ);
             return $result;
         } catch (PDOException $ex) {
-            throw $ex;
+            echo "Error al obtener todos los registros: " . $ex->getMessage();
+            return [];
         }
     }
 }

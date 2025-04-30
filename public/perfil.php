@@ -123,10 +123,17 @@
     <?php include 'assets/config/scripts.php'; ?>
 
     <!-- Main JS File -->
+<<<<<<<< HEAD:app/views/perfil/perfil.php
     <script src="../../../public/js/main.js"></script>
 
     <!-- js calendario -->
     <script src="../../../public/js/js.js"></script>
+========
+    <script src="assets/js/main.js"></script>
+
+    <!-- js calendario -->
+    <script src="assets/js/js.js"></script>
+>>>>>>>> b394ad83391cab880c848366f5c179a1cf1e3721:public/perfil.php
 </body>
 
 </html>

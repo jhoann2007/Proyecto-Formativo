@@ -4,7 +4,7 @@
 <!-- head -->
 
 <head>
-    <?php include 'head.php'; ?>
+    <?php include 'assets/config/head.php'; ?>
 </head>
 <!-- fin head -->
 
@@ -12,7 +12,7 @@
 
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
-        <?php include 'header.php'; ?>
+        <?php include 'assets/config/header.php'; ?>
     </header>
     <!-- fin header -->
 
@@ -22,7 +22,7 @@
         <section id="resume" class="resume section" data-aos="fade-up">
 
             <!-- Section Title -->
-            <div class="container section-title">
+            <div class="container section-title" >
                 <h2>Calendario</h2>
             </div><!-- End Section Title -->
 
@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-
+                  
         </section><!-- /Resume Section -->
 
     </main>
@@ -54,12 +54,12 @@
 
     <!-- footer -->
     <footer id="footer" class="footer position-relative light-background">
-        <?php include 'footer.php'; ?>
+        <?php include 'assets/config/footer.php'; ?>
     </footer>
     <!-- fin footer -->
 
     <!-- Scroll -->
-    <?php include 'scroll.php'; ?>
+    <?php include 'assets/config/scroll.php'; ?>
     </a>
     <!-- fin Scroll -->
 
@@ -67,13 +67,13 @@
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
-    <?php include 'scripts.php'; ?>
+    <?php include 'assets/config/scripts.php'; ?>
 
     <!-- Main JS File -->
-    <script src="/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 
     <!-- js calendario -->
-    <script src="/js/js.js"></script>
+    <script src="assets/js/js.js"></script>
 </body>
 
 </html>

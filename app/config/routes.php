@@ -15,7 +15,7 @@ return [
         'action' => 'saludar'
     ],
 
-    # perfil
+    # Perfil
     '/perfil' => [
         'controller' => 'App\Controller\PerfilController',
         'action' => 'index'
@@ -25,6 +25,34 @@ return [
     '/agregarAprendiz' => [
         'controller' => 'App\Controller\AgregarAprendizController',
         'action' => 'index'
+    ],
+    '/agregarAprendiz/new' => [ // Muestra el formulario de creacion
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'new'
+    ],
+    '/agregarAprendiz/create' => [ // Crea el aprendiz en la Base de Datos 
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'create'
+    ],
+    '/agregarAprendiz/view/(\d+)' => [ // Visualiza el aprendiz con el ID especificado 
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'view'
+    ],
+    '/agregarAprendiz/edit/(\d+)' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'editUsuario'
+    ],
+    '/agregarAprendiz/update' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'updateUsuario'
+    ],
+    '/agregarAprendiz/delete/(\d+)' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'deleteUsuario'
+    ],
+    '/agregarAprendiz/borrar' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'borrarUsuario'
     ],
 
     # Calendario

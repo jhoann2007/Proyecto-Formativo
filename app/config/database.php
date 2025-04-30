@@ -2,7 +2,7 @@
 return [
     'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'proyecto_ejemplo',
+    'database' => 'mydb',
     'username' => 'root',
     'password' => '',
     'charset' => 'uft8mb4',

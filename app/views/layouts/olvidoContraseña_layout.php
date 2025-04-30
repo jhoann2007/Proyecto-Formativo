@@ -20,7 +20,7 @@
             <input type="password" placeholder="Número de documento" id="documento">
             <input type="password" placeholder="Copiar nueva contraseña" id="nueva">
 
-            <a href="../html/codigoDeVerificacion.php">
+            <a href="/codigo">
                 <button type="button" class="btn">Restablecer contraseña</button>
             </a>
         </form>
