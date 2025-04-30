@@ -59,28 +59,14 @@
     <!-- main -->
     <main class="main">
         <div class="container mt-5">
-            <!-- Agregar aprendiz -->
+            <!-- Agregar Entrenador -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex gap-2">
-                    <button class="btn btn-outline-dark bi bi-person-fill-add" data-bs-toggle="modal" data-bs-target="#modalAprendiz">
-                        Agregar Aprendiz
+                    <button class="btn btn-outline-dark bi bi-person-fill-add" data-bs-toggle="modal" data-bs-target="#modalEntrenador">
+                        Agregar Entrenador
                     </button>
 
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownFicha" data-bs-toggle="dropdown" aria-expanded="false">
-                            Seleccionar Ficha
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownFicha">
-                            <li><a class="dropdown-item ficha-filter" href="#" data-ficha="todas">Todas las fichas</a></li>
-                            <?php
-                            if (isset($grupos) && is_array($grupos)) {
-                                foreach ($grupos as $grupo) {
-                                    echo '<li><a class="dropdown-item ficha-filter" href="#" data-ficha="'.$grupo->id.'" data-ficha-nombre="'.$grupo->ficha.'">'.$grupo->ficha.'</a></li>';
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </div>
+                    
                     <div id="ficha-seleccionada" class="d-flex align-items-center ms-3 text-muted"></div>
                 </div>
 
