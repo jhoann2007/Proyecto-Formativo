@@ -83,6 +83,40 @@ return [
     '/ingreso' => [
     'controller' => 'App\Controller\ingresoController',
     'action' => 'index' 
-    ]
+    ],
+    
+    # Agregar Entrenador
+    '/agregarEntrenador' => [
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'index'
+    ],
+    '/agregarEntrenador/new' => [ // Muestra el formulario de creacion
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'new'
+    ],
+    '/agregarEntrenador/create' => [ // Crea el aprendiz en la Base de Datos 
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'create'
+    ],
+    '/agregarEntrenador/view/(\d+)' => [ // Visualiza el aprendiz con el ID especificado 
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'view'
+    ],
+    '/agregarEntrenador/edit/(\d+)' => [
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'editEntrenador'
+    ],
+    '/agregarEntrenador/update' => [
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'updateEntrenador'
+    ],
+    '/agregarEntrenador/delete/(\d+)' => [
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'deleteEntrenador'
+    ],
+    '/agregarEntrenador/borrar' => [
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'borrarEntrenador'
+    ],
 ];
 ?>
