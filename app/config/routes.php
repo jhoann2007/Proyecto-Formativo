@@ -2,10 +2,6 @@
 return [
 
     # EJEMPLOS
-    '/' => [
-        'controller' => 'App\Controller\HomeController',
-        'action' => 'index'
-    ],
     '/home' => [
         'controller' => 'App\Controller\HomeController',
         'action' => 'index'
@@ -13,6 +9,16 @@ return [
     '/saludo' => [
         'controller' => 'App\Controller\HomeController',
         'action' => 'saludar'
+    ],
+
+    #LOGIN
+    '/' => [
+        'controller' => 'App\Controller\HomeController',
+        'action' => 'index'
+    ],
+    '/login' => [
+        'controller' => 'App\Controller\HomeController',
+        'action' => 'login'
     ],
 
     # Perfil

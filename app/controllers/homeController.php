@@ -8,8 +8,19 @@ class HomeController extends BaseController
     //Accion 1 del controlador 
     public function index()
     {
-        echo "<br>CONTROLLER > homeController";
-        echo "<br>ACTION > home";
+        $this->render('login/index.php');
+    
+    }
+
+    public function __construct()
+    {
+        // Se define el layout para este controlador 
+        $this->layout = 'admin_layout';
+    }
+
+    public function login()
+    {
+        $this->render('login/login.php');
     }
 
     //Accion 2 del controlador 
@@ -18,5 +29,8 @@ class HomeController extends BaseController
         echo "<br>CONTROLLER > homeController";
         echo "<br>ACTION > saludo";
     }
+
+    
 }
 ?>
+
