@@ -38,11 +38,11 @@
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <div class="profile-img">
-            <img src="assets/img/yo.jpg" alt="" class="img-fluid rounded-circle">
+            <img src="assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
         </div>
 
         <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-            <h1 class="sitename">Luis Felipe</h1>
+            <h1 class="sitename">GigaChad</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
