@@ -1,58 +1,139 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
-    font-family: sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f4f4f4;
+    margin: 0; 
+    background: linear-gradient(135deg, #e0e0e0 0%, #f4f4f4 100%);
+    overflow-x: hidden; 
 }
 
 .login-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 35px 40px; 
+    border-radius: 12px; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); 
+    width: 100%;
+    max-width: 400px; 
+    box-sizing: border-box; 
+    text-align: left; 
+    animation: fadeInSlideUp 0.7s ease-out forwards;
+    opacity: 0; 
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .login-container h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    color: #333; 
+    font-weight: 700; 
+    font-size: 24px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px; 
+    position: relative; 
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    color: #555; 
+    font-weight: 500; 
+    font-size: 14px;
 }
 
-.form-group input {
+.form-group input[type="email"],
+.form-group input[type="password"] {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
     box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
 
-.form-group button {
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+    border-color: #5cb85c; 
+    box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.25); 
+    outline: none; 
+}
+
+.form-group button[type="submit"] {
     width: 100%;
-    padding: 10px;
-    background-color: #5cb85c;
+    padding: 12px 15px;
+    background-color: #5cb85c; 
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase; 
+    letter-spacing: 0.5px; 
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
 }
 
-.form-group button:hover {
-    background-color: #4cae4c;
+.form-group button[type="submit"]:hover {
+    background-color: #4cae4c; 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 10px rgba(92, 184, 92, 0.3); 
+}
+
+.form-group button[type="submit"]:active {
+    background-color: #449d44; 
+    transform: translateY(0); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+.form-group .g-recaptcha {
+    margin-top: 5px; 
+    display: flex; 
+    justify-content: center; 
 }
 
 .error-message {
-    color: red;
+    color: #d9534f; 
+    background-color: #f2dede; 
+    border: 1px solid #ebccd1; 
+    padding: 10px 15px;
+    border-radius: 4px;
     text-align: center;
+    margin-bottom: 20px; 
+    font-size: 14px;
+}
+
+.login-container::before {
+    content: ''; /*no poner nada aqui 👍*/
+    display: block;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #5cb85c; 
     margin-bottom: 15px;
+    background-image: url('../img/logo_sena-removebg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100px; 
+    height: 100px; 
+    margin: 0 auto 15px auto;
 }
