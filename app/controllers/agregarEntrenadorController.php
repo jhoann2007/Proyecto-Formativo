@@ -21,18 +21,20 @@ class AgregarEntrenadorController extends BaseController
         # Obtener todos los entrenadores desde el modelo 
         $entrenadores = $agregarEntrenadorObj->getAll();
         
-        # Obtener roles, grupos y centros de formación
-        $roles = $agregarEntrenadorObj->getRoles();
-        
         # Pasar los datos a la vista 
         $data = [
             'title' => 'Lista de Entrenadores',
-            'entrenadores' => $entrenadores,
-            'roles' => $roles
+            'entrenadores' => $entrenadores
         ];
         
         # Renderizar la vista a traves del metodo de BaseController
         $this->render('agregarEntrenador/agregarEntrenador.php', $data);
+    }
+
+    # Muestra el formulario para crear un nuevo entrenador
+    public function new()
+    {
+        $this->render('agregarEntrenador/newEntrenador.php');
     }
 
     # Guarda los datos del formulario
@@ -51,10 +53,9 @@ class AgregarEntrenadorController extends BaseController
         $telefonoEmergencia = $_POST['txtTelefonoEmergencia'] ?? null;
         $password = $_POST['txtPassword'] ?? null;
         $observaciones = $_POST['txtObservaciones'] ?? null;
-        $fkIdRol = $_POST['txtFKidRol'] ?? null;
         
         if ($nombre) {
-            $objEntrenador = new AgregarEntrenadorModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmergencia, $password, $observaciones, $fkIdRol);
+            $objEntrenador = new AgregarEntrenadorModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmergencia, $password, $observaciones);
             $resp = $objEntrenador->save();
             
             if ($resp) {
@@ -63,7 +64,7 @@ class AgregarEntrenadorController extends BaseController
                 exit();
             } else {
                 // Error al guardar
-                echo "Error al guardar el entrnador. Por favor, inténtelo de nuevo.";
+                echo "Error al guardar el entrenador. Por favor, inténtelo de nuevo.";
                 header('Refresh: 3; URL=/agregarEntrenador');
                 exit();
             }
@@ -93,10 +94,9 @@ class AgregarEntrenadorController extends BaseController
                 'telefono' => $entrenadorInfo[0]->telefono, 
                 'eps' => $entrenadorInfo[0]->eps,
                 'tipoSangre' => $entrenadorInfo[0]->tipoSangre,
-                'telefonoEmergencia' => $entrenadorInfo[0]->telefonoEmerjencia,
+                'telefonoEmergencia' => $entrenadorInfo[0]->telefonoEmergencia,
                 'password' => $entrenadorInfo[0]->password, 
-                'observaciones' => $entrenadorInfo[0]->observaciones,
-                'fkIdRol' => $entrenadorInfo[0]->fkIdRol
+                'observaciones' => $entrenadorInfo[0]->observaciones
             ];
             $this->render("agregarEntrenador/viewOneEntrenador.php", $data);
         } else {
@@ -113,12 +113,8 @@ class AgregarEntrenadorController extends BaseController
         $entrenadorInfo = $objEntrenador->getEntrenador();
 
         if (!empty($entrenadorInfo)) {
-            # Obtener roles, grupos y centros de formación
-            $roles = $objEntrenador->getRoles();
-            
             $data = [
-                'infoReal' => $entrenadorInfo[0],
-                'roles' => $roles
+                'infoReal' => $entrenadorInfo[0]
             ];
             $this->render("agregarEntrenador/editEntrenador.php", $data);
         } else {
@@ -146,9 +142,8 @@ class AgregarEntrenadorController extends BaseController
             $telefonoEmergencia = $_POST['txtTelefonoEmergencia'] ?? null;
             $password = $_POST['txtPassword'] ?? null;
             $observaciones = $_POST['txtObservaciones'] ?? null;
-            $fkIdRol = $_POST['txtFKidRol'] ?? null;
             
-            $entrenadorObjEdit = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmergencia, $password, $observaciones, $fkIdRol);
+            $entrenadorObjEdit = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmergencia, $password, $observaciones);
             $res = $entrenadorObjEdit->editEntrenador();
             
             if ($res) {
@@ -202,9 +197,8 @@ class AgregarEntrenadorController extends BaseController
             $telefonoEmergencia = $_POST['txtTelefonoEmergencia'] ?? null;
             $password = $_POST['txtPassword'] ?? null;
             $observaciones = $_POST['txtObservaciones'] ?? null;
-            $fkIdRol = $_POST['txtFKidRol'] ?? null;
             
-            $entrenadorObjDelete = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmergencia, $password, $observaciones, $fkIdRol);
+            $entrenadorObjDelete = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmergencia, $password, $observaciones);
             $res = $entrenadorObjDelete->deleteEntrenador();
             
             if ($res) {

@@ -8,7 +8,7 @@
     <?php include 'assets/config/head.php'; ?>
 
     <meta charset="UTF-8">
-    <title>Tabla Aprendices</title>
+    <title>Gestión de Entrenadores</title>
     <style>
         .btn-observaciones {
             background-color: #6f42c1;
@@ -37,11 +37,11 @@
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <div class="profile-img">
-            <img src="assets/img/yo.jpg" alt="" class="img-fluid rounded-circle">
+            <img src="assets/img/negrito.jpg" alt="" class="img-fluid rounded-circle">
         </div>
 
         <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-            <h1 class="sitename">Luis Felipe</h1>
+            <h1 class="sitename">Fernando</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -49,7 +49,7 @@
                 <li><a href="/inicio"><i class="bi bi-house navicon"></i>Inicio</a></li>
                 <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
                 <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
-                <li><a href="/agregarAprendiz" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Aprendiz</a></li>
+                <li><a href="/agregarAprendiz"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Aprendiz</a></li>
                 <li><a href="/agregarEntrenador" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Entrenador</a></li>
             </ul>
         </nav>
@@ -59,29 +59,12 @@
     <!-- main -->
     <main class="main">
         <div class="container mt-5">
-            <!-- Agregar aprendiz -->
+            <!-- Agregar entrenador -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex gap-2">
-                    <button class="btn btn-outline-dark bi bi-person-fill-add" data-bs-toggle="modal" data-bs-target="#modalAprendiz">
-                        Agregar Aprendiz
+                    <button class="btn btn-outline-dark bi bi-person-fill-add" data-bs-toggle="modal" data-bs-target="#modalEntrenador">
+                        Agregar Entrenador
                     </button>
-
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownFicha" data-bs-toggle="dropdown" aria-expanded="false">
-                            Seleccionar Ficha
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownFicha">
-                            <li><a class="dropdown-item ficha-filter" href="#" data-ficha="todas">Todas las fichas</a></li>
-                            <?php
-                            if (isset($grupos) && is_array($grupos)) {
-                                foreach ($grupos as $grupo) {
-                                    echo '<li><a class="dropdown-item ficha-filter" href="#" data-ficha="'.$grupo->id.'" data-ficha-nombre="'.$grupo->ficha.'">'.$grupo->ficha.'</a></li>';
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </div>
-                    <div id="ficha-seleccionada" class="d-flex align-items-center ms-3 text-muted"></div>
                 </div>
 
                 <div class="input-group w-25">
@@ -99,7 +82,7 @@
             <div class="copyright text-center">
                 <p>
                     © <span>Copyright</span>
-                    <strong class="px-1 sitename">SenGym</strong>
+                    <strong class="px-1 sitename">GymTech SENA</strong>
                     <span>All Rights Reserved</span>
                 </p>
             </div>
@@ -124,7 +107,7 @@
     <script src="../../../public/js/js.js"></script>
     <script src="assets/js/main.js"></script>
 
-    <!-- Búsqueda en tabla y filtrado por ficha -->
+    <!-- Búsqueda en tabla -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Búsqueda en tabla
@@ -135,27 +118,6 @@
                     filterTable(searchTerm);
                 });
             }
-            
-            // Filtrado por ficha
-            const fichaLinks = document.querySelectorAll('.ficha-filter');
-            const fichaSeleccionadaText = document.getElementById('ficha-seleccionada');
-            
-            fichaLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const fichaId = this.getAttribute('data-ficha');
-                    const fichaNombre = this.getAttribute('data-ficha-nombre');
-                    
-                    // Actualizar texto de ficha seleccionada
-                    if (fichaId === 'todas') {
-                        fichaSeleccionadaText.textContent = '';
-                        filterByFicha('todas');
-                    } else {
-                        fichaSeleccionadaText.textContent = 'Ficha: ' + fichaNombre;
-                        filterByFicha(fichaId);
-                    }
-                });
-            });
             
             // Función para filtrar por búsqueda
             function filterTable(searchTerm) {
@@ -168,28 +130,6 @@
                             row.style.display = '';
                         } else {
                             row.style.display = 'none';
-                        }
-                    }
-                });
-                
-                checkNoResults();
-            }
-            
-            // Función para filtrar por ficha
-            function filterByFicha(fichaId) {
-                const tableRows = document.querySelectorAll('tbody tr');
-                
-                tableRows.forEach(row => {
-                    if (!row.classList.contains('no-data')) {
-                        if (fichaId === 'todas') {
-                            row.style.display = '';
-                        } else {
-                            const fichaCell = row.getAttribute('data-ficha');
-                            if (fichaCell === fichaId) {
-                                row.style.display = '';
-                            } else {
-                                row.style.display = 'none';
-                            }
                         }
                     }
                 });
@@ -219,7 +159,7 @@
                 if (visibleRows === 0) {
                     const noResultsRow = document.createElement('tr');
                     noResultsRow.className = 'no-results';
-                    noResultsRow.innerHTML = '<td colspan="9" class="text-center">No se encontraron aprendices con los criterios de búsqueda</td>';
+                    noResultsRow.innerHTML = '<td colspan="7" class="text-center">No se encontraron entrenadores con los criterios de búsqueda</td>';
                     tbody.appendChild(noResultsRow);
                 }
             }

@@ -37,11 +37,11 @@
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <div class="profile-img">
-            <img src="assets/img/yo.jpg" alt="" class="img-fluid rounded-circle">
+            <img src="assets/img/negrito.jpg" alt="" class="img-fluid rounded-circle">
         </div>
 
         <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-            <h1 class="sitename">Luis Felipe</h1>
+            <h1 class="sitename">Fernando</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -99,7 +99,7 @@
             <div class="copyright text-center">
                 <p>
                     © <span>Copyright</span>
-                    <strong class="px-1 sitename">SenGym</strong>
+                    <strong class="px-1 sitename">GymTech SENA</strong>
                     <span>All Rights Reserved</span>
                 </p>
             </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sengym - SENA</title>
+    <title>GymTech SENA</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Íconos opcionales -->
@@ -54,7 +54,7 @@
                 <img src="/img/logo-sena-negro-jpg-2022-1024x1004-removebg-preview.png" alt="Logo SENA" class="img-fluid">
             </a>
         </div>
-        <p class="lead">Sengym es el aplicativo de acceso al gimnasio del SENA ubicado en la sede de Maltería-Manizales.</p>
+        <p class="lead">GymTech SENA es el aplicativo de acceso al gimnasio del SENA ubicado en la sede de Maltería-Manizales.</p>
         <p>Dele click para descargar</p>
         <a href="inicioDeSesion.php" class="btn btn-primary mb-4">Descargar Ahora</a>
     </div>

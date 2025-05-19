@@ -21,9 +21,9 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section white-background">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>SenGym</h2>
+        <h2>GymTech SENA</h2>
         <strong>
-          <p id="letra">Bienvenido al <span class="typed" data-typed-items=" aplicativo gimnasio SENA"></span><span
+          <p id="letra">Bienvenido al <span class="typed" data-typed-items=" aplicativo GymTech SENA"></span><span
               class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span
               class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
         </strong>
