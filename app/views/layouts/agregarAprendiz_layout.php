@@ -87,7 +87,7 @@ session_start();
 
     <!-- main -->
     <main class="main">
-        <div class="container mt-5"> {/* Considera si este mt-5 es suficiente con el header. Si el header es sticky o fixed, el contenido podría quedar debajo. */}
+        <div class="container mt-5"> 
             <!-- Agregar Entrenador -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex gap-2">
