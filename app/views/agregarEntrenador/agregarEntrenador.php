@@ -7,7 +7,7 @@
                 <th>N. Documento</th>
                 <th>Email</th>
                 <th>Género</th>
-                <th>Teléfono</th>
+                <th>Peso</th>
                 <th colspan="3">Acciones</th>
             </tr>
         </thead>
@@ -23,26 +23,41 @@
                     $email = $entrenador->email ?? '';
                     $genero = $entrenador->genero ?? '';
                     $telefono = $entrenador->telefono ?? '';
+                    $eps = $entrenador->eps ?? '';
+                    $tipoSangre = $entrenador->tipoSangre ?? '';
+                    $peso = $entrenador->peso ?? '';
+                    $estatura = $entrenador->estatura ?? '';
+                    $telefonoEmergencia = $entrenador->telefonoEmergencia ?? '';
+                    $password = $entrenador->password ?? '';
+                    $observaciones = $entrenador->observaciones ?? '';
                     
-                    echo "<tr>
+                    // Verificar si existen las propiedades o usar valores por defecto
+                    $fkidRol = property_exists($aprendiz, 'fkIdRol') ? $aprendiz->fkIdRol : 
+                              (property_exists($aprendiz, 'fkidRol') ? $aprendiz->fkidRol : '');
+                    $fkidGrupo = property_exists($aprendiz, 'fkIdGrupo') ? $aprendiz->fkIdGrupo : 
+                                (property_exists($aprendiz, 'fkidGrupo') ? $aprendiz->fkidGrupo : '');
+                    $fkidCentroFormacion = property_exists($aprendiz, 'fkIdCentroFormacion') ? $aprendiz->fkIdCentroFormacion : 
+                                         (property_exists($aprendiz, 'fkidCentroFormacion') ? $aprendiz->fkidCentroFormacion : '');
+                    
+                    echo "<tr data-ficha='{$fkidGrupo}'>
                         <td>{$nombre}</td>
                         <td>{$tipoDocumento}</td>
                         <td>{$documento}</td>
                         <td>{$email}</td>
                         <td>{$genero}</td>
-                        <td>{$telefono}</td>
+                        <td>{$peso}</td>
                         <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalView{$id}'>Observaciones</button></td>
                         <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id}'>Editar</button></td>
                         <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id}'>Eliminar</button></td>
                     </tr>";
                     
-                    // Modal para Ver Entrenador
+                    // Modal para Ver Aprendiz
                     echo "
                     <div class='modal fade' id='modalView{$id}' tabindex='-1' aria-labelledby='modalViewLabel{$id}' aria-hidden='true'>
                         <div class='modal-dialog modal-lg'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalViewLabel{$id}'>Detalles del Entrenador</h5>
+                                    <h5 class='modal-title' id='modalViewLabel{$id}'>Detalles del Aprendiz</h5>
                                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
                                 </div>
                                 <div class='modal-body'>
@@ -57,12 +72,49 @@
                                             <p><strong>Género:</strong> {$genero}</p>
                                         </div>
                                         <div class='col-md-6'>
-                                            <p><strong>Estado:</strong> {$entrenador->estado}</p>
-                                            <p><strong>Teléfono:</strong> {$telefono}</p>
-                                            <p><strong>EPS:</strong> {$entrenador->eps}</p>
-                                            <p><strong>Tipo Sangre:</strong> {$entrenador->tipoSangre}</p>
-                                            <p><strong>Teléfono Emergencia:</strong> {$entrenador->telefonoEmergencia}</p>
-                                            <p><strong>Observaciones:</strong> {$entrenador->observaciones}</p>
+                                            <p><strong>EPS:</strong> {$eps}</p>
+                                            <p><strong>Tipo Sangre:</strong> {$tipoSangre}</p>
+                                            <p><strong>Peso:</strong> {$peso}</p>
+                                            <p><strong>Estatura:</strong> {$estatura}</p>
+                                            <p><strong>Teléfono Emergencia:</strong> {$telefonoEmerjencia}</p>";
+                                            
+                                            // Mostrar nombre del rol en lugar del ID
+                                            if (isset($roles) && is_array($roles)) {
+                                                foreach ($roles as $rol) {
+                                                    if ($rol->id == $fkidRol) {
+                                                        echo "<p><strong>Rol:</strong> {$rol->nombre}</p>";
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                echo "<p><strong>Rol:</strong> {$fkidRol}</p>";
+                                            }
+                                            
+                                            // Mostrar ficha en lugar del ID de grupo
+                                            if (isset($grupos) && is_array($grupos)) {
+                                                foreach ($grupos as $grupo) {
+                                                    if ($grupo->id == $fkidGrupo) {
+                                                        echo "<p><strong>Ficha:</strong> {$grupo->ficha}</p>";
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                echo "<p><strong>Grupo:</strong> {$fkidGrupo}</p>";
+                                            }
+                                            
+                                            // Mostrar nombre del centro de formación en lugar del ID
+                                            if (isset($centrosFormacion) && is_array($centrosFormacion)) {
+                                                foreach ($centrosFormacion as $centro) {
+                                                    if ($centro->id == $fkidCentroFormacion) {
+                                                        echo "<p><strong>Centro Formación:</strong> {$centro->nombre}</p>";
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                echo "<p><strong>Centro Formación:</strong> {$fkidCentroFormacion}</p>";
+                                            }
+                                            
+                                            echo "<p><strong>Observaciones:</strong> {$observaciones}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +191,17 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Sangre</label>
-                                                <input type='text' class='form-control' name='txtTipoSangre' value='{$entrenador->tipoSangre}'>
+                                                <input type='text' class='form-control' name='txtTipoSangre' value='{$tipoSangre}'>
+                                            </div>
+                                        </div>
+                                        <div class='row mb-3'>
+                                            <div class='col-md-6'>
+                                                <label class='form-label'>Peso</label>
+                                                <input type='text' class='form-control' name='txtPeso' value='{$peso}'>
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <label class='form-label'>Estatura</label>
+                                                <input type='text' class='form-control' name='txtEstatura' value='{$estatura}'>
                                             </div>
                                         </div>
                                         <div class='row mb-3'>
@@ -155,7 +217,45 @@
                                         <div class='row mb-3'>
                                             <div class='col-md-12'>
                                                 <label class='form-label'>Observaciones</label>
-                                                <textarea class='form-control' name='txtObservaciones'>{$entrenador->observaciones}</textarea>
+                                                <textarea class='form-control' name='txtObservaciones'>{$observaciones}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class='row mb-3'>
+                                            <div class='col-md-4'>
+                                                <label class='form-label'>Rol</label>
+                                                <select class='form-select' name='txtFKidRol' required>
+                                                    <option value=''>Seleccionar Rol</option>";
+                                                    if (isset($roles) && is_array($roles)) {
+                                                        foreach ($roles as $rol) {
+                                                            $selected = ($fkidRol == $rol->id) ? 'selected' : '';
+                                                            echo "<option value='{$rol->id}' {$selected}>{$rol->nombre}</option>";
+                                                        }
+                                                    }
+                                                echo "</select>
+                                            </div>
+                                            <div class='col-md-4'>
+                                                <label class='form-label'>Ficha</label>
+                                                <select class='form-select' name='txtFKidGrupo'>
+                                                    <option value=''>Seleccionar Ficha</option>";
+                                                    if (isset($grupos) && is_array($grupos)) {
+                                                        foreach ($grupos as $grupo) {
+                                                            $selected = ($fkidGrupo == $grupo->id) ? 'selected' : '';
+                                                            echo "<option value='{$grupo->id}' {$selected}>{$grupo->ficha}</option>";
+                                                        }
+                                                    }
+                                                echo "</select>
+                                            </div>
+                                            <div class='col-md-4'>
+                                                <label class='form-label'>Centro Formación</label>
+                                                <select class='form-select' name='txtFKidCentroFormacion'>
+                                                    <option value=''>Seleccionar Centro</option>";
+                                                    if (isset($centrosFormacion) && is_array($centrosFormacion)) {
+                                                        foreach ($centrosFormacion as $centro) {
+                                                            $selected = ($fkidCentroFormacion == $centro->id) ? 'selected' : '';
+                                                            echo "<option value='{$centro->id}' {$selected}>{$centro->nombre}</option>";
+                                                        }
+                                                    }
+                                                echo "</select>
                                             </div>
                                         </div>
                                         <div class='modal-footer'>
@@ -189,11 +289,16 @@
                                         <input type='hidden' name='txtGenero' value='{$genero}'>
                                         <input type='hidden' name='txtEstado' value='{$entrenador->estado}'>
                                         <input type='hidden' name='txtTelefono' value='{$telefono}'>
-                                        <input type='hidden' name='txtEps' value='{$entrenador->eps}'>
-                                        <input type='hidden' name='txtTipoSangre' value='{$entrenador->tipoSangre}'>
-                                        <input type='hidden' name='txtTelefonoEmergencia' value='{$entrenador->telefonoEmergencia}'>
-                                        <input type='hidden' name='txtPassword' value=''>
-                                        <input type='hidden' name='txtObservaciones' value='{$entrenador->observaciones}'>
+                                        <input type='hidden' name='txtEps' value='{$eps}'>
+                                        <input type='hidden' name='txtTipoSangre' value='{$tipoSangre}'>
+                                        <input type='hidden' name='txtPeso' value='{$peso}'>
+                                        <input type='hidden' name='txtEstatura' value='{$estatura}'>
+                                        <input type='hidden' name='txtTelefonoEmergencia' value='{$telefonoEmerjencia}'>
+                                        <input type='hidden' name='txtPassword' value='{$password}'>
+                                        <input type='hidden' name='txtObservaciones' value='{$observaciones}'>
+                                        <input type='hidden' name='txtFKidRol' value='{$fkidRol}'>
+                                        <input type='hidden' name='txtFKidGrupo' value='{$fkidGrupo}'>
+                                        <input type='hidden' name='txtFKidCentroFormacion' value='{$fkidCentroFormacion}'>
                                         <div class='modal-footer'>
                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
                                             <button type='submit' class='btn btn-danger'>Eliminar</button>
@@ -205,7 +310,7 @@
                     </div>";
                 }
             } else {
-                echo "<tr class='no-data'><td colspan='7' class='text-center'>No hay entrenadores registrados</td></tr>";
+                echo "<tr class='no-data'><td colspan='9' class='text-center'>No hay aprendices registrados</td></tr>";
             }
             ?>
         </tbody>
@@ -283,6 +388,16 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
+                            <label class="form-label">Peso</label>
+                            <input type="text" class="form-control" name="txtPeso" placeholder="kg">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Estatura</label>
+                            <input type="text" class="form-control" name="txtEstatura" placeholder="cm">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
                             <label class="form-label">Teléfono Emergencia</label>
                             <input type="text" class="form-control" name="txtTelefonoEmergencia">
                         </div>
@@ -295,6 +410,47 @@
                         <div class="col-md-12">
                             <label class="form-label">Observaciones</label>
                             <textarea class="form-control" name="txtObservaciones"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Rol</label>
+                            <select class="form-select" name="txtFKidRol" required>
+                                <option value="">Seleccionar Rol</option>
+                                <?php
+                                if (isset($roles) && is_array($roles)) {
+                                    foreach ($roles as $rol) {
+                                        echo "<option value='{$rol->id}'>{$rol->nombre}</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Ficha</label>
+                            <select class="form-select" name="txtFKidGrupo">
+                                <option value="">Seleccionar Ficha</option>
+                                <?php
+                                if (isset($grupos) && is_array($grupos)) {
+                                    foreach ($grupos as $grupo) {
+                                        echo "<option value='{$grupo->id}'>{$grupo->ficha}</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Centro Formación</label>
+                            <select class="form-select" name="txtFKidCentroFormacion">
+                                <option value="">Seleccionar Centro</option>
+                                <?php
+                                if (isset($centrosFormacion) && is_array($centrosFormacion)) {
+                                    foreach ($centrosFormacion as $centro) {
+                                        echo "<option value='{$centro->id}'>{$centro->nombre}</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
