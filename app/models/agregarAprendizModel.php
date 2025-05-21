@@ -120,11 +120,20 @@ class AgregarAprendizModel extends BaseModel
             
             # 3. Se ejecuta la consulta
             $res = $sql->execute();
+            
+            // Guardar el ID para poder recuperarlo después
+            $this->id = $nextId;
+            
             return $res;
         } catch (PDOException $ex) {
             echo "Error en la consulta> " .$ex->getMessage();
             return false;
         }
+    }
+
+    // Método para obtener el ID del último registro insertado
+    public function getLastInsertId() {
+        return $this->id;
     }
 
     // Método para obtener el siguiente ID disponible

@@ -1,68 +1,100 @@
-<div class="data-container">
+<div class="container">
+    <h2 class="mb-4">Agregar Nuevo Entrenador</h2>
     <form action="/agregarEntrenador/create" method="post">
-        <div class="form-group">
-            <label for="txtNombre">Nombre</label>
-            <input type="text" name="txtNombre" id="txtNombre" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="txtNombre" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Tipo de Documento</label>
+                <select class="form-select" name="txtTipoDocumento" required>
+                    <option value="">Seleccionar</option>
+                    <option value="CC">Cédula de ciudadanía</option>
+                    <option value="CE">Cédula de Extranjería</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <option value="PEP">Permiso especial de permanencia</option>
+                    <option value="PPT">Permiso por Protección Temporal</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtTipoDocumento">Tipo Documento</label>
-            <select name="txtTipoDocumento" id="txtTipoDocumento" required>
-                <option value="">Seleccionar</option>
-                <option value="CC">Cédula de ciudadanía</option>
-                <option value="TI">Tarjeta de identidad</option>
-            </select>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Número de Documento</label>
+                <input type="text" class="form-control" name="txtDocumento" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Fecha Nacimiento</label>
+                <input type="date" class="form-control" name="txtFechaNacimiento" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtDocumento">Documento</label>
-            <input type="text" name="txtDocumento" id="txtDocumento" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="txtEmail" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Género</label>
+                <select class="form-select" name="txtGenero" required>
+                    <option value="">Seleccionar</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtFechaNacimiento">Fecha Nacimiento</label>
-            <input type="date" name="txtFechaNacimiento" id="txtFechaNacimiento" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Estado</label>
+                <select class="form-select" name="txtEstado" required>
+                    <option value="">Seleccionar</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Teléfono</label>
+                <input type="text" class="form-control" name="txtTelefono" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtEmail">Email</label>
-            <input type="email" name="txtEmail" id="txtEmail" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">EPS</label>
+                <input type="text" class="form-control" name="txtEps">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Tipo Sangre</label>
+                <select class="form-select" name="txtTipoSangre" required>
+                    <option value="">Seleccionar Tipo de Sangre</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtGenero">Genero</label>
-            <select name="txtGenero" id="txtGenero" required>
-                <option value="">Seleccionar</option>
-                <option value="M">Masculino</option>
-                <option value="F">Femenino</option>
-                <option value="O">Otro</option>
-            </select>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Teléfono Emergencia</label>
+                <input type="text" class="form-control" name="txtTelefonoEmergencia">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="txtPassword" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtEstado">Estado</label>
-            <input type="text" name="txtEstado" id="txtEstado" required>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label class="form-label">Observaciones</label>
+                <textarea class="form-control" name="txtObservaciones"></textarea>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtTelefono">Telefono</label>
-            <input type="text" name="txtTelefono" id="txtTelefono" required>
-        </div>
-        <div class="form-group">
-            <label for="txtEps">Eps</label>
-            <input type="text" name="txtEps" id="txtEps">
-        </div>
-        <div class="form-group">
-            <label for="txtTipoSangre">Tipo Sangre</label>
-            <input type="text" name="txtTipoSangre" id="txtTipoSangre" required>
-        </div>
-        <div class="form-group">
-            <label for="txtTelefonoEmergencia">Telefono de Emergencia</label>
-            <input type="text" name="txtTelefonoEmergencia" id="txtTelefonoEmergencia">
-        </div>
-        <div class="form-group">
-            <label for="txtPassword">Contraseña</label>
-            <input type="password" name="txtPassword" id="txtPassword" required>
-        </div>
-        <div class="form-group">
-            <label for="txtObservaciones">Observaciones</label>
-            <textarea name="txtObservaciones" id="txtObservaciones"></textarea>
-        </div>
-        <div class="form-group">
-            <button type="submit">Crear</button>
+        <div class="d-flex justify-content-between">
+            <a href="/agregarEntrenador" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
     </form>
 </div>

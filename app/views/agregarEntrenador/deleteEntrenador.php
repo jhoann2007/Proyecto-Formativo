@@ -1,63 +1,28 @@
-<div class="data-container">
+<div class="container">
+    <h2 class="mb-4">Eliminar Entrenador</h2>
+    <div class="alert alert-danger">
+        <p>¿Está seguro que desea eliminar al entrenador <strong><?php echo $infoReal->nombre; ?></strong>?</p>
+        <p>Esta acción no se puede deshacer.</p>
+    </div>
     <form action="/agregarEntrenador/borrar" method="post">
-        <div class="form-group">
-            <label for="txtId">Id</label>
-            <input type="text" value="<?php echo $infoReal->id; ?>" name="txtId" id="txtId" readonly>
-        </div>
-        <div class="form-group">
-            <label for="txtNombre">Nombre</label>
-            <input type="text" value="<?php echo $infoReal->nombre; ?>" name="txtNombre" id="txtNombre">
-        </div>
-        <div class="form-group">
-            <label for="txtTipoDocumento">Tipo Documento</label>
-            <input type="text" value="<?php echo $infoReal->tipoDocumento; ?>" name="txtTipoDocumento" id="txtTipoDocumento">
-        </div>
-        <div class="form-group">
-            <label for="txtDocumento">Documento</label>
-            <input type="text" value="<?php echo $infoReal->documento; ?>" name="txtDocumento" id="txtDocumento">
-        </div>
-        <div class="form-group">
-            <label for="txtFechaNacimiento">Fecha Nacimiento</label>
-            <input type="date" value="<?php echo $infoReal->fechaNacimiento; ?>" name="txtFechaNacimiento" id="txtFechaNacimiento">
-        </div>
-        <div class="form-group">
-            <label for="txtEmail">Email</label>
-            <input type="text" value="<?php echo $infoReal->email; ?>" name="txtEmail" id="txtEmail">
-        </div>
-        <div class="form-group">
-            <label for="txtGenero">Genero</label>
-            <input type="text" value="<?php echo $infoReal->genero; ?>" name="txtGenero" id="txtGenero">
-        </div>
-        <div class="form-group">
-            <label for="txtEstado">Estado</label>
-            <input type="text" value="<?php echo $infoReal->estado; ?>" name="txtEstado" id="txtEstado">
-        </div>
-        <div class="form-group">
-            <label for="txtTelefono">Telefono</label>
-            <input type="text" value="<?php echo $infoReal->telefono; ?>" name="txtTelefono" id="txtTelefono">
-        </div>
-        <div class="form-group">
-            <label for="txtEps">Eps</label>
-            <input type="text" value="<?php echo $infoReal->eps; ?>" name="txtEps" id="txtEps">
-        </div>
-        <div class="form-group">
-            <label for="txtTipoSangre">Tipo Sangre</label>
-            <input type="text" value="<?php echo $infoReal->tipoSangre; ?>" name="txtTipoSangre" id="txtTipoSangre">
-        </div>
-        <div class="form-group">
-            <label for="txtTelefonoEmergencia">Telefono de Emergencia</label>
-            <input type="text" value="<?php echo $infoReal->telefonoEmergencia; ?>" name="txtTelefonoEmergencia" id="txtTelefonoEmergencia">
-        </div>
-        <div class="form-group">
-            <label for="txtPassword">Contraseña</label>
-            <input type="password" value="" name="txtPassword" id="txtPassword">
-        </div>
-        <div class="form-group">
-            <label for="txtObservaciones">Observaciones</label>
-            <input type="text" value="<?php echo $infoReal->observaciones; ?>" name="txtObservaciones" id="txtObservaciones">
-        </div>
-        <div class="form-group">
-            <button type="submit">Eliminar</button>
+        <input type="hidden" name="txtId" value="<?php echo $infoReal->id; ?>">
+        <input type="hidden" name="txtNombre" value="<?php echo $infoReal->nombre; ?>">
+        <input type="hidden" name="txtTipoDocumento" value="<?php echo $infoReal->tipoDocumento; ?>">
+        <input type="hidden" name="txtDocumento" value="<?php echo $infoReal->documento; ?>">
+        <input type="hidden" name="txtFechaNacimiento" value="<?php echo $infoReal->fechaNacimiento; ?>">
+        <input type="hidden" name="txtEmail" value="<?php echo $infoReal->email; ?>">
+        <input type="hidden" name="txtGenero" value="<?php echo $infoReal->genero; ?>">
+        <input type="hidden" name="txtEstado" value="<?php echo $infoReal->estado; ?>">
+        <input type="hidden" name="txtTelefono" value="<?php echo $infoReal->telefono; ?>">
+        <input type="hidden" name="txtEps" value="<?php echo $infoReal->eps; ?>">
+        <input type="hidden" name="txtTipoSangre" value="<?php echo $infoReal->tipoSangre; ?>">
+        <input type="hidden" name="txtTelefonoEmergencia" value="<?php echo $infoReal->telefonoEmergencia; ?>">
+        <input type="hidden" name="txtPassword" value="<?php echo $infoReal->password; ?>">
+        <input type="hidden" name="txtObservaciones" value="<?php echo $infoReal->observaciones; ?>">
+        
+        <div class="d-flex justify-content-between">
+            <a href="/agregarEntrenador" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
         </div>
     </form>
 </div>

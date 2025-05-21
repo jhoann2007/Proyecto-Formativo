@@ -11,6 +11,16 @@ class AgregarAprendizController extends BaseController
     {
         // Se define el layout para este controlador 
         $this->layout = 'agregarAprendiz_layout';
+        
+        // Iniciar sesión si no está iniciada
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        // Inicializar el array de observaciones en la sesión si no existe
+        if (!isset($_SESSION['observaciones_aprendiz'])) {
+            $_SESSION['observaciones_aprendiz'] = [];
+        }
     }
 
     public function index()
@@ -66,6 +76,24 @@ class AgregarAprendizController extends BaseController
             $resp = $objAprendiz->save();
             
             if ($resp) {
+                // Si hay observaciones iniciales, guardarlas en la sesión
+                if (!empty($observaciones)) {
+                    // Obtener el ID del aprendiz recién creado
+                    $nuevoId = $objAprendiz->getLastInsertId();
+                    if ($nuevoId) {
+                        // Inicializar el array para este ID si no existe
+                        if (!isset($_SESSION['observaciones_aprendiz'][$nuevoId])) {
+                            $_SESSION['observaciones_aprendiz'][$nuevoId] = [];
+                        }
+                        
+                        // Agregar la observación inicial
+                        $_SESSION['observaciones_aprendiz'][$nuevoId][] = [
+                            'texto' => $observaciones,
+                            'fecha' => date('Y-m-d H:i:s')
+                        ];
+                    }
+                }
+                
                 // Éxito al guardar
                 header('Location:/agregarAprendiz');
                 exit();
@@ -168,6 +196,20 @@ class AgregarAprendizController extends BaseController
             $fkIdGrupo = $_POST['txtFKidGrupo'] ?? null;
             $fkIdCentroFormacion = $_POST['txtFKidCentroFormacion'] ?? null;
             
+            // Si hay observaciones nuevas, agregarlas a la sesión
+            if (!empty($observaciones)) {
+                // Inicializar el array para este ID si no existe
+                if (!isset($_SESSION['observaciones_aprendiz'][$id])) {
+                    $_SESSION['observaciones_aprendiz'][$id] = [];
+                }
+                
+                // Agregar la nueva observación
+                $_SESSION['observaciones_aprendiz'][$id][] = [
+                    'texto' => $observaciones,
+                    'fecha' => date('Y-m-d H:i:s')
+                ];
+            }
+            
             $aprendizObjEdit = new AgregarAprendizModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
             $res = $aprendizObjEdit->editAprendiz();
             
@@ -232,6 +274,11 @@ class AgregarAprendizController extends BaseController
             $res = $aprendizObjDelete->deleteAprendiz();
             
             if ($res) {
+                // Eliminar las observaciones de la sesión para este aprendiz
+                if (isset($_SESSION['observaciones_aprendiz'][$id])) {
+                    unset($_SESSION['observaciones_aprendiz'][$id]);
+                }
+                
                 header("Location:/agregarAprendiz");
                 exit();
             } else {
@@ -241,6 +288,40 @@ class AgregarAprendizController extends BaseController
             }
         } else {
             echo "ID de aprendiz no proporcionado.";
+            header('Refresh: 3; URL=/agregarAprendiz');
+            exit();
+        }
+    }
+    
+    # Método para agregar observaciones (usando sesiones)
+    public function agregarObservacion()
+    {
+        if (isset($_POST['txtId']) && isset($_POST['nuevaObservacion'])) {
+            $id = $_POST['txtId'] ?? null;
+            $nuevaObservacion = trim($_POST['nuevaObservacion']) ?? '';
+            
+            if ($id && $nuevaObservacion) {
+                // Inicializar el array para este ID si no existe
+                if (!isset($_SESSION['observaciones_aprendiz'][$id])) {
+                    $_SESSION['observaciones_aprendiz'][$id] = [];
+                }
+                
+                // Agregar la nueva observación con fecha
+                $_SESSION['observaciones_aprendiz'][$id][] = [
+                    'texto' => $nuevaObservacion,
+                    'fecha' => date('Y-m-d H:i:s')
+                ];
+                
+                // Redirigir de vuelta a la lista
+                header("Location:/agregarAprendiz");
+                exit();
+            } else {
+                echo "Datos incompletos para agregar observación.";
+                header('Refresh: 3; URL=/agregarAprendiz');
+                exit();
+            }
+        } else {
+            echo "Datos incompletos para agregar observación.";
             header('Refresh: 3; URL=/agregarAprendiz');
             exit();
         }

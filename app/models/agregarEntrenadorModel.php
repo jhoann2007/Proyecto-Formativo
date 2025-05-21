@@ -72,11 +72,20 @@ class AgregarEntrenadorModel extends BaseModel
             
             # 3. Se ejecuta la consulta
             $res = $sql->execute();
+            
+            // Guardar el ID para poder recuperarlo después
+            $this->id = $nextId;
+            
             return $res;
         } catch (PDOException $ex) {
             echo "Error en la consulta> " .$ex->getMessage();
             return false;
         }
+    }
+
+    // Método para obtener el ID del último registro insertado
+    public function getLastInsertId() {
+        return $this->id;
     }
 
     // Método para obtener el siguiente ID disponible
@@ -91,18 +100,6 @@ class AgregarEntrenadorModel extends BaseModel
             return 1; // Si hay error, intentamos con ID 1
         }
     }
-
-    // Método para obtener todos los entrenadores
-    // public function getEntrenadores() {
-    //     try {
-    //         $sql = "SELECT * FROM $this->table";
-    //         $statement = $this->dbConnection->query($sql);
-    //         return $statement->fetchAll(PDO::FETCH_OBJ);
-    //     } catch (PDOException $ex) {
-    //         echo "Error al obtener los entrenadores> " .$ex->getMessage();
-    //         return [];
-    //     }
-    // }
 
     public function getEntrenador() {
         try {

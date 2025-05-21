@@ -6,9 +6,8 @@
                 <th>Tipo Documento</th>
                 <th>N. Documento</th>
                 <th>Email</th>
-                <th>Género</th>
-                <th>Peso</th>
-                <th colspan="3">Acciones</th>
+                <th>Estado</th>
+                <th colspan="4">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -46,12 +45,92 @@
                         <td>{$tipoDocumento}</td>
                         <td>{$documento}</td>
                         <td>{$email}</td>
-                        <td>{$genero}</td>
-                        <td>{$peso}</td>
-                        <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalView{$id}'>Observaciones</button></td>
-                        <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id}'>Editar</button></td>
-                        <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id}'>Eliminar</button></td>
+                        <td>{$estado}</td>
+                        <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalObservaciones{$id}'><i class='bi bi-chat-left-text'></i></button></td>
+                        <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalView{$id}'><i class='bi bi-eye'></i></button></td>
+                        <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
+
+                    // Modal para Observaciones
+                    echo "
+                    <div class='modal fade' id='modalObservaciones{$id}' tabindex='-1' aria-labelledby='modalObservacionesLabel{$id}' aria-hidden='true'>
+                        <div class='modal-dialog'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='modalObservacionesLabel{$id}'>Observaciones - {$nombre}</h5>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
+                                </div>
+                                <div class='modal-body'>
+                                    <!-- Mostrar observaciones existentes -->
+                                    <div class='mb-3'>
+                                        <h6>Observaciones:</h6>
+                                        <div class='p-2 border rounded mb-3' style='max-height: 200px; overflow-y: auto;'>
+                                            ";
+                                            // Mostrar observaciones desde la sesión
+                                            if (isset($_SESSION['observaciones_aprendiz'][$id]) && !empty($_SESSION['observaciones_aprendiz'][$id])) {
+                                                foreach ($_SESSION['observaciones_aprendiz'][$id] as $obs) {
+                                                    $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                                                    $texto = isset($obs['texto']) ? $obs['texto'] : '';
+                                                    
+                                                    if (!empty($texto)) {
+                                                        echo "<div class='p-2 mb-2 bg-light rounded'>";
+                                                        if (!empty($fecha)) {
+                                                            echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                                        }
+                                                        echo htmlspecialchars($texto) . "</div>";
+                                                    }
+                                                }
+                                            } else {
+                                                // Intentar mostrar observaciones desde la base de datos
+                                                $observacionesArray = [];
+                                                if (!empty($observaciones)) {
+                                                    // Intentar decodificar JSON
+                                                    $decodedObs = json_decode($observaciones, true);
+                                                    if (is_array($decodedObs)) {
+                                                        $observacionesArray = $decodedObs;
+                                                    } else {
+                                                        // Si no es JSON, tratar como texto simple
+                                                        $observacionesArray = [['texto' => $observaciones, 'fecha' => date('Y-m-d H:i:s')]];
+                                                    }
+                                                    
+                                                    // Mostrar observaciones
+                                                    foreach ($observacionesArray as $obs) {
+                                                        $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                                                        $texto = isset($obs['texto']) ? $obs['texto'] : $obs;
+                                                        
+                                                        if (!empty($texto)) {
+                                                            echo "<div class='p-2 mb-2 bg-light rounded'>";
+                                                            if (!empty($fecha)) {
+                                                                echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                                            }
+                                                            echo htmlspecialchars($texto) . "</div>";
+                                                        }
+                                                    }
+                                                } else {
+                                                    echo "<p class='text-muted'>No hay observaciones registradas</p>";
+                                                }
+                                            }
+                                            echo "
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Formulario para agregar nueva observación -->
+                                    <form action='/agregarAprendiz/agregarObservacion' method='post'>
+                                        <input type='hidden' name='txtId' value='{$id}'>
+                                        <div class='mb-3'>
+                                            <label for='nuevaObservacion{$id}' class='form-label'>Agregar nueva observación:</label>
+                                            <textarea class='form-control' id='nuevaObservacion{$id}' name='nuevaObservacion' rows='3' required></textarea>
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                            <button type='submit' class='btn btn-primary'>Guardar Observación</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
                     
                     // Modal para Ver Aprendiz
                     echo "
@@ -118,7 +197,48 @@
                                                 echo "<p><strong>Centro Formación:</strong> {$fkidCentroFormacion}</p>";
                                             }
                                             
-                                            echo "<p><strong>Observaciones:</strong> {$observaciones}</p>
+                                            // Mostrar observaciones
+                                            echo "<p><strong>Observaciones:</strong></p>";
+                                            echo "<div class='p-2 border rounded' style='max-height: 150px; overflow-y: auto;'>";
+                                            
+                                            // Mostrar observaciones desde la sesión
+                                            if (isset($_SESSION['observaciones_aprendiz'][$id]) && !empty($_SESSION['observaciones_aprendiz'][$id])) {
+                                                foreach ($_SESSION['observaciones_aprendiz'][$id] as $obs) {
+                                                    $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                                                    $texto = isset($obs['texto']) ? $obs['texto'] : '';
+                                                    
+                                                    if (!empty($texto)) {
+                                                        echo "<div class='p-1 mb-1'>";
+                                                        if (!empty($fecha)) {
+                                                            echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                                        }
+                                                        echo htmlspecialchars($texto) . "</div>";
+                                                    }
+                                                }
+                                            } else if (!empty($observaciones)) {
+                                                // Intentar mostrar observaciones desde la base de datos
+                                                $decodedObs = json_decode($observaciones, true);
+                                                if (is_array($decodedObs)) {
+                                                    foreach ($decodedObs as $obs) {
+                                                        $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                                                        $texto = isset($obs['texto']) ? $obs['texto'] : $obs;
+                                                        
+                                                        if (!empty($texto)) {
+                                                            echo "<div class='p-1 mb-1'>";
+                                                            if (!empty($fecha)) {
+                                                                echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                                            }
+                                                            echo htmlspecialchars($texto) . "</div>";
+                                                        }
+                                                    }
+                                                } else {
+                                                    echo $observaciones;
+                                                }
+                                            } else {
+                                                echo "<p class='text-muted'>No hay observaciones registradas</p>";
+                                            }
+                                            echo "</div>";
+                                            echo "
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +270,10 @@
                                                 <label class='form-label'>Tipo Documento</label>
                                                 <select class='form-select' name='txtTipoDocumento'>
                                                     <option value='CC' ".($tipoDocumento == 'CC' ? 'selected' : '').">Cédula de ciudadanía</option>
+                                                    <option value='CE' ".($tipoDocumento == 'CE' ? 'selected' : '').">Cédula de Extranjería</option>
                                                     <option value='TI' ".($tipoDocumento == 'TI' ? 'selected' : '').">Tarjeta de identidad</option>
+                                                    <option value='PEP' ".($tipoDocumento == 'PEP' ? 'selected' : '').">Permiso especial de permanencia</option>
+                                                    <option value='PPT' ".($tipoDocumento == 'PPT' ? 'selected' : '').">Permiso por Protección Temporal</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -174,14 +297,16 @@
                                                 <select class='form-select' name='txtGenero'>
                                                     <option value='M' ".($genero == 'M' ? 'selected' : '').">Masculino</option>
                                                     <option value='F' ".($genero == 'F' ? 'selected' : '').">Femenino</option>
-                                                    <option value='O' ".($genero == 'O' ? 'selected' : '').">Otro</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Estado</label>
-                                                <input type='text' class='form-control' name='txtEstado' value='{$estado}'>
+                                                <select class='form-select' name='txtEstado'>
+                                                    <option value='activo' ".($estado == 'activo' ? 'selected' : '').">Activo</option>
+                                                    <option value='inactivo' ".($estado == 'inactivo' ? 'selected' : '').">Inactivo</option>
+                                                </select>
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Teléfono</label>
@@ -195,7 +320,16 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Sangre</label>
-                                                <input type='text' class='form-control' name='txtTipoSangre' value='{$tipoSangre}'>
+                                                <select class='form-select' name='txtTipoSangre'>
+                                                    <option value='A+' ".($tipoSangre == 'A+' ? 'selected' : '').">A+</option>
+                                                    <option value='A-' ".($tipoSangre == 'A-' ? 'selected' : '').">A-</option>
+                                                    <option value='B+' ".($tipoSangre == 'B+' ? 'selected' : '').">B+</option>
+                                                    <option value='B-' ".($tipoSangre == 'B-' ? 'selected' : '').">B-</option>
+                                                    <option value='AB+' ".($tipoSangre == 'AB+' ? 'selected' : '').">AB+</option>
+                                                    <option value='AB-' ".($tipoSangre == 'AB-' ? 'selected' : '').">AB-</option>
+                                                    <option value='O+' ".($tipoSangre == 'O+' ? 'selected' : '').">O+</option>
+                                                    <option value='O-' ".($tipoSangre == 'O-' ? 'selected' : '').">O-</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class='row mb-3'>
@@ -221,7 +355,8 @@
                                         <div class='row mb-3'>
                                             <div class='col-md-12'>
                                                 <label class='form-label'>Observaciones</label>
-                                                <textarea class='form-control' name='txtObservaciones'>{$observaciones}</textarea>
+                                                <textarea class='form-control' name='txtObservaciones'></textarea>
+                                                <small class='text-muted'>Deje este campo en blanco si no desea agregar una nueva observación.</small>
                                             </div>
                                         </div>
                                         <div class='row mb-3'>
@@ -341,7 +476,10 @@
                             <select class="form-select" name="txtTipoDocumento" required>
                                 <option value="">Seleccionar</option>
                                 <option value="CC">Cédula de ciudadanía</option>
-                                <option value="TI">Tarjeta de identidad</option>
+                                <option value="CE">Cédula de Extranjería</option>
+                                <option value="TI">Tarjeta de Identidad</option>
+                                <option value="PEP">Permiso especial de permanencia</option>
+                                <option value="PPT">Permiso por Protección Temporal</option>
                             </select>
                         </div>
                     </div>
@@ -366,14 +504,17 @@
                                 <option value="">Seleccionar</option>
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
-                                <option value="O">Otro</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Estado</label>
-                            <input type="text" class="form-control" name="txtEstado" required>
+                            <select class="form-select" name="txtEstado" required>
+                                <option value="">Seleccionar</option>
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Teléfono</label>
@@ -387,7 +528,18 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tipo Sangre</label>
-                            <input type="text" class="form-control" name="txtTipoSangre" required>
+                            <!-- <input type="text" class="form-control" name="txtTipoSangre" required> -->
+                            <select class="form-select" name="txtTipoSangre" required>
+                                <option value="">Seleccionar Tipo de Sangre</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">
