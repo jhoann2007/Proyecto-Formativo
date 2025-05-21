@@ -9,6 +9,8 @@ require_once '../app/controllers/inicioController.php';
 require_once '../app/controllers/olvidoContraseniaController.php';
 require_once '../app/controllers/ingresoController.php';
 require_once '../app/controllers/agregarEntrenadorController.php';
+require_once '../app/controllers/documentController.php';
+
 
 
 

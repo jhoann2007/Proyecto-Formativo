@@ -56,6 +56,8 @@ session_start();
                 <li><a href="/inicio"><i class="bi bi-house navicon"></i>Inicio</a></li>
                 <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
                 <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
+                <li><a href="/document"><i class="bi bi-person navicon"></i>Documentación</a></li>
+                
                 <?php
                 // Asegurarse de que 'user_rol_nombre' existe para evitar notices,
                 // aunque tu script de login ya lo convierte a minúsculas y establece 'desconocido' por defecto.

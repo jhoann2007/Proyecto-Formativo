@@ -124,5 +124,12 @@ return [
         'controller' => 'App\Controller\AgregarEntrenadorController',
         'action' => 'borrarEntrenador'
     ],
+
+    # Documentación Aprendíz
+
+    '/document' => [
+        'controller' => 'App\Controller\documentController',
+        'action' => 'index'
+    ],
 ];
 ?>
