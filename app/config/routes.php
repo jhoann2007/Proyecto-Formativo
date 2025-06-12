@@ -131,5 +131,12 @@ return [
         'controller' => 'App\Controller\documentController',
         'action' => 'index'
     ],
+
+    # Agregar Rutina
+    '/agregarRutina' => [
+        'controller' => 'App\Controller\rutinaController',
+        'action' => 'index'
+    ],
+    
 ];
 ?>

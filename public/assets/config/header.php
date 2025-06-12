@@ -13,7 +13,8 @@
     <li><a href="/inicio" class="active"><i class="bi bi-house navicon"></i>Inicio</a></li>
     <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
     <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
-    <li><a href="/document"><i class="bi bi-file-earmark-text navicon"></i>Documentación</a></li>
+    <li><a href="/document"><i class="bi bi-list-check navicon"></i>Documentación</a></li>
+    <li><a href="/agregarRutina"><i class="bi bi-clipboard-check navicon"></i>Agregar Rutina</a></li>
     <?php
     session_start();
 
