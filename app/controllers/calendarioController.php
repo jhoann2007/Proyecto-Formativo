@@ -1,32 +1,67 @@
 <?php
 namespace App\Controller;
-// use App\Models\PerfilModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-// require_once MAIN_APP_ROUTE . "../models/calendarioModel.php";
+require_once MAIN_APP_ROUTE . "../models/calendarioModel.php";
+
+use App\Models\CalendarioModel;
 
 class CalendarioController extends BaseController
 {
+    public function __construct()
+    {
+        $this->layout = 'calendario_layout';
+    }
 
     public function index()
     {
-        // # Crear una instancia del modelo rol 
-        // $calendarioObj = new CalendarioModel();
-        // # Obtener todos los roles desde el modelo 
-        // $calendario = $calendarioObj->getAll();
-        // # Pasar los datos a la vista 
-        // $data = [
-        //     'title' => 'Lista de calendario',
-        //     'Calendarios' => $calendario
-        // ];
-        // # Renderizar la vista  a traves del metodo de BaseController
-        $this->render('calendario/calendario.php');
+        $calendarioObj = new CalendarioModel();
+        $calendario = $calendarioObj->getAll();
+
+        $data = [
+            'title' => 'Calendario',
+            'Calendarios' => $calendario
+        ];
+
+        $this->render('calendario/calendario.php', $data);
     }
 
-    public function __construct()
+    public function guardarEvento()
     {
-        // Se define el layout para este controlador 
-        $this->layout = 'calendario_layout';
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $data = $_POST;
+
+            $evento = new CalendarioModel(
+                null,
+                $data["nombre"] ?? '',
+                $data["horasDisponibles"] ?? '',
+                $data["entrenadoresAsignados"] ?? '',
+                $data["eventos"] ?? '',
+                $data["fechaCreacion"] ?? ''
+            );
+
+            $success = $evento->save();
+
+            echo json_encode([
+                "status" => $success ? "ok" : "error",
+                "message" => $success ? "Evento guardado con éxito" : "No se pudo guardar el evento"
+            ]);
+        }
+    }
+
+    public function obtenerEvento()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $fecha = $_POST["fecha"] ?? '';
+            $model = new CalendarioModel();
+            $evento = $model->findByDate($fecha);
+
+            if ($evento) {
+                echo json_encode(["status" => "ok", "data" => $evento]);
+            } else {
+                echo json_encode(["status" => "empty"]);
+            }
+        }
     }
 }
 ?>

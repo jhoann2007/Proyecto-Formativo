@@ -5,11 +5,19 @@
 
 <head>
     <?php include 'assets/config/head.php'; ?>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/reset.css">
+
+    <link rel="stylesheet" href="/css/calendario.css">
 </head>
 <!-- fin head -->
 
 <body class="index-page">
-
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <?php include 'assets/config/header.php'; ?>
@@ -17,41 +25,29 @@
     <!-- fin header -->
 
     <!-- main -->
-    <main class="main">
-        <!-- Resume Section -->
-        <section id="resume" class="resume section" data-aos="fade-up">
+    <div class="container">
+        <h2 class="text-center mb-4">Calendario de Eventos</h2>
 
-            <!-- Section Title -->
-            <div class="container section-title" >
-                <h2>Calendario</h2>
-            </div><!-- End Section Title -->
 
-            <!-- inicio del Calendario -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card col-sm-8 offset-sm-2">
-                        <div class="card-header">
-                            <h5>Calendario</h5>
-                            <div class="row mb-3" id="calendarControls">
-                                <div class="col-md-12 text-center">
-                                    <button class="btn btn-primary me-2" id="prevMonth">Mes Anterior</button>
-                                    <button class="btn btn-primary" id="nextMonth">Mes Siguiente</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body" id="calendarBody">
-                            <!-- Aquí se generará el calendario -->
-                        </div>
-                    </div>
+        <div id="calendar"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalLabel" class="modal-title">Información del Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <!-- Aquí se mostrará la información -->
                 </div>
             </div>
-
-                  
-        </section><!-- /Resume Section -->
-
-    </main>
+        </div>
+    </div>
     <!-- fin main -->
-
+    
     <!-- footer -->
     <footer id="footer" class="footer position-relative light-background">
         <?php include 'assets/config/footer.php'; ?>
@@ -73,7 +69,14 @@
     <script src="assets/js/main.js"></script>
 
     <!-- js calendario -->
-    <script src="assets/js/js.js"></script>
+    <script src="/js/js.js"></script>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

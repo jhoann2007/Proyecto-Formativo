@@ -27,40 +27,6 @@ return [
         'action' => 'index'
     ],
 
-    # Agregar Aprendiz
-    '/agregarAprendiz' => [
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'index'
-    ],
-    '/agregarAprendiz/new' => [ // Muestra el formulario de creacion
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'new'
-    ],
-    '/agregarAprendiz/create' => [ // Crea el aprendiz en la Base de Datos 
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'create'
-    ],
-    '/agregarAprendiz/view/(\d+)' => [ // Visualiza el aprendiz con el ID especificado 
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'view'
-    ],
-    '/agregarAprendiz/edit/(\d+)' => [
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'editUsuario'
-    ],
-    '/agregarAprendiz/update' => [
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'updateUsuario'
-    ],
-    '/agregarAprendiz/delete/(\d+)' => [
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'deleteUsuario'
-    ],
-    '/agregarAprendiz/borrar' => [
-        'controller' => 'App\Controller\AgregarAprendizController',
-        'action' => 'borrarUsuario'
-    ],
-
     # Calendario
     '/calendario' => [
         'controller' => 'App\Controller\CalendarioController',
@@ -123,6 +89,44 @@ return [
     '/agregarEntrenador/borrar' => [
         'controller' => 'App\Controller\AgregarEntrenadorController',
         'action' => 'borrarEntrenador'
+    ],
+    '/agregarEntrenador/agregarObservacion' => [ // Ruta para agregar observaciones
+        'controller' => 'App\Controller\AgregarEntrenadorController',
+        'action' => 'agregarObservacion'
+    ],
+
+    # Agregar Aprendiz
+    '/agregarAprendiz' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'index'
+    ],
+    '/agregarAprendiz/create' => [ // Crea el aprendiz en la Base de Datos 
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'create'
+    ],
+    '/agregarAprendiz/view/(\d+)' => [ // Visualiza el aprendiz con el ID especificado 
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'view'
+    ],
+    '/agregarAprendiz/edit/(\d+)' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'editUsuario'
+    ],
+    '/agregarAprendiz/update' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'updateUsuario'
+    ],
+    '/agregarAprendiz/delete/(\d+)' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'deleteUsuario'
+    ],
+    '/agregarAprendiz/borrar' => [
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'borrarUsuario'
+    ],
+    '/agregarAprendiz/agregarObservacion' => [ // Nueva ruta para agregar observaciones
+        'controller' => 'App\Controller\AgregarAprendizController',
+        'action' => 'agregarObservacion'
     ],
 ];
 ?>

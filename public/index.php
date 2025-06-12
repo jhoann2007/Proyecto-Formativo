@@ -3,12 +3,12 @@ require_once '../app/config/global.php';
 require_once '../app/controllers/homeController.php';
 require_once '../app/controllers/perfilController.php';
 require_once '../app/controllers/agregarAprendizController.php';
+require_once '../app/controllers/agregarEntrenadorController.php';
 require_once '../app/controllers/calendarioController.php';
 require_once '../app/controllers/codigoVerificacionController.php';
 require_once '../app/controllers/inicioController.php';
 require_once '../app/controllers/olvidoContraseniaController.php';
 require_once '../app/controllers/ingresoController.php';
-require_once '../app/controllers/agregarEntrenadorController.php';
 
 
 

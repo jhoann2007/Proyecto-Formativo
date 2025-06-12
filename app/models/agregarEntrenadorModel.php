@@ -22,13 +22,12 @@ class AgregarEntrenadorModel extends BaseModel
         private ?string $tipoSangre = null,
         private ?string $telefonoEmergencia = null,
         private ?string $password = null,
-        private ?string $observaciones = null,
-        private ?int $fkIdRol = null,
+        private ?string $observaciones = null
     ) {
         //Se llama al constructor del padre
         parent::__construct();
         //Se especifica la tabla 
-        $this->table = "usuario";
+        $this->table = "entrenadores";
     }
 
     public function save() {
@@ -37,7 +36,7 @@ class AgregarEntrenadorModel extends BaseModel
             $nextId = $this->getNextId();
             
             # 1. Se prepara la consulta
-            $sql = $this->dbConnection->prepare("INSERT INTO $this->table (id, nombre, tipoDocumento, documento, fechaNacimiento, email, genero, estado, telefono, eps, tipoSangre, telefonoEmergencia, password, observaciones, fkIdRol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $sql = $this->dbConnection->prepare("INSERT INTO $this->table (id, nombre, tipoDocumento, documento, fechaNacimiento, email, genero, estado, telefono, eps, tipoSangre, telefonoEmergencia, password, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             
             # 2. Se reemplazan las variables con bindParam
             # ID
@@ -70,16 +69,23 @@ class AgregarEntrenadorModel extends BaseModel
             $sql->bindParam(13, $passwordHashed, PDO::PARAM_STR);
             # Observaciones
             $sql->bindParam(14, $this->observaciones, PDO::PARAM_STR);
-            # FKidRol
-            $sql->bindParam(15, $this->fkIdRol, PDO::PARAM_INT);
             
             # 3. Se ejecuta la consulta
             $res = $sql->execute();
+            
+            // Guardar el ID para poder recuperarlo después
+            $this->id = $nextId;
+            
             return $res;
         } catch (PDOException $ex) {
             echo "Error en la consulta> " .$ex->getMessage();
             return false;
         }
+    }
+
+    // Método para obtener el ID del último registro insertado
+    public function getLastInsertId() {
+        return $this->id;
     }
 
     // Método para obtener el siguiente ID disponible
@@ -104,14 +110,14 @@ class AgregarEntrenadorModel extends BaseModel
             $result = $statement->fetchAll(PDO::FETCH_OBJ);
             return $result;
         } catch (PDOException $ex) {
-            echo "Error al obtener el Usuario> ".$ex->getMessage();
+            echo "Error al obtener el Entrenador> ".$ex->getMessage();
             return [];
         }
     }
 
     public function editEntrenador() {
         try {
-            $sql = "UPDATE $this->table SET nombre=:nombre, tipoDocumento=:tipoDocumento, documento=:documento, fechaNacimiento=:fechaNacimiento, email=:email, genero=:genero, estado=:estado, telefono=:telefono, eps=:eps, tipoSangre=:tipoSangre, telefonoEmergencia=:telefonoEmergencia, observaciones=:observaciones, fkIdRol=:fkIdRol WHERE id=:id";
+            $sql = "UPDATE $this->table SET nombre=:nombre, tipoDocumento=:tipoDocumento, documento=:documento, fechaNacimiento=:fechaNacimiento, email=:email, genero=:genero, estado=:estado, telefono=:telefono, eps=:eps, tipoSangre=:tipoSangre, telefonoEmergencia=:telefonoEmergencia, observaciones=:observaciones WHERE id=:id";
             $statement = $this->dbConnection->prepare($sql);
             $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
             $statement->bindParam(":nombre", $this->nombre, PDO::PARAM_STR);
@@ -126,7 +132,6 @@ class AgregarEntrenadorModel extends BaseModel
             $statement->bindParam(":tipoSangre", $this->tipoSangre, PDO::PARAM_STR);
             $statement->bindParam(":telefonoEmergencia", $this->telefonoEmergencia, PDO::PARAM_STR);
             $statement->bindParam(":observaciones", $this->observaciones, PDO::PARAM_STR);
-            $statement->bindParam(":fkIdRol", $this->fkIdRol, PDO::PARAM_INT);
             
             // Solo actualizamos la contraseña si se proporciona una nueva
             if (!empty($this->password)) {
@@ -141,7 +146,7 @@ class AgregarEntrenadorModel extends BaseModel
             $resp = $statement->execute();
             return $resp;
         } catch (PDOException $ex) {
-            echo "El Usuario no pudo ser editado> ".$ex->getMessage();
+            echo "El Entrenador no pudo ser editado> ".$ex->getMessage();
             return false;
         }
     }
@@ -154,20 +159,8 @@ class AgregarEntrenadorModel extends BaseModel
             $resp = $statement->execute();
             return $resp;
         } catch (PDOException $ex) {
-            echo "El usuario no pudo ser eliminado> ".$ex->getMessage();
+            echo "El entrenador no pudo ser eliminado> ".$ex->getMessage();
             return false;
-        }
-    }
-    
-    // Nuevos métodos para obtener roles, grupos y centros de formación
-    public function getRoles() {
-        try {
-            $sql = "SELECT * FROM rol";
-            $statement = $this->dbConnection->query($sql);
-            return $statement->fetchAll(PDO::FETCH_OBJ);
-        } catch (PDOException $ex) {
-            echo "Error al obtener roles> ".$ex->getMessage();
-            return [];
         }
     }
 }
