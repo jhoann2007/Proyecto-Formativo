@@ -4,8 +4,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!-- head -->
+
 <head>
-    <?php include 'assets/config/head.php'; ?>
+    <?php 
+     if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once 'assets/config/session_check.php';
+    include 'assets/config/head.php'; ?>
 
     <meta charset="UTF-8">
     <title>Tabla Aprendices</title>
@@ -49,8 +55,35 @@
                 <li><a href="/inicio"><i class="bi bi-house navicon"></i>Inicio</a></li>
                 <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
                 <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
-                <li><a href="/agregarAprendiz" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Aprendiz</a></li>
-                <li><a href="/agregarEntrenador" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Entrenador</a></li>
+                <?php
+                
+
+
+                // Asegurarse de que 'user_rol_nombre' existe para evitar notices,
+                // aunque tu script de login ya lo convierte a minúsculas y establece 'desconocido' por defecto.
+                $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
+
+                // Corregido: switch en lugar de witch
+                switch ($rolUsuario) {
+                    case 'admin':
+                        echo "
+                        <li><a href='/agregarAprendiz' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        <li><a href='/agregarEntrenador' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
+                        ";
+                        break;
+                    case 'entrenador':
+                        echo "
+                        <li><a href='/agregarAprendiz' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        ";
+                        break;
+                        // Opcional: un caso por defecto si quieres manejar roles no esperados
+                        // default:
+                        //     // No mostrar nada extra o mostrar un mensaje
+                        //     break;
+                }
+
+                ?>
+                <li><a href="/cerrar"><i class=""></i>Cerrar Sesion</a></li>
             </ul>
         </nav>
     </header>
@@ -75,7 +108,7 @@
                             <?php
                             if (isset($grupos) && is_array($grupos)) {
                                 foreach ($grupos as $grupo) {
-                                    echo '<li><a class="dropdown-item ficha-filter" href="#" data-ficha="'.$grupo->id.'" data-ficha-nombre="'.$grupo->ficha.'">'.$grupo->ficha.'</a></li>';
+                                    echo '<li><a class="dropdown-item ficha-filter" href="#" data-ficha="' . $grupo->id . '" data-ficha-nombre="' . $grupo->ficha . '">' . $grupo->ficha . '</a></li>';
                                 }
                             }
                             ?>
@@ -135,17 +168,17 @@
                     filterTable(searchTerm);
                 });
             }
-            
+
             // Filtrado por ficha
             const fichaLinks = document.querySelectorAll('.ficha-filter');
             const fichaSeleccionadaText = document.getElementById('ficha-seleccionada');
-            
+
             fichaLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const fichaId = this.getAttribute('data-ficha');
                     const fichaNombre = this.getAttribute('data-ficha-nombre');
-                    
+
                     // Actualizar texto de ficha seleccionada
                     if (fichaId === 'todas') {
                         fichaSeleccionadaText.textContent = '';
@@ -156,11 +189,11 @@
                     }
                 });
             });
-            
+
             // Función para filtrar por búsqueda
             function filterTable(searchTerm) {
                 const tableRows = document.querySelectorAll('tbody tr');
-                
+
                 tableRows.forEach(row => {
                     if (!row.classList.contains('no-data')) {
                         const text = row.textContent.toLowerCase();
@@ -171,14 +204,14 @@
                         }
                     }
                 });
-                
+
                 checkNoResults();
             }
-            
+
             // Función para filtrar por ficha
             function filterByFicha(fichaId) {
                 const tableRows = document.querySelectorAll('tbody tr');
-                
+
                 tableRows.forEach(row => {
                     if (!row.classList.contains('no-data')) {
                         if (fichaId === 'todas') {
@@ -193,28 +226,28 @@
                         }
                     }
                 });
-                
+
                 checkNoResults();
             }
-            
+
             // Verificar si hay resultados visibles
             function checkNoResults() {
                 const tableRows = document.querySelectorAll('tbody tr');
                 const tbody = document.querySelector('tbody');
                 let visibleRows = 0;
-                
+
                 tableRows.forEach(row => {
                     if (row.style.display !== 'none' && !row.classList.contains('no-data')) {
                         visibleRows++;
                     }
                 });
-                
+
                 // Eliminar mensaje de no resultados si existe
                 const noResultsRow = document.querySelector('.no-results');
                 if (noResultsRow) {
                     noResultsRow.remove();
                 }
-                
+
                 // Mostrar mensaje si no hay resultados
                 if (visibleRows === 0) {
                     const noResultsRow = document.createElement('tr');
@@ -226,4 +259,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -14,7 +14,10 @@
     <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
     <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
     <?php
-    session_start();
+     if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once 'assets/config/session_check.php';
 
 
     // Asegurarse de que 'user_rol_nombre' existe para evitar notices,
@@ -41,5 +44,6 @@
     }
 
     ?>
+    <li><a href="/cerrar"><i class=""></i>Cerrar Sesion</a></li>
   </ul>
 </nav>

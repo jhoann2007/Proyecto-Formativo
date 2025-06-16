@@ -23,6 +23,11 @@ class HomeController extends BaseController
         $this->render('login/login.php');
     }
 
+    public function cerrar()
+    {
+        $this->render('login/logout.php');
+    }
+
     //Accion 2 del controlador 
     public function saludar()
     {

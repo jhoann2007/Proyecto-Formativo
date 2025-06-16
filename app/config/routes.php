@@ -20,6 +20,10 @@ return [
         'controller' => 'App\Controller\HomeController',
         'action' => 'login'
     ],
+    '/cerrar' => [
+        'controller' => 'App\Controller\HomeController',
+        'action' => 'login'
+    ],
 
     # Perfil
     '/perfil' => [
