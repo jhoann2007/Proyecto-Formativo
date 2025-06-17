@@ -1,82 +1,49 @@
-document.addEventListener('DOMContentLoaded', function () {
-  function generarCalendario(mes, año) {
-      const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
 
-      const primerDia = new Date(año, mes - 1, 1);
-      const ultimoDia = new Date(año, mes, 0);
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                events: [
+                    {
+                        title: 'Reunión con el equipo',
+                        start: '2025-06-06',
+                        description: 'Planificación del sprint.'
+                    },
+                    {
+                        title: 'Entrega de informe',
+                        start: '2025-06-10',
+                        description: 'Enviar informe trimestral.'
+                    },
+                    {
+                        title: 'Capacitación interna',
+                        start: '2025-06-15',
+                        description: 'Curso sobre nuevas herramientas.'
+                    },
+                    {
+                        title: 'Ejemplo practico',
+                        start: '2025-07-15',
+                        description: 'Ejemplo a ver si funciona'
+                    }
+                ],
+                dateClick: function (info) {
+                    const events = calendar.getEvents().filter(event => event.startStr === info.dateStr);
+                    if (events.length > 0) {
+                        let contenido = '';
+                        events.forEach(e => {
+                            contenido += `<strong>${e.title}</strong><br>${e.extendedProps.description}<hr>`;
+                        });
+                        document.getElementById('modalContent').innerHTML = contenido;
+                    } else {
+                        document.getElementById('modalContent').innerHTML = `No hay eventos para el día <strong>${info.dateStr}</strong>.`;
+                    }
+                    new bootstrap.Modal(document.getElementById('eventModal')).show();
+                }
+            });
 
-      const cardBody = document.getElementById('calendarBody');
-      cardBody.innerHTML = '';
+            calendar.render();
 
-      // Crear encabezado con los días de la semana
-      const headerRow = document.createElement('div');
-      headerRow.className = 'row mb-2';
-
-      diasSemana.forEach(dia => {
-          const col = document.createElement('div');
-          col.className = 'col text-center fw-bold';
-          col.innerText = dia;
-          headerRow.appendChild(col);
-      });
-
-      cardBody.appendChild(headerRow);
-
-      // Comenzar desde el primer día del calendario (puede ser del mes anterior)
-      let fechaInicio = new Date(primerDia);
-      fechaInicio.setDate(fechaInicio.getDate() - fechaInicio.getDay());
-
-      // Dibujar semanas hasta completar el mes
-      while (fechaInicio <= ultimoDia || fechaInicio.getDay() !== 0) {
-          const semanaRow = document.createElement('div');
-          semanaRow.className = 'row mb-2';
-
-          for (let i = 0; i < 7; i++) {
-              const col = document.createElement('div');
-              col.className = 'col text-center border p-2';
-
-              if (fechaInicio.getMonth() === mes - 1) {
-                  col.textContent = fechaInicio.getDate();
-              } else {
-                  col.innerHTML = '<span class="text-muted">' + fechaInicio.getDate() + '</span>';
-              }
-
-              semanaRow.appendChild(col);
-              fechaInicio.setDate(fechaInicio.getDate() + 1);
-          }
-
-          cardBody.appendChild(semanaRow);
-      }
-
-      const nombresMeses = [
-          "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-      ];
-
-      document.querySelector('.card-header h5').textContent =
-          `Calendario - ${nombresMeses[mes - 1]} ${año}`;
-  }
-
-  const ahora = new Date();
-  let mesActual = ahora.getMonth() + 1;
-  let añoActual = ahora.getFullYear();
-
-  generarCalendario(mesActual, añoActual);
-
-  document.getElementById('prevMonth').addEventListener('click', function () {
-      mesActual--;
-      if (mesActual < 1) {
-          mesActual = 12;
-          añoActual--;
-      }
-      generarCalendario(mesActual, añoActual);
-  });
-
-  document.getElementById('nextMonth').addEventListener('click', function () {
-      mesActual++;
-      if (mesActual > 12) {
-          mesActual = 1;
-          añoActual++;
-      }
-      generarCalendario(mesActual, añoActual);
-  });
-});
+            // Botones de navegación
+            document.getElementById('prevMonth').addEventListener('click', () => calendar.prev());
+            document.getElementById('nextMonth').addEventListener('click', () => calendar.next());
+        });

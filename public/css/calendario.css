@@ -1,0 +1,24 @@
+.fc {
+    max-width: 100vh;
+    margin: 0 auto;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+    padding-left: 300px;
+    background-color: #f8f9fa;
+}
+
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fc-toolbar-title {
+    font-size: 24px;
+}

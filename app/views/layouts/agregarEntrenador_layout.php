@@ -36,7 +36,7 @@
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <div class="profile-img">
-            <img src="assets/img/negrito.jpg" alt="" class="img-fluid rounded-circle">
+            <img src="assets/img/gigachad.jpg" alt="" class="img-fluid rounded-circle">
         </div>
 
         <a href="index.html" class="logo d-flex align-items-center justify-content-center">

@@ -116,4 +116,10 @@ return [
         'controller' => 'App\Controller\AgregarAprendizController',
         'action' => 'agregarObservacion'
     ],
+
+    #Perfil
+    '/perfil' => [
+        'controller' => 'App\Controller\PerfilController',
+        'action' => 'index'
+    ]
 ];

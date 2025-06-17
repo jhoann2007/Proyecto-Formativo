@@ -261,6 +261,8 @@
                                 <div class='modal-body'>
                                     <form action='/agregarAprendiz/update' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
+                                        <!-- Campo oculto para el rol de aprendiz (posición 0) -->
+                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[0]) ? $roles[0]->id : '') . "'>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Nombre</label>
@@ -360,19 +362,7 @@
                                             </div>
                                         </div>
                                         <div class='row mb-3'>
-                                            <div class='col-md-4'>
-                                                <label class='form-label'>Rol</label>
-                                                <select class='form-select' name='txtFKidRol' required>
-                                                    <option value=''>Seleccionar Rol</option>";
-                                                    if (isset($roles) && is_array($roles)) {
-                                                        foreach ($roles as $rol) {
-                                                            $selected = ($fkidRol == $rol->id) ? 'selected' : '';
-                                                            echo "<option value='{$rol->id}' {$selected}>{$rol->nombre}</option>";
-                                                        }
-                                                    }
-                                                echo "</select>
-                                            </div>
-                                            <div class='col-md-4'>
+                                            <div class='col-md-6'>
                                                 <label class='form-label'>Ficha</label>
                                                 <select class='form-select' name='txtFKidGrupo'>
                                                     <option value=''>Seleccionar Ficha</option>";
@@ -384,7 +374,7 @@
                                                     }
                                                 echo "</select>
                                             </div>
-                                            <div class='col-md-4'>
+                                            <div class='col-md-6'>
                                                 <label class='form-label'>Centro Formación</label>
                                                 <select class='form-select' name='txtFKidCentroFormacion'>
                                                     <option value=''>Seleccionar Centro</option>";
@@ -466,6 +456,9 @@
             </div>
             <div class="modal-body">
                 <form action="/agregarAprendiz/create" method="post">
+                    <!-- Campo oculto para asignar automáticamente el rol de aprendiz (posición 0) -->
+                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[0]) ? $roles[0]->id : ''; ?>">
+                    
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Nombre</label>
@@ -528,7 +521,6 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tipo Sangre</label>
-                            <!-- <input type="text" class="form-control" name="txtTipoSangre" required> -->
                             <select class="form-select" name="txtTipoSangre" required>
                                 <option value="">Seleccionar Tipo de Sangre</option>
                                 <option value="A+">A+</option>
@@ -569,20 +561,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Rol</label>
-                            <select class="form-select" name="txtFKidRol" required>
-                                <option value="">Seleccionar Rol</option>
-                                <?php
-                                if (isset($roles) && is_array($roles)) {
-                                    foreach ($roles as $rol) {
-                                        echo "<option value='{$rol->id}'>{$rol->nombre}</option>";
-                                    }
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label">Ficha</label>
                             <select class="form-select" name="txtFKidGrupo">
                                 <option value="">Seleccionar Ficha</option>
@@ -595,7 +574,7 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label">Centro Formación</label>
                             <select class="form-select" name="txtFKidCentroFormacion">
                                 <option value="">Seleccionar Centro</option>

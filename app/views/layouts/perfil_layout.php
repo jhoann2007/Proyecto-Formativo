@@ -32,7 +32,7 @@
   <div class="container" data-aos="fade-up" data-aos-delay="100">
     <div class="row align-items-center">
       <div class="col-12 col-md-4 text-center mb-4">
-        <img src="assets/img/negrito.jpg" alt="Foto de perfil" class="img-fluid rounded-circle border border-3 border-success" style="max-width: 200px;">
+        <img src="assets/img/gigachad.jpg" alt="Foto de perfil" class="img-fluid rounded-circle border border-3 border-success" style="max-width: 200px;">
       </div>
       <div class="col-12 col-md-8">
         <p class="fst-italic py-3">Aprendiz con actitud proactiva, habilidades sociales y compromiso con el aprendizaje constante.</p>
