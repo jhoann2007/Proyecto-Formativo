@@ -28,13 +28,13 @@
     switch ($rolUsuario) {
       case 'admin':
         echo "
-                        <li><a href='/agregarAprendiz' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
-                        <li><a href='/agregarEntrenador' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
                         ";
         break;
       case 'entrenador':
         echo "
-                        <li><a href='/agregarAprendiz' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
                         ";
         break;
         // Opcional: un caso por defecto si quieres manejar roles no esperados

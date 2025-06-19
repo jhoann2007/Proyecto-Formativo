@@ -11,7 +11,8 @@
         session_start();
     }
     require_once 'assets/config/session_check.php';
-    include 'assets/config/head.php'; ?>
+    include 'assets/config/head.php'; 
+    ?>
 
     <meta charset="UTF-8">
     <title>Tabla Aprendices</title>
@@ -68,7 +69,7 @@
                     case 'admin':
                         echo "
                         <li><a href='/agregarAprendiz' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
-                        <li><a href='/agregarEntrenador' class='active'><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
+                        <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
                         ";
                         break;
                     case 'entrenador':

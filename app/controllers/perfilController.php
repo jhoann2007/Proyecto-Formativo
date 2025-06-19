@@ -18,5 +18,7 @@ class PerfilController extends BaseController
         // Se define el layout para este controlador 
         $this->layout = 'perfil_layout';
     }
+
+    
 }
 ?>

@@ -27,7 +27,7 @@
         }
 
         .container {
-            margin-top: 250px;
+            margin-top: 100px;
         }
     </style>
 </head>

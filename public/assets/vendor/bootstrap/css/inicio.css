@@ -577,8 +577,7 @@ section, .section {
 /* Media queries para responsividad (ejemplo de la plantilla original) */
 @media (min-width: 1100px) {
   .header~main{
-    margin-left: 330px;
-    padding-bottom: 60px;
+    margin-left: 300px;
   }
 
   .header~#footer {
