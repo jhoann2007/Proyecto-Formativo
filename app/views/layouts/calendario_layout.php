@@ -4,14 +4,35 @@
 <!-- head -->
 
 <head>
-    <?php include 'assets/config/head.php'; ?>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gimnasio SenGym</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="../css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/calendario.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
 
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/reset.css">
+    <!-- <link rel="stylesheet" href="/css/reset.css"> -->
 
     <link rel="stylesheet" href="/css/calendario.css">
 </head>
@@ -20,7 +41,10 @@
 <body class="index-page">
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
-        <?php include 'assets/config/header.php'; ?>
+        <?php 
+        include 'assets/config/header.php'; 
+        ?>
+        <!-- Ejemplo de header para que no de error -->
     </header>
     <!-- fin header -->
 
@@ -47,7 +71,7 @@
         </div>
     </div>
     <!-- fin main -->
-    
+
     <!-- footer -->
     <footer id="footer" class="footer position-relative light-background">
         <?php include 'assets/config/footer.php'; ?>
@@ -60,7 +84,7 @@
     <!-- fin Scroll -->
 
     <!-- Preloader -->
-    <div id="preloader"></div>
+    
 
     <!-- Vendor JS Files -->
     <?php include 'assets/config/scripts.php'; ?>

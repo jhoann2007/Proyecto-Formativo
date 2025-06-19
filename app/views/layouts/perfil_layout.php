@@ -3,41 +3,40 @@
 
 <head>
     <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gimnasio SenGym</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gimnasio SenGym</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
-  <link href="../css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="../css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/perfil.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-
-  <div class="background-shapes">
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
-    <div class="shape shape3"></div>
-  </div>
-
+    <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/perfil.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
+
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
 </head>
 
 <body class="index-page">
 
     <header id="header" class="header dark-background d-flex flex-column">
-        <?php 
-        include 'assets/config/header.php'; 
+        <?php
+        include 'assets/config/header.php';
         ?>
         <!-- Ejemplo de header para que no de error -->
     </header>
@@ -51,7 +50,7 @@
 
             <!-- Contenedor principal para el layout del perfil -->
             <div class="container profile-layout-container" data-aos="fade-up" data-aos-delay="100">
-                
+
                 <!-- Panel Izquierdo: Imagen e Información del Usuario -->
                 <div class="profile-left-panel">
                     <div class="user-image-container">
@@ -107,7 +106,7 @@
                     <div class="profile-right-bottom">
                         <h3 class="text-success">Habilidades</h3>
                         <!-- Mantenemos la estructura de Bootstrap para las habilidades si se desea responsive interno -->
-                        <ul class="list-unstyled row"> 
+                        <ul class="list-unstyled row">
                             <li class="col-md-6"><i class="bi bi-check-circle"></i> Habilidad 1</li>
                             <li class="col-md-6"><i class="bi bi-check-circle"></i> Habilidad 2</li>
                             <li class="col-md-6"><i class="bi bi-check-circle"></i> Habilidad 3</li>
@@ -118,7 +117,7 @@
             </div>
 
             <div class="container text-center mt-5" data-aos="fade-up" data-aos-delay="200">
-                 <p class="text-muted">Este contenido es editable por el aprendiz para fines académicos y profesionales.</p>
+                <p class="text-muted">Este contenido es editable por el aprendiz para fines académicos y profesionales.</p>
             </div>
         </section>
     </main>
@@ -126,7 +125,7 @@
     <footer id="footer" class="footer position-relative light-background">
         <?php include 'assets/config/footer.php'; ?>
         <!-- Ejemplo de footer para que no de error -->
-        
+
     </footer>
 
     <!-- Scroll -->
@@ -142,9 +141,9 @@
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
-     <script src="../../../public/js/js.js"></script>
-     <script src="assets/js/js.js"></script>
-    
+    <script src="../../../public/js/js.js"></script>
+    <script src="assets/js/js.js"></script>
+
     <script>
         // Inicializar AOS (si lo estás usando)
         AOS.init({
@@ -156,4 +155,5 @@
     </script>
 
 </body>
+
 </html>
