@@ -1,0 +1,24 @@
+.container {
+    margin-top: 100px;
+}
+
+.btn-observaciones {
+    background-color: #6f42c1;
+    color: white;
+}
+
+.btn-ver {
+    background-color: rgba(15, 19, 255, 0.712);
+    color: white;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: black;
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: white;
+}
+
