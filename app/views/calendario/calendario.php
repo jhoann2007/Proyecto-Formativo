@@ -1,83 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php include 'assets/config/head.php'; ?>
-    <link rel="stylesheet" href="/css/calendario.css">
-</head>
-<body class="index-page">
-    <header id="header" class="header dark-background d-flex flex-column">
-        <?php include 'assets/config/header.php'; ?>
-    </header>
 
     <main class="main">
-        <section id="resume" class="resume section" data-aos="fade-up">
-            <div class="container section-title">
-                <h2>Calendario</h2>
-            </div>
-
+        <!-- Layout con sidebar y contenido principal -->
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="card col-sm-8 offset-sm-2">
-                        <div class="card-header">
-                            <h5>Calendario</h5>
-                            <div class="row mb-3" id="calendarControls">
-                                <div class="col-md-12 text-center">
-                                    <button class="btn btn-primary me-2" id="prevMonth">Mes Anterior</button>
-                                    <button class="btn btn-primary" id="nextMonth">Mes Siguiente</button>
-                                </div>
-                            </div>
+
+                <!-- Contenido principal del calendario -->
+                <div class="col-md-9 col-lg-10 main-content">
+                    <div class="content-wrapper">
+                        <div class="page-header mb-4">
+                            <h2 class="page-title">Calendario del Gimnasio</h2>
+                            <p class="page-subtitle">Gestiona los horarios y entrenadores del gimnasio</p>
                         </div>
-                        <div class="card-body" id="calendarBody"></div>
+                        
+                        <div class="calendar-container">
+                            <div id="calendar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
     <footer id="footer" class="footer position-relative light-background">
         <?php include 'assets/config/footer.php'; ?>
     </footer>
 
-    <?php include 'assets/config/scroll.php'; ?>
-    <div id="preloader"></div>
-    <?php include 'assets/config/scripts.php'; ?>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/js.js"></script>
-
-    <!-- Modal para registrar evento -->
-    <div class="modal fade" id="eventoModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Registrar Evento</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form id="formEvento">
-            <div class="modal-body">
-              <input type="hidden" id="fechaCreacion" name="fechaCreacion">
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-              </div>
-              <div class="mb-3">
-                <label for="horasDisponibles" class="form-label">Horas Disponibles</label>
-                <input type="text" class="form-control" id="horasDisponibles" name="horasDisponibles">
-              </div>
-              <div class="mb-3">
-                <label for="entrenadoresAsignados" class="form-label">Entrenadores Asignados</label>
-                <textarea class="form-control" id="entrenadoresAsignados" name="entrenadoresAsignados"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="eventos" class="form-label">Eventos</label>
-                <textarea class="form-control" id="eventos" name="eventos"></textarea>
-              </div>
+    <!-- Modal para registrar/editar evento -->
+    <div class="modal fade" id="eventoModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Registrar Horario del Gimnasio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formEvento">
+                    <div class="modal-body">
+                        <input type="hidden" id="fechaSeleccionada" name="fecha">
+                        <input type="hidden" id="eventoId" name="id_calendario">
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="hora_inicio" class="form-label">Hora de Inicio</label>
+                                <input type="time" class="form-control" id="hora_inicio" name="hora_inicio" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="hora_cierre" class="form-label">Hora de Cierre</label>
+                                <input type="time" class="form-control" id="hora_cierre" name="hora_cierre" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_encargado" class="form-label">Entrenador Encargado</label>
+                                <select class="form-select" id="id_encargado" name="id_encargado" required>
+                                    <option value="">Seleccionar entrenador...</option>
+                                    <?php if (isset($entrenadores) && is_array($entrenadores)): ?>
+                                        <?php foreach ($entrenadores as $entrenador): ?>
+                                            <option value="<?= $entrenador['id'] ?>"><?= htmlspecialchars($entrenador['nombre']) ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="capacidad_max" class="form-label">Capacidad Máxima</label>
+                                <input type="number" class="form-control" id="capacidad_max" name="capacidad_max" min="1" max="100" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select class="form-select" id="estado" name="estado" required>
+                                <option value="">Seleccionar estado...</option>
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="btnEliminar" style="display: none;">Eliminar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Guardar</button>
-            </div>
-          </form>
         </div>
-      </div>
     </div>
-</body>
-</html>
+
+    <!-- Modal para mostrar información del evento -->
+    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoModalTitle">Información del Horario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="infoContent">
+                    <!-- Contenido dinámico -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btnEditar">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>

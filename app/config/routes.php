@@ -36,6 +36,22 @@ return [
         'controller' => 'App\Controller\CalendarioController',
         'action' => 'index'
     ],
+    '/calendario/guardarEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'guardarEvento'
+    ],
+    '/calendario/obtenerEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerEvento'
+    ],
+    '/calendario/obtenerEventos' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerEventos'
+    ],
+    '/calendario/eliminarEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'eliminarEvento'
+    ],
 
     # Codigo de Verificacion
     '/codigo' => [
