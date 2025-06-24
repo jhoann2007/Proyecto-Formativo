@@ -36,7 +36,74 @@
 
     <header id="header" class="header dark-background d-flex flex-column">
         <?php
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         include 'assets/config/header.php';
+
+        if (isset($aprendices) && is_array($aprendices) && count($aprendices) > 0) {
+            foreach ($aprendices as $aprendiz) {
+                // Asegurar que las propiedades existan o usar valores por defecto
+                $id = $aprendiz->id ?? 0;
+                $nombre = $aprendiz->nombre ?? '';
+                $tipoDocumento = $aprendiz->tipoDocumento ?? '';
+                $documento = $aprendiz->documento ?? '';
+                $fechaNacimiento = $aprendiz->fechaNacimiento ?? '';
+                $email = $aprendiz->email ?? '';
+                $genero = $aprendiz->genero ?? '';
+                $estado = $aprendiz->estado ?? '';
+                $telefono = $aprendiz->telefono ?? '';
+                $eps = $aprendiz->eps ?? '';
+                $tipoSangre = $aprendiz->tipoSangre ?? '';
+                $peso = $aprendiz->peso ?? '';
+                $estatura = $aprendiz->estatura ?? '';
+                $telefonoEmerjencia = $aprendiz->telefonoEmerjencia ?? '';
+                $password = $aprendiz->password ?? '';
+                $observaciones = $aprendiz->observaciones ?? '';
+
+                // Verificar si existen las propiedades o usar valores por defecto
+                $fkidRol = property_exists($aprendiz, 'fkIdRol') ? $aprendiz->fkIdRol : (property_exists($aprendiz, 'fkidRol') ? $aprendiz->fkidRol : '');
+                $fkidGrupo = property_exists($aprendiz, 'fkIdGrupo') ? $aprendiz->fkIdGrupo : (property_exists($aprendiz, 'fkidGrupo') ? $aprendiz->fkidGrupo : '');
+                $fkidCentroFormacion = property_exists($aprendiz, 'fkIdCentroFormacion') ? $aprendiz->fkIdCentroFormacion : (property_exists($aprendiz, 'fkidCentroFormacion') ? $aprendiz->fkidCentroFormacion : '');
+
+                // Mostrar nombre del rol en lugar del ID
+                if (isset($roles) && is_array($roles)) {
+                    foreach ($roles as $rol) {
+                        if ($rol->id == $fkidRol) {
+                            $rol->nombre;
+                            break;
+                        }
+                    }
+                } else {
+                    $fkidRol;
+                }
+
+                // Mostrar ficha en lugar del ID de grupo
+                if (isset($grupos) && is_array($grupos)) {
+                    foreach ($grupos as $grupo) {
+                        if ($grupo->id == $fkidGrupo) {
+                            $grupo->ficha;
+                            break;
+                        }
+                    }
+                } else {
+                    $fkidGrupo;
+                }
+
+                // Mostrar nombre del centro de formación en lugar del ID
+                if (isset($centrosFormacion) && is_array($centrosFormacion)) {
+                    foreach ($centrosFormacion as $centro) {
+                        if ($centro->id == $fkidCentroFormacion) {
+                            $centro->nombre;
+                            break;
+                        }
+                    }
+                } else {
+                    $fkidCentroFormacion;
+                }
+            }
+        }
         ?>
         <!-- Ejemplo de header para que no de error -->
     </header>
@@ -61,16 +128,16 @@
                         <div class="row"> <!-- Bootstrap row para mantener la estructura interna de dos columnas -->
                             <div class="col-lg-6">
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Nombre:</strong> <span>Nombre completo</span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Documento:</strong> <span>XXXXXXXXX</span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span>correo@ejemplo.com</span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Ficha:</strong> <span>XXXXX</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Nombre:</strong> <span><?php echo "$nombre" ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Documento:</strong> <span><?php echo "$documento" ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span><?php echo "$email" ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Ficha:</strong> <span><?php echo "$grupo->ficha " ?></span></li>
                                 </ul>
                             </div>
                             <div class="col-lg-6">
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Cargo:</strong> <span>Aprendiz</span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Programa:</strong> <span>Nombre del programa</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Cargo:</strong> <span><?php echo "$rol->nombre" ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Programa:</strong> <span><?php echo "$centro->nombre" ?></span></li>
                                     <li><i class="bi bi-chevron-right"></i> <strong>Contraseña:</strong> <span>******</span></li>
                                 </ul>
                             </div>
