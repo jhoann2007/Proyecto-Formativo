@@ -67,6 +67,11 @@
                 $fkidGrupo = property_exists($aprendiz, 'fkIdGrupo') ? $aprendiz->fkIdGrupo : (property_exists($aprendiz, 'fkidGrupo') ? $aprendiz->fkidGrupo : '');
                 $fkidCentroFormacion = property_exists($aprendiz, 'fkIdCentroFormacion') ? $aprendiz->fkIdCentroFormacion : (property_exists($aprendiz, 'fkidCentroFormacion') ? $aprendiz->fkidCentroFormacion : '');
 
+                $idUsuario = $_SESSION['user_id'] ?? 'desconocido';
+                $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
+                $nombreUsuario = $_SESSION['user_nombre'] ?? 'desconocido';
+                $emailUsuario = $_SESSION['user_email'] ?? 'desconocido';
+
                 // Mostrar nombre del rol en lugar del ID
                 if (isset($roles) && is_array($roles)) {
                     foreach ($roles as $rol) {
@@ -102,6 +107,7 @@
                 } else {
                     $fkidCentroFormacion;
                 }
+                
             }
         }
         ?>
@@ -128,16 +134,24 @@
                         <div class="row"> <!-- Bootstrap row para mantener la estructura interna de dos columnas -->
                             <div class="col-lg-6">
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Nombre:</strong> <span><?php echo "$nombre" ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Nombre:</strong> <span><?php echo "$nombreUsuario" ?></span></li>
                                     <li><i class="bi bi-chevron-right"></i> <strong>Documento:</strong> <span><?php echo "$documento" ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span><?php echo "$email" ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Ficha:</strong> <span><?php echo "$grupo->ficha " ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span><?php echo "$emailUsuario" ?></span></li>
+                                    <?php
+                                    if ($rolUsuario == 'aprendiz') {
+                                        echo "<li><i class='bi bi-chevron-right'></i> <strong>Ficha:</strong> <span>" . $grupo->ficha . "</span></li>";
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                             <div class="col-lg-6">
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Cargo:</strong> <span><?php echo "$rol->nombre" ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Programa:</strong> <span><?php echo "$centro->nombre" ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Cargo:</strong> <span><?php echo "$rolUsuario" ?></span></li>
+                                    <?php
+                                    if ($rolUsuario == 'aprendiz') {
+                                        echo "<li><i class='bi bi-chevron-right'></i> <strong>Programa:</strong> <span>" . $centro->nombre . "</span></li>";
+                                    }
+                                    ?>
                                     <li><i class="bi bi-chevron-right"></i> <strong>Contraseña:</strong> <span>******</span></li>
                                 </ul>
                             </div>
