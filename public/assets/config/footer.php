@@ -1,6 +1,6 @@
 <div class="container">
     <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">SenGym</strong> <span>All Rights Reserved</span>
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">GymTech SENA</strong> <span>All Rights Reserved</span>
         </p>
     </div>
     <div class="credits">

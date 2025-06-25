@@ -355,13 +355,6 @@
                                             </div>
                                         </div>
                                         <div class='row mb-3'>
-                                            <div class='col-md-12'>
-                                                <label class='form-label'>Observaciones</label>
-                                                <textarea class='form-control' name='txtObservaciones'></textarea>
-                                                <small class='text-muted'>Deje este campo en blanco si no desea agregar una nueva observación.</small>
-                                            </div>
-                                        </div>
-                                        <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Ficha</label>
                                                 <select class='form-select' name='txtFKidGrupo'>
@@ -554,12 +547,12 @@
                             <input type="password" class="form-control" name="txtPassword" required>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <!-- <div class="row mb-3">
                         <div class="col-md-12">
                             <label class="form-label">Observaciones</label>
                             <textarea class="form-control" name="txtObservaciones"></textarea>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Ficha</label>
