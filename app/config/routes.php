@@ -52,6 +52,14 @@ return [
         'controller' => 'App\Controller\CalendarioController',
         'action' => 'eliminarEvento'
     ],
+    '/calendario/registrarAprendiz' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'registrarAprendiz'
+    ],
+    '/calendario/obtenerRegistrosAprendiz' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerRegistrosAprendiz'
+    ],
 
     # Codigo de Verificacion
     '/codigo' => [
