@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --primary-blue: #FFCE40;
+    --primary-blue-hover: #e2b839;
+    --primary-blue-active: #FFCE40;
+    --text-light: #e5e7eb;
+    --text-muted: #9ca3af;
+    --bg-dark-1: #1a1a2e;
+    --bg-dark-2: #00324D;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 100%);
+    overflow: hidden; /* Oculta las formas cuando se salen de la pantalla */
+    position: relative;
+}
+
+/* --- 1. FONDO ANIMADO --- */
+.background-shapes .shape {
+    position: absolute;
+    background-color: rgba(59, 130, 246, 0.15);
+    border-radius: 50%;
+    filter: blur(50px);
+}
+.shape1 {
+    width: 300px;
+    height: 300px;
+    top: -50px;
+    left: -80px;
+    animation: float 15s infinite ease-in-out alternate;
+}
+.shape2 {
+    width: 400px;
+    height: 400px;
+    bottom: -100px;
+    right: -150px;
+    animation: float 20s infinite ease-in-out alternate-reverse;
+}
+.shape3 {
+    width: 250px;
+    height: 250px;
+    top: 50%;
+    left: 40%;
+    animation: float 18s infinite ease-in-out;
+}
+@keyframes float {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); }
+    100% { transform: translateY(40px) translateX(-30px) rotate(180deg); }
+}
+
+/* --- 2. CONTENEDOR DE LOGIN (Glassmorphism) --- */
+.login-container {
+    position: relative;
+    z-index: 2;
+    background: rgba(25, 25, 46, 0.25); /* Fondo semi-transparente */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Para Safari */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px; 
+    border-radius: 16px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 420px; 
+    text-align: center;
+    
+    /* Animación de entrada principal */
+    animation: reveal 1s ease-out forwards;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* --- 3. ELEMENTOS INTERNOS Y ANIMACIÓN ESCALONADA --- */
+.login-logo, h2, .form-group, .extra-links {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.login-logo { animation-delay: 0.2s; }
+h2 { animation-delay: 0.3s; }
+.form-group:nth-of-type(1) { animation-delay: 0.4s; }
+.form-group:nth-of-type(2) { animation-delay: 0.5s; }
+.form-group.recaptcha-container { animation-delay: 0.6s; }
+.form-group:has(button) { animation-delay: 0.7s; }
+.extra-links { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-logo {
+    background-image: url('../img/logo_sena-removebg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 90px; 
+    height: 90px; 
+    margin: 0 auto 15px auto;
+    /* Filtro para hacer el logo blanco y que contraste con el fondo oscuro */
+    filter: brightness(0) invert(1);
+}
+
+.login-container h2 {
+    margin-bottom: 30px;
+    color: var(--text-light);
+    font-weight: 700; 
+    font-size: 26px;
+}
+
+/* --- 4. CAMPOS DE FORMULARIO (Inputs con etiquetas flotantes) --- */
+.form-group {
+    margin-bottom: 25px; 
+    position: relative; 
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 15px 14px 45px; /* Espacio para el icono */
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 8px; 
+    font-size: 16px;
+    color: var(--text-light);
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease; 
+}
+
+.form-group label {
+    position: absolute;
+    top: 15px;
+    left: 45px;
+    color: var(--text-muted);
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Animación de la etiqueta flotante */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: var(--primary-blue);
+    background-color: var(--bg-dark-2);
+    padding: 0 5px;
+    border-radius: 4px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.form-group input:focus ~ .input-icon {
+    color: var(--primary-blue);
+}
+
+/* --- 5. BOTÓN Y OTROS ELEMENTOS --- */
+.form-group button[type="submit"] {
+    width: 100%;
+    padding: 14px 15px;
+    background-color: var(--primary-blue); 
+    color: #00324D;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    transition: all 0.3s ease; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+}
+
+.form-group button[type="submit"]:hover {
+    background-color: var(--primary-blue-hover);
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); 
+}
+
+.form-group button[type="submit"]:active {
+    background-color: var(--primary-blue-active); 
+    transform: translateY(0); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+}
+
+.recaptcha-container {
+    display: flex;
+    justify-content: center;
+}
+
+.error-message {
+    color: #fecaca; 
+    background-color: rgba(153, 27, 27, 0.5); 
+    border: 1px solid #991b1b; 
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin: -10px 0 20px 0; 
+    font-size: 14px;
+}
+
+.extra-links {
+    margin-top: 20px;
+}
+
+.extra-links a {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.extra-links a:hover {
+    color: var(--primary-blue);
+    text-decoration: underline;
+}

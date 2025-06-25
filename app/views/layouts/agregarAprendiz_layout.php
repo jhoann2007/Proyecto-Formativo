@@ -4,31 +4,48 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!-- head -->
+
 <head>
-    <?php include 'assets/config/head.php'; ?>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymTech SENA</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="../css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/aprendiz.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/perfil.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
+
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once 'assets/config/session_check.php';
+    ?>
 
     <meta charset="UTF-8">
     <title>Tabla Aprendices</title>
-    <style>
-        .btn-observaciones {
-            background-color: #6f42c1;
-            color: white;
-        }
-
-        .btn-editar {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .btn-eliminar {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .container {
-            margin-top: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/agregarEntrenador.css">
 </head>
 <!-- fin head -->
 
@@ -37,7 +54,7 @@
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <div class="profile-img">
-            <img src="assets/img/gigachad.jpg" alt="" class="img-fluid rounded-circle">
+            <img src="/img/gigachad.jpg" alt="" class="img-fluid rounded-circle">
         </div>
 
         <a href="index.html" class="logo d-flex align-items-center justify-content-center">
@@ -49,8 +66,35 @@
                 <li><a href="/inicio"><i class="bi bi-house navicon"></i>Inicio</a></li>
                 <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
                 <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
-                <li><a href="/agregarAprendiz" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Aprendiz</a></li>
-                <li><a href="/agregarEntrenador" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Entrenador</a></li>
+                <?php
+
+
+
+                // Asegurarse de que 'user_rol_nombre' existe para evitar notices,
+                // aunque tu script de login ya lo convierte a minúsculas y establece 'desconocido' por defecto.
+                $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
+
+                // Corregido: switch en lugar de witch
+                switch ($rolUsuario) {
+                    case 'admin':
+                        echo "
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
+                        ";
+                        break;
+                    case 'entrenador':
+                        echo "
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        ";
+                        break;
+                        // Opcional: un caso por defecto si quieres manejar roles no esperados
+                        // default:
+                        //     // No mostrar nada extra o mostrar un mensaje
+                        //     break;
+                }
+
+                ?>
+                <li><a href="/cerrar"><i class=""></i>Cerrar Sesion</a></li>
             </ul>
         </nav>
     </header>
@@ -75,7 +119,7 @@
                             <?php
                             if (isset($grupos) && is_array($grupos)) {
                                 foreach ($grupos as $grupo) {
-                                    echo '<li><a class="dropdown-item ficha-filter" href="#" data-ficha="'.$grupo->id.'" data-ficha-nombre="'.$grupo->ficha.'">'.$grupo->ficha.'</a></li>';
+                                    echo '<li><a class="dropdown-item ficha-filter" href="#" data-ficha="' . $grupo->id . '" data-ficha-nombre="' . $grupo->ficha . '">' . $grupo->ficha . '</a></li>';
                                 }
                             }
                             ?>
@@ -125,105 +169,7 @@
     <script src="assets/js/main.js"></script>
 
     <!-- Búsqueda en tabla y filtrado por ficha -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Búsqueda en tabla
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('keyup', function() {
-                    const searchTerm = this.value.toLowerCase();
-                    filterTable(searchTerm);
-                });
-            }
-            
-            // Filtrado por ficha
-            const fichaLinks = document.querySelectorAll('.ficha-filter');
-            const fichaSeleccionadaText = document.getElementById('ficha-seleccionada');
-            
-            fichaLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const fichaId = this.getAttribute('data-ficha');
-                    const fichaNombre = this.getAttribute('data-ficha-nombre');
-                    
-                    // Actualizar texto de ficha seleccionada
-                    if (fichaId === 'todas') {
-                        fichaSeleccionadaText.textContent = '';
-                        filterByFicha('todas');
-                    } else {
-                        fichaSeleccionadaText.textContent = 'Ficha: ' + fichaNombre;
-                        filterByFicha(fichaId);
-                    }
-                });
-            });
-            
-            // Función para filtrar por búsqueda
-            function filterTable(searchTerm) {
-                const tableRows = document.querySelectorAll('tbody tr');
-                
-                tableRows.forEach(row => {
-                    if (!row.classList.contains('no-data')) {
-                        const text = row.textContent.toLowerCase();
-                        if (text.includes(searchTerm)) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    }
-                });
-                
-                checkNoResults();
-            }
-            
-            // Función para filtrar por ficha
-            function filterByFicha(fichaId) {
-                const tableRows = document.querySelectorAll('tbody tr');
-                
-                tableRows.forEach(row => {
-                    if (!row.classList.contains('no-data')) {
-                        if (fichaId === 'todas') {
-                            row.style.display = '';
-                        } else {
-                            const fichaCell = row.getAttribute('data-ficha');
-                            if (fichaCell === fichaId) {
-                                row.style.display = '';
-                            } else {
-                                row.style.display = 'none';
-                            }
-                        }
-                    }
-                });
-                
-                checkNoResults();
-            }
-            
-            // Verificar si hay resultados visibles
-            function checkNoResults() {
-                const tableRows = document.querySelectorAll('tbody tr');
-                const tbody = document.querySelector('tbody');
-                let visibleRows = 0;
-                
-                tableRows.forEach(row => {
-                    if (row.style.display !== 'none' && !row.classList.contains('no-data')) {
-                        visibleRows++;
-                    }
-                });
-                
-                // Eliminar mensaje de no resultados si existe
-                const noResultsRow = document.querySelector('.no-results');
-                if (noResultsRow) {
-                    noResultsRow.remove();
-                }
-                
-                // Mostrar mensaje si no hay resultados
-                if (visibleRows === 0) {
-                    const noResultsRow = document.createElement('tr');
-                    noResultsRow.className = 'no-results';
-                    noResultsRow.innerHTML = '<td colspan="9" class="text-center">No se encontraron aprendices con los criterios de búsqueda</td>';
-                    tbody.appendChild(noResultsRow);
-                }
-            }
-        });
-    </script>
+    <script src="/js/agregarAprendiz.js"></script>
 </body>
+
 </html>

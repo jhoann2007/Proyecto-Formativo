@@ -3,31 +3,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- head -->
+
 <head>
-    <?php include 'assets/config/head.php'; ?>
+    <?php 
+     if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once 'assets/config/session_check.php';
+    include 'assets/config/head.php'; 
+    ?>
 
     <meta charset="UTF-8">
     <title>Gestión de Entrenadores</title>
-    <style>
-        .btn-observaciones {
-            background-color: #6f42c1;
-            color: white;
-        }
-
-        .btn-editar {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .btn-eliminar {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .container {
-            margin-top: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/agregarEntrenador.css">
 </head>
 <!-- fin head -->
 
@@ -36,7 +24,7 @@
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <div class="profile-img">
-            <img src="assets/img/gigachad.jpg" alt="" class="img-fluid rounded-circle">
+            <img src="/img/gigachad.jpg" alt="" class="img-fluid rounded-circle">
         </div>
 
         <a href="index.html" class="logo d-flex align-items-center justify-content-center">
@@ -48,8 +36,35 @@
                 <li><a href="/inicio"><i class="bi bi-house navicon"></i>Inicio</a></li>
                 <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
                 <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
-                <li><a href="/agregarAprendiz"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Aprendiz</a></li>
-                <li><a href="/agregarEntrenador" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Entrenador</a></li>
+                <?php
+                
+
+
+                // Asegurarse de que 'user_rol_nombre' existe para evitar notices,
+                // aunque tu script de login ya lo convierte a minúsculas y establece 'desconocido' por defecto.
+                $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
+
+                // Corregido: switch en lugar de witch
+                switch ($rolUsuario) {
+                    case 'admin':
+                        echo "
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
+                        ";
+                        break;
+                    case 'entrenador':
+                        echo "
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        ";
+                        break;
+                        // Opcional: un caso por defecto si quieres manejar roles no esperados
+                        // default:
+                        //     // No mostrar nada extra o mostrar un mensaje
+                        //     break;
+                }
+
+                ?>
+                <li><a href="/cerrar"><i class=""></i>Cerrar Sesion</a></li>
             </ul>
         </nav>
     </header>
@@ -107,62 +122,7 @@
     <script src="assets/js/main.js"></script>
 
     <!-- Búsqueda en tabla -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Búsqueda en tabla
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('keyup', function() {
-                    const searchTerm = this.value.toLowerCase();
-                    filterTable(searchTerm);
-                });
-            }
-            
-            // Función para filtrar por búsqueda
-            function filterTable(searchTerm) {
-                const tableRows = document.querySelectorAll('tbody tr');
-                
-                tableRows.forEach(row => {
-                    if (!row.classList.contains('no-data')) {
-                        const text = row.textContent.toLowerCase();
-                        if (text.includes(searchTerm)) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    }
-                });
-                
-                checkNoResults();
-            }
-            
-            // Verificar si hay resultados visibles
-            function checkNoResults() {
-                const tableRows = document.querySelectorAll('tbody tr');
-                const tbody = document.querySelector('tbody');
-                let visibleRows = 0;
-                
-                tableRows.forEach(row => {
-                    if (row.style.display !== 'none' && !row.classList.contains('no-data')) {
-                        visibleRows++;
-                    }
-                });
-                
-                // Eliminar mensaje de no resultados si existe
-                const noResultsRow = document.querySelector('.no-results');
-                if (noResultsRow) {
-                    noResultsRow.remove();
-                }
-                
-                // Mostrar mensaje si no hay resultados
-                if (visibleRows === 0) {
-                    const noResultsRow = document.createElement('tr');
-                    noResultsRow.className = 'no-results';
-                    noResultsRow.innerHTML = '<td colspan="7" class="text-center">No se encontraron entrenadores con los criterios de búsqueda</td>';
-                    tbody.appendChild(noResultsRow);
-                }
-            }
-        });
-    </script>
+    <script src="/js/agregarEntrenador.js"></script>
 </body>
+
 </html>

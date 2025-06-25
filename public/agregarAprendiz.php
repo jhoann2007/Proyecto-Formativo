@@ -27,7 +27,7 @@
         }
 
         .container {
-            margin-top: 250px;
+            margin-top: 100px;
         }
     </style>
 </head>
@@ -38,11 +38,11 @@
     <!-- header -->
     <header id="header" class="header dark-background d-flex flex-column">
         <div class="profile-img">
-            <img src="assets/img/negrito.jpg" alt="" class="img-fluid rounded-circle">
+            <img src="assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
         </div>
 
         <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-            <h1 class="sitename">Fernando</h1>
+            <h1 class="sitename">GigaChad</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -51,7 +51,6 @@
                 <li><a href="perfil.php"><i class="bi bi-person navicon"></i>Perfil</a></li>
                 <li><a href="calendario.php"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
                 <li><a href="agregarAprendiz.php"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Aprendiz</a></li>
-                <li><a href="/agregarEntrenador" class="active"><i class="bi bi-person-fill-add"></i>&nbsp;&nbsp;&nbsp;Agregar Entrenador</a></li>
             </ul>
         </nav>
     </header>
@@ -190,7 +189,7 @@
                     <div class="copyright text-center">
                         <p>
                             © <span>Copyright</span>
-                            <strong class="px-1 sitename">GymTech SENA</strong>
+                            <strong class="px-1 sitename">SenGym</strong>
                             <span>All Rights Reserved</span>
                         </p>
                     </div>

@@ -2,10 +2,6 @@
 return [
 
     # EJEMPLOS
-    '/' => [
-        'controller' => 'App\Controller\HomeController',
-        'action' => 'index'
-    ],
     '/home' => [
         'controller' => 'App\Controller\HomeController',
         'action' => 'index'
@@ -15,10 +11,54 @@ return [
         'action' => 'saludar'
     ],
 
+    #LOGIN
+    '/' => [
+        'controller' => 'App\Controller\HomeController',
+        'action' => 'index'
+    ],
+    '/login' => [
+        'controller' => 'App\Controller\HomeController',
+        'action' => 'login'
+    ],
+    '/cerrar' => [
+        'controller' => 'App\Controller\HomeController',
+        'action' => 'login'
+    ],
+
+    # Perfil
+    '/perfil' => [
+        'controller' => 'App\Controller\PerfilController',
+        'action' => 'index'
+    ],
+
     # Calendario
     '/calendario' => [
         'controller' => 'App\Controller\CalendarioController',
         'action' => 'index'
+    ],
+    '/calendario/guardarEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'guardarEvento'
+    ],
+    '/calendario/obtenerEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerEvento'
+    ],
+    '/calendario/obtenerEventos' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerEventos'
+    ],
+    '/calendario/eliminarEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'eliminarEvento'
+    ],
+    '/calendario/registrarAprendiz' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'registrarAprendiz'
+    ],
+    '/calendario/obtenerRegistrosAprendiz' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerRegistrosAprendiz'
     ],
 
     # Codigo de Verificacion
@@ -36,15 +76,15 @@ return [
     # Olvido Contraseña
     '/olvido' => [
         'controller' => 'App\Controller\OlvidoContraseniaController',
-        'action' => 'index'
+        'action' => 'index' 
     ],
 
     # Ingreso Sistema
     '/ingreso' => [
-        'controller' => 'App\Controller\ingresoController',
-        'action' => 'index'
+    'controller' => 'App\Controller\ingresoController',
+    'action' => 'index' 
     ],
-
+    
     # Agregar Entrenador
     '/agregarEntrenador' => [
         'controller' => 'App\Controller\AgregarEntrenadorController',
@@ -116,10 +156,5 @@ return [
         'controller' => 'App\Controller\AgregarAprendizController',
         'action' => 'agregarObservacion'
     ],
-
-    #Perfil
-    '/perfil' => [
-        'controller' => 'App\Controller\PerfilController',
-        'action' => 'index'
-    ]
 ];
+?>

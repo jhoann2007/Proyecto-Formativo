@@ -47,7 +47,7 @@
                         <td>{$email}</td>
                         <td>{$estado}</td>
                         <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalObservaciones{$id}'><i class='bi bi-chat-left-text'></i></button></td>
-                        <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalView{$id}'><i class='bi bi-eye'></i></button></td>
+                        <td><button class='btn btn-sm btn-ver' data-bs-toggle='modal' data-bs-target='#modalView{$id}'><i class='bi bi-eye'></i></button></td>
                         <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id}'><i class='bi bi-pencil-square'></i></button></td>
                         <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id}'><i class='bi bi-trash'></i></button></td>
                     </tr>";

@@ -1,0 +1,119 @@
+/* === ESTILOS EXISTENTES (los que me pasaste) === */
+.profile-layout-container {
+    display: flex;
+    min-height: 80vh;
+    width: 100%;
+}
+
+.profile-left-panel {
+    flex: 0 0 50%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column; /* Mantiene la dirección vertical para los hijos directos */
+    /* align-items: center; <--- REMOVEMOS ESTO si estaba, o no lo añadimos */
+    border-right: 1px solid #dee2e6;
+}
+
+.profile-left-panel .user-image-container {
+    text-align: center; /* Centra la imagen horizontalmente si el contenedor es más ancho */
+    margin-bottom: 20px;
+    /* No necesita ser un item flex para centrarse, text-align en su contenedor es suficiente */
+}
+
+.profile-left-panel .user-image-container img {
+    max-width: 200px;
+    border: 3px solid #28a745;
+}
+
+/* Contenedor para la descripción y los detalles del usuario */
+.profile-left-panel .user-info-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los hijos de este contenedor (descripción y user-info-details) */
+    width: 100%; /* Asegura que ocupe todo el ancho del panel izquierdo */
+}
+
+/* Estilos para el párrafo de descripción (opcional, si quieres que tenga un ancho máximo o algo) */
+.profile-left-panel .user-info-content .fst-italic {
+    text-align: center; /* Centra el texto dentro del párrafo */
+    max-width: 90%; /* Ejemplo: limita el ancho para que no sea demasiado extenso */
+    margin-bottom: 15px; /* Espacio antes de los detalles */
+}
+
+/* Estilos para la sección de detalles del usuario (las listas <ul>) */
+.profile-left-panel .user-info-details {
+    /* Ya está dentro de .user-info-content que tiene align-items: center,
+       así que no necesita más para centrarse horizontalmente.
+       Si las listas <ul> ocupan menos del 100% de .user-info-details,
+       se centrarán por el align-items:center del padre. */
+    width: 100%; /* Para que la row de Bootstrap funcione bien */
+}
+
+
+/* ... (resto de tus estilos .profile-right-panel, etc., sin cambios) ... */
+
+.profile-right-panel {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-right-top {
+    flex: 1;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-bottom: 1px solid #dee2e6;
+    overflow-y: auto;
+}
+
+.profile-right-bottom {
+    flex: 1;
+    padding: 20px;
+    background-color: #e0e0e0;
+    overflow-y: auto;
+}
+
+.profile-right-top h3,
+.profile-right-bottom h3 {
+    margin-top: 0;
+}
+
+@media (max-width: 992px) {
+    .profile-layout-container {
+        flex-direction: column;
+    }
+
+    .profile-left-panel,
+    .profile-right-panel {
+        flex: 1 1 100%;
+        border-right: none;
+    }
+
+    .profile-right-panel {
+        border-top: 1px solid #dee2e6;
+    }
+
+    .profile-right-top,
+    .profile-right-bottom {
+        flex: none;
+        min-height: auto;
+    }
+}
+
+/* === ESTILOS PARA EL STICKY FOOTER (sin cambios respecto a la última vez) === */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main.main {
+    flex-grow: 1;
+}
+
+#footer {
+    text-align: center;
+    width: 100%;
+}
