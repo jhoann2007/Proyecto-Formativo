@@ -22,7 +22,7 @@ return [
     ],
     '/cerrar' => [
         'controller' => 'App\Controller\HomeController',
-        'action' => 'login'
+        'action' => 'cerrar'
     ],
 
     # Perfil

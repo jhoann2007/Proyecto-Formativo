@@ -2,7 +2,9 @@
 namespace App\Controller;
 use App\Models\PerfilModel;
 use App\Models\AgregarAprendizModel;
+use App\Models\AgregarEntrenadorModel;
 
+require_once MAIN_APP_ROUTE . "../models/agregarEntrenadorModel.php";
 require_once MAIN_APP_ROUTE . "../models/agregarAprendizModel.php";
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
@@ -20,9 +22,13 @@ class PerfilController extends BaseController
     {
         # Crear una instancia del modelo
         $agregarAprendizObj = new AgregarAprendizModel();
+        $agregarEntrenadorObj = new AgregarEntrenadorModel();
+        $adminObj = new PerfilModel();
         
         # Obtener todos los aprendices desde el modelo 
         $aprendices = $agregarAprendizObj->getAll();
+        $entrenadores = $agregarEntrenadorObj->getAll();
+        $admins = $adminObj->getAllUser();
         
         # Obtener roles, grupos y centros de formación
         $roles = $agregarAprendizObj->getRoles();
@@ -31,8 +37,10 @@ class PerfilController extends BaseController
         
         # Pasar los datos a la vista 
         $data = [
-            'title' => 'Lista de Aprendices',
+            'title' => 'Lista de Usuarios',
+            'entrenadores' => $entrenadores,
             'aprendices' => $aprendices,
+            'admins' => $admins,
             'roles' => $roles,
             'grupos' => $grupos,
             'centrosFormacion' => $centrosFormacion
