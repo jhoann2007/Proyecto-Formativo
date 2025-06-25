@@ -45,7 +45,7 @@
 
     <meta charset="UTF-8">
     <title>Tabla Aprendices</title>
-    <link rel="stylesheet" href="/css/agregarEntrenador.css">
+    <link rel="stylesheet" href="/css/agregarAprendiz.css">
 </head>
 <!-- fin head -->
 

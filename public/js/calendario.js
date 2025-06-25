@@ -20,9 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            right: 'dayGridMonth,timeGridWeek'
         },
         height: 'auto',
+        // Configuración para mostrar horas correctamente
+        slotMinTime: '06:00:00',
+        slotMaxTime: '22:00:00',
+        slotDuration: '00:30:00',
+        allDaySlot: true,
         events: function (fetchInfo, successCallback, failureCallback) {
             console.log('Cargando eventos...')
 
@@ -43,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 console.log('Eventos cargados:', data)
+                // Verificar que los eventos tengan el formato correcto
+                data.forEach(evento => {
+                    console.log('Evento:', evento.title, 'Start:', evento.start, 'End:', evento.end, 'AllDay:', evento.allDay)
+                })
                 successCallback(data)
             })
             .catch(error => {
@@ -62,7 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
         eventClick: function (info) {
             console.log('Evento clickeado:', info.event)
             mostrarInfoEvento(info.event)
-        }
+        },
+        // Configuración adicional para las vistas de tiempo
+        eventDisplay: 'block',
+        dayMaxEvents: false,
+        moreLinkClick: 'popover'
     })
 
     calendar.render()
@@ -105,9 +118,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Buscar eventos disponibles para esta fecha
-            const eventosDelDia = calendar.getEvents().filter(event => 
-                event.startStr === fecha && event.extendedProps.estado === 'activo'
-            )
+            const eventosDelDia = calendar.getEvents().filter(event => {
+                // Comparar solo la fecha, no la hora
+                const eventDate = event.start.toISOString().split('T')[0]
+                return eventDate === fecha && event.extendedProps.estado === 'activo'
+            })
 
             if (eventosDelDia.length === 0) {
                 showAlert('warning', 'No hay horarios disponibles para este día')
@@ -190,7 +205,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (window.userRole === 'admin' || window.userRole === 'entrenador') {
             document.getElementById('btnEditar').onclick = function () {
                 bootstrap.Modal.getInstance(document.getElementById('infoModal')).hide()
-                editarEvento(evento.id, evento.startStr)
+                // Obtener solo la fecha del evento
+                const fechaEvento = evento.start.toISOString().split('T')[0]
+                editarEvento(evento.id, fechaEvento)
             }
         }
 

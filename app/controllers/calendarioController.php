@@ -90,10 +90,16 @@ class CalendarioController extends BaseController
             // Formatear eventos para FullCalendar
             $eventosFormateados = [];
             foreach ($eventos as $evento) {
+                // Combinar fecha con horas para crear datetime completo
+                $fechaInicio = $evento['fecha'] . 'T' . $evento['hora_inicio'];
+                $fechaFin = $evento['fecha'] . 'T' . $evento['hora_cierre'];
+                
                 $eventoFormateado = [
                     'id' => $evento['id_calendario'],
                     'title' => "Gimnasio - " . $evento['nombre_entrenador'],
-                    'start' => $evento['fecha'],
+                    'start' => $fechaInicio, // Fecha y hora de inicio
+                    'end' => $fechaFin,     // Fecha y hora de fin
+                    'allDay' => false,      // Importante: marcar como NO todo el día
                     'description' => "Horario: {$evento['hora_inicio']} - {$evento['hora_cierre']}<br>
                                     Encargado: {$evento['nombre_entrenador']}<br>
                                     Capacidad: {$evento['capacidad_max']} personas<br>
