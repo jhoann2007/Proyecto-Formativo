@@ -15,6 +15,8 @@
 
     <meta charset="UTF-8">
     <title>Gestión de Entrenadores</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/agregarEntrenador.css">
 </head>
 <!-- fin head -->
@@ -27,9 +29,17 @@
             <img src="/img/gigachad.jpg" alt="" class="img-fluid rounded-circle">
         </div>
 
-        <a href="index.html" class="logo d-flex align-items-center justify-content-center">
+        <!-- <a href="index.html" class="logo d-flex align-items-center justify-content-center">
             <h1 class="sitename">Fernando</h1>
-        </a>
+        </a> -->
+        <h1 class="sitename">
+            <?php
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+                echo htmlspecialchars($_SESSION['user_nombre'] ?? 'Usuario');
+            ?>
+        </h1>
 
         <nav id="navmenu" class="navmenu">
             <ul>
