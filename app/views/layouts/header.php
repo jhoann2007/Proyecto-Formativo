@@ -4,9 +4,14 @@
   <img src="assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
 </div>
 
-<a href="index.html" class="logo d-flex align-items-center justify-content-center">
-  <h1 class="sitename">GigaChad</h1>
-</a>
+<h1 class="sitename">
+  <?php
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+    echo htmlspecialchars($_SESSION['user_nombre'] ?? 'Usuario');
+  ?>
+</h1>
 
 <nav id="navmenu" class="navmenu">
   <ul>

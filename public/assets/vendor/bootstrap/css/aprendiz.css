@@ -1,0 +1,202 @@
+/*--------------------------------------------------------------
+# 10. Estilos de la página principal (index-page) y Controles
+--------------------------------------------------------------*/
+
+/* Estilos para el body específico de esta página, si se necesitan */
+body.index-page main.main {
+  /* El padding-bottom ya se aplicó antes para el footer fijo, 
+     así que aquí podemos añadir otros estilos si son necesarios */
+  padding-top: 40px; /* Un poco de espacio superior */
+}
+
+/* --- Controles de la Tabla (Botones, Dropdown y Búsqueda) --- */
+.d-flex.justify-content-between.align-items-center.mb-4 {
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px !important;
+
+  /* --- Efecto Glassmorphism para la barra de controles --- */
+  background: var(--surface-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+}
+
+/* Botones y Dropdown */
+.btn-outline-dark, 
+.btn-outline-secondary {
+  color: var(--default-color);
+  border-color: var(--border-color);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-dark:hover,
+.btn-outline-secondary:hover {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  border-color: var(--accent-color);
+}
+
+.dropdown-menu {
+  background-color: var(--background-color-start); /* Fondo oscuro sólido */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item {
+  color: var(--muted-color);
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+#ficha-seleccionada {
+  color: var(--accent-color) !important;
+  font-weight: 500;
+}
+
+/* Campo de búsqueda */
+.input-group .form-control {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #000;
+  color: var(--default-color);
+}
+
+.input-group .form-control::placeholder {
+  color: var(--muted-color);
+}
+
+.input-group .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+  outline: none;
+}
+
+.input-group .btn-secondary {
+  border-color: var(--border-color);
+}
+
+
+/*--------------------------------------------------------------
+# 11. Estilos para el Modal de Bootstrap (Tema Oscuro SENA)
+--------------------------------------------------------------*/
+
+/* Fondo oscuro semi-transparente detrás del modal */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-dialog {
+  max-width: 600px; /* Un ancho un poco mayor para formularios */
+}
+
+/* Contenido principal del modal */
+.modal-content {
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  
+  /* --- Efecto Glassmorphism para el Modal --- */
+  background: var(--surface-color);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  color: var(--default-color);
+}
+
+/* Cabecera del modal */
+.modal-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 25px;
+}
+
+.modal-title {
+  color: var(--heading-color);
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: 22px;
+}
+
+/* Botón de cerrar (la 'X') */
+.modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%); /* Hace el icono de cierre blanco */
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.modal-header .btn-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Cuerpo del modal (donde va el formulario) */
+.modal-body {
+  padding: 25px;
+}
+
+/* Estilos para los campos del formulario dentro del modal */
+.modal-body .form-label {
+  color: var(--muted-color);
+  font-weight: 500;
+}
+
+.modal-body .form-control {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--default-color);
+  padding: 12px 15px;
+  border-radius: 8px;
+}
+
+.modal-body .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+  outline: none;
+}
+
+/* Pie de página del modal */
+.modal-footer {
+  border-top: 1px solid var(--border-color);
+  padding: 15px 25px;
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+}
+
+/* Botones del footer del modal */
+.modal-footer .btn-secondary {
+  background-color: transparent;
+  border-color: var(--border-color);
+  color: var(--default-color);
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--muted-color);
+}
+
+.modal-footer .btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color);
+  font-weight: 700;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: var(--accent-color-hover);
+  border-color: var(--accent-color-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 206, 64, 0.2);
+}

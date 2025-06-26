@@ -21,6 +21,10 @@
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/header.css">
+
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
 
@@ -42,35 +46,34 @@
 
         include 'assets/config/header.php';
 
-        if (isset($aprendices) && is_array($aprendices) && count($aprendices) > 0) {
-            foreach ($aprendices as $aprendiz) {
+        $idUsuario = $_SESSION['user_id'] ?? 'desconocido';
+        $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
+        $nombreUsuario = $_SESSION['user_nombre'] ?? 'desconocido';
+        $emailUsuario = $_SESSION['user_email'] ?? 'desconocido';
+
+        if (isset($admins) && is_array($admins) && count($admins) > 0) {
+            foreach ($admins as $adminz) {
                 // Asegurar que las propiedades existan o usar valores por defecto
-                $id = $aprendiz->id ?? 0;
-                $nombre = $aprendiz->nombre ?? '';
-                $tipoDocumento = $aprendiz->tipoDocumento ?? '';
-                $documento = $aprendiz->documento ?? '';
-                $fechaNacimiento = $aprendiz->fechaNacimiento ?? '';
-                $email = $aprendiz->email ?? '';
-                $genero = $aprendiz->genero ?? '';
-                $estado = $aprendiz->estado ?? '';
-                $telefono = $aprendiz->telefono ?? '';
-                $eps = $aprendiz->eps ?? '';
-                $tipoSangre = $aprendiz->tipoSangre ?? '';
-                $peso = $aprendiz->peso ?? '';
-                $estatura = $aprendiz->estatura ?? '';
-                $telefonoEmerjencia = $aprendiz->telefonoEmerjencia ?? '';
-                $password = $aprendiz->password ?? '';
-                $observaciones = $aprendiz->observaciones ?? '';
+                $id = $idUsuario ?? 0;
+                $nombre = $adminz->nombre ?? '';
+                $documento = $adminz->documento ?? '';
+                $fechaNacimiento = $adminz->fechaNacimiento ?? '';
+                $email = $adminz->email ?? '';
+                $genero = $adminz->genero ?? '';
+                $estado = $adminz->estado ?? '';
+                $telefono = $adminz->telefono ?? '';
+                $eps = $adminz->eps ?? '';
+                $tipoSangre = $adminz->tipoSangre ?? '';
+                $peso = $adminz->peso ?? '';
+                $estatura = $adminz->estatura ?? '';
+                $telefonoEmerjencia = $adminz->telefonoEmerjencia ?? '';
+                $password = $adminz->password ?? '';
+                $observaciones = $adminz->observaciones ?? '';
 
                 // Verificar si existen las propiedades o usar valores por defecto
-                $fkidRol = property_exists($aprendiz, 'fkIdRol') ? $aprendiz->fkIdRol : (property_exists($aprendiz, 'fkidRol') ? $aprendiz->fkidRol : '');
-                $fkidGrupo = property_exists($aprendiz, 'fkIdGrupo') ? $aprendiz->fkIdGrupo : (property_exists($aprendiz, 'fkidGrupo') ? $aprendiz->fkidGrupo : '');
-                $fkidCentroFormacion = property_exists($aprendiz, 'fkIdCentroFormacion') ? $aprendiz->fkIdCentroFormacion : (property_exists($aprendiz, 'fkidCentroFormacion') ? $aprendiz->fkidCentroFormacion : '');
-
-                $idUsuario = $_SESSION['user_id'] ?? 'desconocido';
-                $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
-                $nombreUsuario = $_SESSION['user_nombre'] ?? 'desconocido';
-                $emailUsuario = $_SESSION['user_email'] ?? 'desconocido';
+                $fkidRol = property_exists($adminz, 'fkIdRol') ? $adminz->fkIdRol : (property_exists($adminz, 'fkidRol') ? $adminz->fkidRol : '');
+                $fkidGrupo = property_exists($adminz, 'fkIdGrupo') ? $adminz->fkIdGrupo : (property_exists($adminz, 'fkidGrupo') ? $adminz->fkidGrupo : '');
+                $fkidCentroFormacion = property_exists($adminz, 'fkIdCentroFormacion') ? $adminz->fkIdCentroFormacion : (property_exists($adminz, 'fkidCentroFormacion') ? $adminz->fkidCentroFormacion : '');
 
                 // Mostrar nombre del rol en lugar del ID
                 if (isset($roles) && is_array($roles)) {
@@ -107,7 +110,6 @@
                 } else {
                     $fkidCentroFormacion;
                 }
-                
             }
         }
         ?>

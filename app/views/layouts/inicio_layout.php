@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gimnasio SenGym</title>
+  <title>GymTech SENA</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -22,6 +22,9 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Estilos propios -->
+    <link rel="stylesheet" href="/css/header.css">
 
   <div class="background-shapes">
     <div class="shape shape1"></div>

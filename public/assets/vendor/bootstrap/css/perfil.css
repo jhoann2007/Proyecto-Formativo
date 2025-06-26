@@ -1,0 +1,155 @@
+/*--------------------------------------------------------------
+# 9. Sección de Perfil Profesional
+--------------------------------------------------------------*/
+
+/* Contenedor principal del layout del perfil */
+.profile-layout-container {
+  display: flex;
+  gap: 30px; /* Espacio entre el panel izquierdo y derecho */
+  align-items: flex-start; /* Alinea los paneles por la parte superior */
+  margin-top: 40px;
+}
+
+/* Paneles izquierdo y derecho (aplicamos el efecto glassmorphism) */
+.profile-left-panel,
+.profile-right-panel {
+  padding: 30px;
+  border-radius: 16px;
+  
+  /* --- Efecto Glassmorphism --- */
+  background: var(--surface-color); /* Fondo semi-transparente */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--border-color); /* Borde sutil */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Panel Izquierdo: Foto e Información --- */
+.profile-left-panel {
+  flex: 2; /* Ocupa 2/5 del espacio */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.user-image-container img.img-fluid {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border: 6px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  /* Reseteamos estilos previos para asegurar consistencia */
+  margin: 0 auto 25px auto; 
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.user-image-container img.img-fluid:hover {
+  transform: scale(1.05);
+}
+
+.user-info-details {
+  width: 100%;
+  text-align: left;
+}
+
+.user-info-details .fst-italic {
+  color: var(--muted-color);
+  text-align: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+}
+
+.user-info-details ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.user-info-details ul i {
+  color: var(--accent-color);
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.user-info-details ul strong {
+  color: var(--muted-color);
+  min-width: 90px; /* Ayuda a alinear la información */
+  margin-right: 8px;
+}
+
+.user-info-details ul span {
+  color: var(--default-color);
+  font-weight: 500;
+}
+
+/* --- Panel Derecho: Formación, Experiencia y Habilidades --- */
+.profile-right-panel {
+  flex: 3; /* Ocupa 3/5 del espacio */
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Espacio entre la sección superior e inferior */
+}
+
+.profile-right-panel h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-color); /* Usamos el color de acento para los títulos */
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.profile-right-panel ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: var(--default-color);
+}
+
+.profile-right-panel ul li i {
+  color: var(--accent-color);
+  font-size: 1.2rem; /* Iconos un poco más grandes */
+  margin-right: 12px;
+  flex-shrink: 0; /* Evita que el icono se encoja */
+}
+
+
+/* --- Texto final de la sección --- */
+.container p.text-muted {
+  color: var(--muted-color) !important; /* Importante para sobreescribir Bootstrap si es necesario */
+}
+
+
+/*--------------------------------------------------------------
+# Responsive Design para la Sección de Perfil
+--------------------------------------------------------------*/
+@media (max-width: 992px) {
+  .profile-layout-container {
+    flex-direction: column; /* Apila los paneles verticalmente */
+  }
+
+  /* Ajustamos el padding para pantallas más pequeñas */
+  .profile-left-panel,
+  .profile-right-panel {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 576px) {
+  /* En pantallas muy pequeñas, hacemos que las columnas internas de Bootstrap se apilen */
+  .user-info-details .row > [class^="col-"],
+  .profile-right-top .row > [class^="col-"] {
+    margin-bottom: 20px; /* Añade espacio entre las listas cuando se apilan */
+  }
+
+  .user-info-details ul li,
+  .profile-right-panel ul li {
+    font-size: 14px; /* Texto ligeramente más pequeño */
+  }
+}
