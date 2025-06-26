@@ -9,6 +9,7 @@ require_once '../app/controllers/codigoVerificacionController.php';
 require_once '../app/controllers/inicioController.php';
 require_once '../app/controllers/olvidoContraseniaController.php';
 require_once '../app/controllers/ingresoController.php';
+require_once '../app/controllers/rutinaController.php';
 
 
 

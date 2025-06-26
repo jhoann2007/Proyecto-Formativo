@@ -1,6 +1,23 @@
 <?php
 return [
-
+    # RUTINAS
+    '/agregarRutina' => [
+        'controller' => 'App\Controller\RutinaController',
+        'action' => 'index'
+    ],
+    
+    '/rutina/new' => [
+        'controller' => 'App\Controller\RutinaController',
+        'action' => 'new'
+    ],
+    '/rutina/create' => [
+        'controller' => 'App\Controller\RutinaController',
+        'action' => 'create'
+    ],
+    '/rutina/verEjercicios/(\d+)' => [
+        'controller' => 'App\Controller\RutinaController',
+        'action' => 'verEjercicios'
+    ],
     # EJEMPLOS
     '/home' => [
         'controller' => 'App\Controller\HomeController',

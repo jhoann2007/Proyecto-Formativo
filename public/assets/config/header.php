@@ -1,7 +1,7 @@
 <i class="header-toggle d-xl-none bi bi-list"></i>
 
 <div class="profile-img">
-  <img src="assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
+  <img src="/assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
 </div>
 
 <!-- <a href="/perfil" class="logo d-flex align-items-center justify-content-center">
@@ -22,6 +22,7 @@
     <li><a href="/inicio" class=""><i class="bi bi-house navicon"></i>Inicio</a></li>
     <li><a href="/perfil"><i class="bi bi-person navicon"></i>Perfil</a></li>
     <li><a href="/calendario"><i class="bi bi-file-earmark-text navicon"></i>Calendario</a></li>
+      
     <?php
      if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -38,6 +39,7 @@
         echo "
                         <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
                         <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
+                         <li><a href='/agregarRutina'><i class='bi bi-clipboard-check navicon'></i>Agregar Rutina</a></li>
                         ";
         break;
       case 'entrenador':
