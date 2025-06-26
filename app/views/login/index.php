@@ -57,9 +57,9 @@
                 <button type="submit">Ingresar</button>
             </div>
         </form>
-        <div class="extra-links">
+        <!-- <div class="extra-links">
             <a href="#">¿Olvidaste tu contraseña?</a>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>
