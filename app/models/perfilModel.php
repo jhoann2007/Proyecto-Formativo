@@ -1,10 +1,6 @@
 <?php
 namespace App\Models;
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 $idUsuario = $_SESSION['user_id'] ?? 'desconocido';
 
 require_once MAIN_APP_ROUTE . "../models/baseModel.php";
