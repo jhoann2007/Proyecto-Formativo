@@ -1,67 +1,21 @@
 <div class="data-container">
 
-     <div class="button">
-        <button class="add-button">Crear Rutina</button>
+    <div class="button">
+        <a href="/rutina/new" class="add-button">Crear Rutina</a>
     </div>
 
     <div class="card-grid">
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
+        <?php foreach ($rutinas as $rutina): ?>
+            <div class="form-card">
+                <div class="card-content">
+                    <img src="/public/assets/img/rutina.jpg" alt="<?php echo $rutina->nombre; ?>" class="card-image">
+                    <h3 class="card-title"><?php echo $rutina->nombre; ?></h3>
+                    <p class="card-description"><?php echo $rutina->calentamiento; ?></p>
                 </div>
-            </form>
-        </div>
-
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
+                <div class="card-footer">
+                    <a href="/rutina/verEjercicios/<?php echo $rutina->id; ?>" class="ver-btn">Ver Ejercicios</a>
                 </div>
-            </form>
-        </div>
-
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-
-        <div class="form-card">
-            <form action="/rutina/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                </div>
-            </form>
-        </div>
-
-        <!-- Agrega más tarjetas aquí -->
-
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>

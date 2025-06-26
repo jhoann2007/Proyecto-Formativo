@@ -1,7 +1,7 @@
 <i class="header-toggle d-xl-none bi bi-list"></i>
 
 <div class="profile-img">
-  <img src="assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
+  <img src="/assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
 </div>
 
 <a href="index.html" class="logo d-flex align-items-center justify-content-center">
@@ -16,7 +16,9 @@
     <li><a href="/document"><i class="bi bi-list-check navicon"></i>Documentación</a></li>
     <li><a href="/agregarRutina"><i class="bi bi-clipboard-check navicon"></i>Agregar Rutina</a></li>
     <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
     // Asegurarse de que 'user_rol_nombre' existe para evitar notices,
