@@ -13,6 +13,8 @@
 <header id="header" class="header dark-background d-flex flex-column">
     <?php include 'assets/config/header.php'; ?>
 </header>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/header.css">
 <!-- fin header -->
 <style>
     .data-container {
