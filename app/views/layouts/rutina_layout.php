@@ -37,7 +37,9 @@
     }
 
     .form-card {
-        background: #fff;
+        background: rgba(25, 25, 46, 0.25);
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px);
         border-radius: 12px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         padding: 2rem 1.5rem;
@@ -47,6 +49,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        border: 2px solid  #FFCE40;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4); /* Sombra más intensa */
         /* 🔑 Esto distribuye el contenido verticalmente */
     }
 

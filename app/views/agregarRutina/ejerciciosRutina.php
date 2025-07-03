@@ -30,7 +30,7 @@
 </div>
 </div>
 
-<style>              
+<style>
     .dashboard-ejercicios {
         margin-left: 300px;
         display: flex;
@@ -41,7 +41,6 @@
     }
 
     .ejercicio-card {
-        background: #fff;
         border-radius: 16px;
         box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
         width: 260px;
@@ -49,6 +48,12 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        background: rgba(25, 25, 46, 0.25) !important;
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px) !important;
+        /* Fondo blanco por defecto */
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 
     .ejercicio-img img {
@@ -56,6 +61,8 @@
         height: 120px;
         object-fit: contain;
         margin-bottom: 16px;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 
     .ejercicio-info h4 {
@@ -64,10 +71,17 @@
         text-align: center;
     }
 
+    h4{
+        color: #FFCE40 !important;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
 
     .ejercicio-info p {
         font-size: 0.95rem;
-        color: #666;
+        color: #fff;
         margin-bottom: 6px;
         text-align: center;
     }
@@ -93,14 +107,14 @@
 </style>
 
 <script>
-function mostrarGrupoMuscular(btn) {
-    const grupo = btn.parentElement.querySelector('.grupo-muscular');
-    if (grupo.style.display === 'none') {
-        grupo.style.display = 'block';
-        btn.textContent = 'Ocultar grupo muscular';
-    } else {
-        grupo.style.display = 'none';
-        btn.textContent = 'Ver grupo muscular';
+    function mostrarGrupoMuscular(btn) {
+        const grupo = btn.parentElement.querySelector('.grupo-muscular');
+        if (grupo.style.display === 'none') {
+            grupo.style.display = 'block';
+            btn.textContent = 'Ocultar grupo muscular';
+        } else {
+            grupo.style.display = 'none';
+            btn.textContent = 'Ver grupo muscular';
+        }
     }
-}
 </script>

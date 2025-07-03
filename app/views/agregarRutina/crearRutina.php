@@ -178,18 +178,23 @@
 
     .modal-content {
         margin-left: 585px;
-        background: #fff;
+        background: rgba(25, 25, 46, 0.25) !important;
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px) !important;
         border-radius: 16px;
         padding: 25px;
-        width: 610px;
+        width: 620px;
         max-width: 90vw;
         box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
         position: relative;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 
     .close {
         position: absolute;
-        top: 32px;           /* Ajusta según el padding-top del buscador */
+        top: 32px;
+        /* Ajusta según el padding-top del buscador */
         right: 32px;
         font-size: 2rem;
         cursor: pointer;
@@ -204,6 +209,12 @@
         border: 1px solid #ccc;
         border-radius: 4px;
         font-size: 16px;
+        background: rgba(25, 25, 46, 0.25) !important;
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px) !important;
+        /* Fondo blanco por defecto */
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 
     .lista-ejercicios {
@@ -217,13 +228,17 @@
         align-items: center;
         gap: 18px;
         border-radius: 12px;
-        background: #fff;
+        background: rgba(25, 25, 46, 0.25) !important;
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px) !important;
         /* Fondo blanco por defecto */
         padding: 12px 18px;
         margin-bottom: 12px;
         cursor: pointer;
         border: 2px solid transparent;
         transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 
     .ejercicio-img-modal {
@@ -271,6 +286,12 @@
         border-radius: 6px;
         border: 1px solid #ccc;
         font-size: 1rem;
+        background: rgba(25, 25, 46, 0.25) !important;
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px) !important;
+        /* Fondo blanco por defecto */
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 
     .grupo-muscular {
@@ -289,11 +310,26 @@
     .ejercicio-inputs select,
     .ejercicio-inputs input[type="number"] {
         width: 80px;
-        /* Más ancho para ver el texto completo */    
+        /* Más ancho para ver el texto completo */
         font-size: 1rem;
         border-radius: 6px;
         border: 1px solid #ccc;
-       
+
+    }
+
+    .modal-content select,
+    .modal-content input[type="number"] {
+        color: #fff !important;
+    }
+
+    .modal-content select option {
+        color: #222 !important;
+        /* Opcional: color de las opciones del desplegable */
+    }
+
+    .modal-content input::placeholder {
+        color: #fff !important;
+        opacity: 1;
     }
 </style>
 
