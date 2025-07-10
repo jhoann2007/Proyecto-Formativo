@@ -104,6 +104,10 @@
     .ver-btn:hover {
         background: #0056b3;
     }
+
+    .ejercicio-item {
+        
+    }
 </style>
 
 <script>

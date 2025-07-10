@@ -13,8 +13,8 @@
 <header id="header" class="header dark-background d-flex flex-column">
     <?php include 'assets/config/header.php'; ?>
 </header>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/header.css">
 <!-- fin header -->
 <style>
     .data-container {
@@ -51,8 +51,9 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        border: 2px solid  #FFCE40;
-        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4); /* Sombra más intensa */
+        border: 2px solid #FFCE40;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4);
+        /* Sombra más intensa */
         /* 🔑 Esto distribuye el contenido verticalmente */
     }
 
@@ -124,6 +125,7 @@
     .form-group {
         width: 100%;
         margin-bottom: 1.5rem;
+
     }
 
     .btn-primary {
@@ -140,6 +142,13 @@
     .sidebar-collapsed .data-container {
         margin-left: 80px;
         /* Ajusta si el menú se colapsa */
+    }
+
+    .add-button {
+        background: #111a22;
+        transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 </style>
 

@@ -13,8 +13,8 @@
 <header id="header" class="header dark-background d-flex flex-column">
     <?php include 'assets/config/header.php'; ?>
 </header>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/header.css">
 <!-- fin header -->
 <style>
     .data-container {
@@ -102,6 +102,34 @@
         display: flex;
         gap: 16px;
         justify-content: center;
+    }
+
+    input {
+        background: rgba(25, 25, 46, 0.25) !important;
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px) !important;
+        /* Fondo blanco por defecto */
+        transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
+        color: #fff !important;
+    }
+
+    textarea {
+        background: rgba(25, 25, 46, 0.25) !important;
+        /* Fondo semi-transparente */
+        backdrop-filter: blur(15px) !important;
+        /* Fondo blanco por defecto */
+        transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px hsla(59, 95%, 58%, 0.40) !important;
+        color: #fff !important;
+    }
+
+    .add-exercise-btn {
+        transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
     }
 </style>
 

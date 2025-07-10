@@ -215,6 +215,7 @@
         /* Fondo blanco por defecto */
         border: 2px solid #FFCE40 !important;
         box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4) !important;
+        color: #fff !important;
     }
 
     .lista-ejercicios {
@@ -273,11 +274,16 @@
     }
 
     .ejercicio-item.seleccionado {
-        border: 2.5px solid #0d6efd;
-        /* Borde azul */
-        background: #e3f1ff;
-        /* Fondo azul solo cuando está seleccionado */
-        box-shadow: 0 0 0 2px #b6d8ff;
+        border: 2px solid #28a745 !important;
+        /* Borde verde */
+        background: rgba(40, 167, 69, 0.2);
+        /* Fondo verde claro */
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        /* Sombra verde */
+        color: #28a745;
+        /* Texto verde */
+        transition: background 0.3s, box-shadow 0.3s, border 0.3s;
+        /* Transiciones suaves */
     }
 
     .input-mini {
@@ -331,6 +337,33 @@
         color: #fff !important;
         opacity: 1;
     }
+
+    .ejercicio-item.seleccionado .input-mini {
+        border: 2px solid #28a745 !important;
+        /* Borde verde */
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        /* Sombra verde */
+        transition: border 0.3s, box-shadow 0.3s;
+        /* Transiciones suaves */
+    }
+
+    .add-selected-btn {
+        transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 10px rgba(250, 248, 45, 0.4) !important;
+    }
+
+    .submit-button {
+        transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 10px rgba(250, 248, 45, 0.4) !important;
+    }
+
+    .cancel-button {
+        transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+        border: 2px solid #FFCE40 !important;
+        box-shadow: 0 5px 10px rgba(250, 248, 45, 0.4) !important;
+    }
 </style>
 
 <script>
@@ -349,12 +382,10 @@
         const item = document.getElementById('ej-item-' + id);
         if (ejerciciosSeleccionados[id]) {
             delete ejerciciosSeleccionados[id];
-            item.classList.remove('seleccionado');
-            // No ocultes los inputs
+            item.classList.remove('seleccionado'); // Remueve la clase
         } else {
             ejerciciosSeleccionados[id] = nombre;
-            item.classList.add('seleccionado');
-            // No muestres los inputs, ya están visibles
+            item.classList.add('seleccionado'); // Agrega la clase
         }
         actualizarBotonContador();
     }
