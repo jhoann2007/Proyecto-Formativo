@@ -26,7 +26,7 @@
 </div>
 
 <div class="button-back">
-    <a href="/rutina" class="btn-back">Volver a Rutinas</a>
+    <a href="/agregarRutina" class="btn-back">Volver a Rutinas</a>
 </div>
 </div>
 
@@ -105,9 +105,9 @@
         background: #0056b3;
     }
 
-    .ejercicio-item {
+    /* .ejercicio-item {
         
-    }
+    } */
 </style>
 
 <script>

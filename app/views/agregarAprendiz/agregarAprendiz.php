@@ -1,6 +1,6 @@
 <div class="table-responsive">
-    <table class="table table-bordered align-middle text-center">
-        <thead class="table-light">
+    <table class="table-aprendiz">
+        <thead class="table-group">
             <tr>
                 <th>Nombre</th>
                 <th>Tipo Documento</th>
@@ -262,7 +262,7 @@
                                     <form action='/agregarAprendiz/update' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
                                         <!-- Campo oculto para el rol de aprendiz (posición 0) -->
-                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[0]) ? $roles[0]->id : '') . "'>
+                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[2]) ? $roles[2]->id : '') . "'>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Nombre</label>
@@ -270,7 +270,7 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Documento</label>
-                                                <select class='form-select' name='txtTipoDocumento'>
+                                                <select class='form-control' name='txtTipoDocumento'>
                                                     <option value='CC' ".($tipoDocumento == 'CC' ? 'selected' : '').">Cédula de ciudadanía</option>
                                                     <option value='CE' ".($tipoDocumento == 'CE' ? 'selected' : '').">Cédula de Extranjería</option>
                                                     <option value='TI' ".($tipoDocumento == 'TI' ? 'selected' : '').">Tarjeta de identidad</option>
@@ -296,7 +296,7 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Género</label>
-                                                <select class='form-select' name='txtGenero'>
+                                                <select class='form-control' name='txtGenero'>
                                                     <option value='M' ".($genero == 'M' ? 'selected' : '').">Masculino</option>
                                                     <option value='F' ".($genero == 'F' ? 'selected' : '').">Femenino</option>
                                                 </select>
@@ -305,7 +305,7 @@
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Estado</label>
-                                                <select class='form-select' name='txtEstado'>
+                                                <select class='form-control' name='txtEstado'>
                                                     <option value='activo' ".($estado == 'activo' ? 'selected' : '').">Activo</option>
                                                     <option value='inactivo' ".($estado == 'inactivo' ? 'selected' : '').">Inactivo</option>
                                                 </select>
@@ -322,7 +322,7 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Sangre</label>
-                                                <select class='form-select' name='txtTipoSangre'>
+                                                <select class='form-control' name='txtTipoSangre'>
                                                     <option value='A+' ".($tipoSangre == 'A+' ? 'selected' : '').">A+</option>
                                                     <option value='A-' ".($tipoSangre == 'A-' ? 'selected' : '').">A-</option>
                                                     <option value='B+' ".($tipoSangre == 'B+' ? 'selected' : '').">B+</option>
@@ -355,9 +355,16 @@
                                             </div>
                                         </div>
                                         <div class='row mb-3'>
+                                            <div class='col-md-12'>
+                                                <label class='form-label'>Observaciones</label>
+                                                <textarea class='form-control' name='txtObservaciones'></textarea>
+                                                <small class='text-muted'>Deje este campo en blanco si no desea agregar una nueva observación.</small>
+                                            </div>
+                                        </div>
+                                        <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Ficha</label>
-                                                <select class='form-select' name='txtFKidGrupo'>
+                                                <select class='form-control' name='txtFKidGrupo'>
                                                     <option value=''>Seleccionar Ficha</option>";
                                                     if (isset($grupos) && is_array($grupos)) {
                                                         foreach ($grupos as $grupo) {
@@ -369,7 +376,7 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Centro Formación</label>
-                                                <select class='form-select' name='txtFKidCentroFormacion'>
+                                                <select class='form-control' name='txtFKidCentroFormacion'>
                                                     <option value=''>Seleccionar Centro</option>";
                                                     if (isset($centrosFormacion) && is_array($centrosFormacion)) {
                                                         foreach ($centrosFormacion as $centro) {
@@ -444,13 +451,13 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalAprendizLabel">Agregar Aprendiz</h5>
+                <h5 class="modal-titulo" id="modalAprendizLabel">Agregar Aprendiz</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
                 <form action="/agregarAprendiz/create" method="post">
-                    <!-- Campo oculto para asignar automáticamente el rol de aprendiz (posición 0) -->
-                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[0]) ? $roles[0]->id : ''; ?>">
+                    <!-- Campo oculto para asignar automáticamente el rol de aprendiz (posición 3) -->
+                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[2]) ? $roles[2]->id : ''; ?>">
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -459,7 +466,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tipo de Documento</label>
-                            <select class="form-select" name="txtTipoDocumento" required>
+                            <select class="form-control" name="txtTipoDocumento" required>
                                 <option value="">Seleccionar</option>
                                 <option value="CC">Cédula de ciudadanía</option>
                                 <option value="CE">Cédula de Extranjería</option>
@@ -486,7 +493,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Género</label>
-                            <select class="form-select" name="txtGenero" required>
+                            <select class="form-control" name="txtGenero" required>
                                 <option value="">Seleccionar</option>
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
@@ -496,7 +503,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Estado</label>
-                            <select class="form-select" name="txtEstado" required>
+                            <select class="form-control" name="txtEstado" required>
                                 <option value="">Seleccionar</option>
                                 <option value="activo">Activo</option>
                                 <option value="inactivo">Inactivo</option>
@@ -514,7 +521,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tipo Sangre</label>
-                            <select class="form-select" name="txtTipoSangre" required>
+                            <select class="form-control" name="txtTipoSangre" required>
                                 <option value="">Seleccionar Tipo de Sangre</option>
                                 <option value="A+">A+</option>
                                 <option value="A-">A-</option>
@@ -547,16 +554,16 @@
                             <input type="password" class="form-control" name="txtPassword" required>
                         </div>
                     </div>
-                    <!-- <div class="row mb-3">
+                    <div class="row mb-3">
                         <div class="col-md-12">
                             <label class="form-label">Observaciones</label>
                             <textarea class="form-control" name="txtObservaciones"></textarea>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Ficha</label>
-                            <select class="form-select" name="txtFKidGrupo">
+                            <select class="form-control" name="txtFKidGrupo">
                                 <option value="">Seleccionar Ficha</option>
                                 <?php
                                 if (isset($grupos) && is_array($grupos)) {
@@ -569,7 +576,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Centro Formación</label>
-                            <select class="form-select" name="txtFKidCentroFormacion">
+                            <select class="form-control" name="txtFKidCentroFormacion">
                                 <option value="">Seleccionar Centro</option>
                                 <?php
                                 if (isset($centrosFormacion) && is_array($centrosFormacion)) {

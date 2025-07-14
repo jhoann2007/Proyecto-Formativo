@@ -19,8 +19,9 @@
     <header id="header" class="header dark-background d-flex flex-column">
         <?php include 'assets/config/header.php'; ?>
     </header>
-
-    <?php include_once $content; ?>
+    <main class="main">
+        <?php include_once $content; ?>
+    </main>
     
     <?php include 'assets/config/scroll.php'; ?>
     <div id="preloader"></div>

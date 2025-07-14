@@ -25,6 +25,7 @@
 
   <!-- Estilos propios -->
     <link rel="stylesheet" href="/css/header.css">
+    <!-- <link rel="stylesheet" href="/css/inicio.css"> -->
 
   <div class="background-shapes">
     <div class="shape shape1"></div>
@@ -43,7 +44,7 @@
   <!-- fin header -->
 
   <!-- main -->
-  <main class="main ">
+  <main class="main">
     <!-- Hero Section -->
     <section id="hero" class="hero section white-background">
       <div class="container" data-aos="fade-up" data-aos-delay="100">

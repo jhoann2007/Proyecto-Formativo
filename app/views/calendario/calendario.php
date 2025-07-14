@@ -2,15 +2,14 @@
     <!-- Layout con sidebar y contenido principal -->
     <div class="container-fluid">
         <div class="row">
-
             <!-- Contenido principal del calendario -->
             <div class="col-md-9 col-lg-10 main-content">
                 <div class="content-wrapper">
                     <div class="page-header mb-4">
-                        <h2 class="page-title">Calendario del Gimnasio</h2>
+                        <h2 class="page-titulo">Calendario del Gimnasio</h2>
                         <p class="page-subtitle">
-                            Bienvenido, <?= htmlspecialchars($userName) ?> - 
-                            <?php if ($userRole === 'admin'): ?>
+                            Bienvenido, <?= htmlspecialchars($userName) ?> -
+                             <?php if ($userRole === 'admin'): ?>
                                 Gestiona los horarios y entrenadores del gimnasio (Administrador)
                             <?php elseif ($userRole === 'entrenador'): ?>
                                 Gestiona los horarios del gimnasio (Entrenador)
@@ -19,7 +18,7 @@
                             <?php endif; ?>
                         </p>
                     </div>
-                    
+                                                            
                     <div class="calendar-container">
                         <div id="calendar"></div>
                     </div>
@@ -46,7 +45,7 @@
                 <div class="modal-body">
                     <input type="hidden" id="fechaSeleccionada" name="fecha">
                     <input type="hidden" id="eventoId" name="id_calendario">
-                    
+                                                            
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="hora_inicio" class="form-label">Hora de Inicio</label>
@@ -57,16 +56,20 @@
                             <input type="time" class="form-control" id="hora_cierre" name="hora_cierre" required>
                         </div>
                     </div>
-                    
+                                                            
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="id_encargado" class="form-label">Entrenador Encargado</label>
                             <select class="form-select" id="id_encargado" name="id_encargado" required>
                                 <option value="">Seleccionar entrenador...</option>
-                                <?php if (isset($entrenadores) && is_array($entrenadores)): ?>
+                                <?php if (isset($entrenadores) && is_array($entrenadores) && count($entrenadores) > 0): ?>
                                     <?php foreach ($entrenadores as $entrenador): ?>
-                                        <option value="<?= $entrenador['id'] ?>"><?= htmlspecialchars($entrenador['nombre']) ?></option>
+                                        <option value="<?= htmlspecialchars($entrenador['id']) ?>">
+                                            <?= htmlspecialchars($entrenador['nombre']) ?>
+                                        </option>
                                     <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="" disabled>No hay entrenadores disponibles</option>
                                 <?php endif; ?>
                             </select>
                         </div>
@@ -75,7 +78,7 @@
                             <input type="number" class="form-control" id="capacidad_max" name="capacidad_max" min="1" max="100" required>
                         </div>
                     </div>
-                    
+                                                            
                     <div class="mb-3">
                         <label for="estado" class="form-label">Estado</label>
                         <select class="form-select" id="estado" name="estado" required>
@@ -84,12 +87,12 @@
                             <option value="inactivo">Inactivo</option>
                         </select>
                     </div>
-
+                                        
                     <!-- Sección para mostrar aprendices registrados -->
                     <div id="aprendicesSection" style="display: none;">
                         <hr>
                         <h6><i class="fas fa-users"></i> Aprendices Registrados</h6>
-                        <div id="listaAprendices" class="mt-3">
+                        <div id="listaAprendices" class="listaAprendices">
                             <!-- Se llena dinámicamente -->
                         </div>
                     </div>
@@ -118,16 +121,15 @@
                 <div class="modal-body">
                     <input type="hidden" id="fechaAprendiz" name="fecha">
                     <input type="hidden" id="calendarioIdAprendiz" name="id_calendario">
-                    
+                                                            
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle"></i>
                         <strong>Importante:</strong> Solo puedes registrar máximo 2 horas por día.
                     </div>
-
                     <div id="horarioDisponible" class="mb-3">
                         <!-- Se llena dinámicamente -->
                     </div>
-                    
+                                                            
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="hora_entrada" class="form-label">Hora de Entrada</label>
@@ -175,4 +177,7 @@
     window.userRole = '<?= $userRole ?>';
     window.userId = <?= $userId ?>;
     window.userName = '<?= htmlspecialchars($userName) ?>';
+        
+    // Pasar entrenadores a JavaScript si es necesario
+    window.entrenadores = <?= json_encode($entrenadores) ?>;
 </script>

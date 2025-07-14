@@ -173,5 +173,35 @@ return [
         'controller' => 'App\Controller\AgregarAprendizController',
         'action' => 'agregarObservacion'
     ],
+
+    # Agregar Admin
+    '/agregarAdmin' => [
+        'controller' => 'App\Controller\AgregarAdminController',
+        'action' => 'index'
+    ],
+    '/agregarAdmin/create' => [ // Crea el Admin en la Base de Datos 
+        'controller' => 'App\Controller\AgregarAdminController',
+        'action' => 'create'
+    ],
+    '/agregarAdmin/view/(\d+)' => [ // Visualiza el Admin con el ID especificado 
+        'controller' => 'App\Controller\AgregarAdminController',
+        'action' => 'view'
+    ],
+    '/agregarAdmin/edit/(\d+)' => [
+        'controller' => 'App\Controller\AgregarAdminController',
+        'action' => 'editAdmin'
+    ],
+    '/agregarAdmin/update' => [
+        'controller' => 'App\Controller\AgregarAdminController',
+        'action' => 'updateAdmin'
+    ],
+    '/agregarAdmin/delete/(\d+)' => [
+        'controller' => 'App\Controller\AgregarAdminController',
+        'action' => 'deleteAdmin'
+    ],
+    '/agregarAdmin/borrar' => [
+        'controller' => 'App\Controller\AgregarAdminController',
+        'action' => 'borrarAdmin'
+    ],
 ];
 ?>

@@ -1,16 +1,16 @@
-<?php 
+<?php
 namespace App\Controller;
-use App\Models\AgregarEntrenadorModel;
+use App\Models\AgregarAdminModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/agregarEntrenadorModel.php";
+require_once MAIN_APP_ROUTE . "../models/agregarAdminModel.php";
 
-class AgregarEntrenadorController extends BaseController 
+class agregarAdminController extends BaseController
 {
     public function __construct()
     {
         # Se define el layout para este controlador
-        $this->layout = 'agregarEntrenador_layout';
+        $this->layout = 'agregarAdmin_layout';
 
         # Iniciar sesiín si no está inciada
         if (session_status() == PHP_SESSION_NONE) {
@@ -18,31 +18,31 @@ class AgregarEntrenadorController extends BaseController
         }
 
         # Inicializar el array de observaciones en la sesión si no existe
-        if (!isset($_SESSION['observaciones_entrenador'])) {
-            $_SESSION['observaciones_entrenador'] = [];
+        if (!isset($_SESSION['observaciones_admin'])) {
+            $_SESSION['observaciones_admin'] = [];
         }
     }
 
     public function index()
     {
         # Crear una instancia del modelo 
-        $agregarEntrenadorObj = new AgregarEntrenadorModel();
+        $agregarAdminObj = new AgregarAdminModel();
 
-        # Obtener solo los entrenadores (rol 2) desde el modelo
-        $entrenadores = $agregarEntrenadorObj->getEntrenadoresOnly();
+        # Obtener solo los administradores (rol 1) desde el modelo
+        $admins = $agregarAdminObj->getAdminOnly();
 
         # Obtener roles
-        $roles = $agregarEntrenadorObj->getRoles();
+        $roles = $agregarAdminObj->getRoles();
 
         # Pasar los datos a la vista 
         $data = [
-            'title' => 'Lista de Entrenadores',
-            'entrenadores' => $entrenadores,
+            'title' => 'Lista de Administradores',
+            'admins' => $admins,
             'roles' => $roles
         ];
 
         # Renderizar la vista a través del método de BaseController
-        $this->render('agregarEntrenador/agregarEntrenador.php', $data);
+        $this->render('agregarAdmin/agregarAdmin.php', $data);
     }
 
     # Guarda los datos del formulario 
@@ -64,22 +64,22 @@ class AgregarEntrenadorController extends BaseController
         $fkIdRol = $_POST['txtFKidRol'] ?? null;
 
         if($nombre) {
-            $objEntrenador = new AgregarEntrenadorModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
-            $respuesta = $objEntrenador->save();
+            $objAdmin = new AgregarAdminModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $respuesta = $objAdmin->save();
 
             if($respuesta) {
                 # Si hay observaciones inciales, guardalas en la sesión 
                 if(!empty($observaciones)) {
-                    # Obtener el ID del entrenador recién creado
-                    $nuevoId = $objEntrenador->getLastInsertId();
+                    # Obtener el ID del admin recién creado
+                    $nuevoId = $objAdmin->getLastInsertId();
                     if ($nuevoId) {
                         # Inicializar el array para este ID si no existe
-                        if (!isset($_SESSION['observaciones_entrenador'][$nuevoId])) {
-                            $_SESSION['observaciones_entrenador'][$nuevoId] = [];
+                        if (!isset($_SESSION['observaciones_admin'][$nuevoId])) {
+                            $_SESSION['observaciones_admin'][$nuevoId] = [];
                         }
 
                         # Agregar la observación inicial
-                        $_SESSION['observaciones_entrenador'][$nuevoId][] = [
+                        $_SESSION['observaciones_admin'][$nuevoId][] = [
                             'texto' => $observaciones,
                             'fecha' => date('Y-m-d H:i:s')
                         ];
@@ -87,75 +87,75 @@ class AgregarEntrenadorController extends BaseController
                 }
 
                 # Éxito al guardar
-                header('Location:/agregarEntrenador');
+                header('Location:/agregarAdmin');
                 exit();
             } else {
                 # Error al guardar
-                echo "Error al guardar el entrenador. Por favor, inténtelo de nuevo.";
-                header('Refresh: 3; URL=/agregarEntrenador');
+                echo "Error al guardar el administrador. Por favor, inténtelo de nuevo.";
+                header('Refresh: 3; URL=/agregarAdmin');
                 exit();
             }
         } else {
             # Datos incompletos
             echo "Datos incompletos. Por favor, complete todos los campos obligatorios.";
-            header('Refresh: 3; URL=/agregarEntrenador');
+            header('Refresh: 3; URL=/agregarAdmin');
             exit();
         }
     }
 
     public function view($id)
     {
-        $objEntrenador = new AgregarEntrenadorModel($id);
-        $entrenadorInfo = $objEntrenador->getEntrenador();
-        if(!empty($entrenadorInfo)) {
+        $objAdmin = new AgregarAdminModel($id);
+        $adminInfo = $objAdmin->getAdmin();
+        if(!empty($adminInfo)) {
             $data = [
-                'id' => $entrenadorInfo[0]->id,
-                'nombre' => $entrenadorInfo[0]->nombre,
-                'tipoDocumento' => $entrenadorInfo[0]->tipoDocumento,
-                'documento' => $entrenadorInfo[0]->documento,
-                'fechaNacimiento' => $entrenadorInfo[0]->fechaNacimiento,
-                'email' => $entrenadorInfo[0]->email,
-                'genero' => $entrenadorInfo[0]->genero, 
-                'estado' => $entrenadorInfo[0]->estado, 
-                'telefono' => $entrenadorInfo[0]->telefono, 
-                'eps' => $entrenadorInfo[0]->eps,
-                'tipoSangre' => $entrenadorInfo[0]->tipoSangre,
-                'telefonoEmerjencia' => $entrenadorInfo[0]->telefonoEmerjencia,
-                'password' => $entrenadorInfo[0]->password, 
-                'observaciones' => $entrenadorInfo[0]->observaciones,
-                'fkIdRol' => $entrenadorInfo[0]->fkIdRol
+                'id' => $adminInfo[0]->id,
+                'nombre' => $adminInfo[0]->nombre,
+                'tipoDocumento' => $adminInfo[0]->tipoDocumento,
+                'documento' => $adminInfo[0]->documento,
+                'fechaNacimiento' => $adminInfo[0]->fechaNacimiento,
+                'email' => $adminInfo[0]->email,
+                'genero' => $adminInfo[0]->genero, 
+                'estado' => $adminInfo[0]->estado, 
+                'telefono' => $adminInfo[0]->telefono, 
+                'eps' => $adminInfo[0]->eps,
+                'tipoSangre' => $adminInfo[0]->tipoSangre,
+                'telefonoEmerjencia' => $adminInfo[0]->telefonoEmerjencia,
+                'password' => $adminInfo[0]->password, 
+                'observaciones' => $adminInfo[0]->observaciones,
+                'fkIdRol' => $adminInfo[0]->fkIdRol
             ];
-            $this->render("agregarEntrenador/viewOneEntrenador.php", $data);
+            $this->render("agregarAdmin/viewOneAdmin.php", $data);
         } else {
-            echo "Entrenador no encontrado.";
-            header('Refresh: 3; URL=/agregarEntrenador');
+            echo "Administrador no encontrado.";
+            header('Refresh: 3; URL=/agregarAdmin');
             exit();
         }
     }
 
     # Mostrar lo que se quiere editar en el formulario 
-    public function editEntrenador($id)
+    public function editAdmin($id)
     {
-        $objEntrenador = new AgregarEntrenadorModel($id);
-        $entrenadorInfo = $objEntrenador->getEntrenador();
-        if (!empty($entrenadorInfo)) {
+        $objAdmin = new AgregarAdminModel($id);
+        $adminInfo = $objAdmin->getAdmin();
+        if (!empty($adminInfo)) {
             # Obtener roles
-            $roles = $objEntrenador->getRoles();
+            $roles = $objAdmin->getRoles();
 
             $data = [
-                'infoReal' => $entrenadorInfo[0],
+                'infoReal' => $adminInfo[0],
                 'roles' => $roles
             ];
-            $this->render("agregarEntrenador/editEntrenador.php", $data);
+            $this->render("agregarAdmin/editAdmin.php", $data);
         } else {
-            echo "Entrenador no encontrado.";
-            header('Refresh: 3; URL=/agregarEntrenador');
+            echo "Administrador no encontrado.";
+            header('Refresh: 3; URL=/agregarAdmin');
             exit();
         }
     }
 
     # Se edita como tal en la Base de Datos 
-    public function updateEntrenador()
+    public function updateAdmin()
     {
         if (isset($_POST['txtId'])) {
             $id = $_POST['txtId'] ?? null;
@@ -177,54 +177,54 @@ class AgregarEntrenadorController extends BaseController
             # Si hay observaciones nuevas, agregarlas a la sesión 
             if (!empty($observaciones)) {
                 # Inicializar el array para este Id si no existe
-                if (!isset($_SESSION['observaciones_entrenador'][$id])) {
-                    $_SESSION['observaciones_entrenador'][$id] = [];
+                if (!isset($_SESSION['observaciones_admin'][$id])) {
+                    $_SESSION['observaciones_admin'][$id] = [];
                 }
 
                 # Agregar la nueva observación 
-                $_SESSION['observaciones_entrenador'][$id][] = [
+                $_SESSION['observaciones_admin'][$id][] = [
                     'texto' => $observaciones,
                     'fecha' => date('Y-m-d H:i:s')
                 ];
             }
 
-            $entrenadorObjEdit = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
-            $respuesta = $entrenadorObjEdit->editEntrenador();
+            $adminObjEdit = new AgregarAdminModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $respuesta = $adminObjEdit->editAdmin();
 
             if ($respuesta) {
-                header("Location:/agregarEntrenador");
+                header("Location:/agregarAdmin");
                 exit();
             } else {
-                echo "Error al actualizar el entrenador. Por favor. Inténtelo de nuevo.";
-                header('Refresh: 3; URL=/agregarEntrenador');
+                echo "Error al actualizar el administrador. Por favor. Inténtelo de nuevo.";
+                header('Refresh: 3; URL=/agregarAdmin');
                 exit();
             }
         } else {
-            echo "ID de entrenador no proporcionado";
-            header('Refresh: 3; URL=/agregarEntrenador');
+            echo "ID de administrador no proporcionado";
+            header('Refresh: 3; URL=/agregarAdmin');
             exit();
         }
     }
 
     # Muestra lo que se quiere eliminar 
-    public function deleteEntrenador($id)
+    public function deleteAdmin($id)
     {
-        $objEntrenador = new AgregarEntrenadorModel($id);
-        $entrenadorInfo = $objEntrenador->getEntrenador();
-        if (!empty($entrenadorInfo)) {
+        $objAdmin = new AgregarAdminModel($id);
+        $adminInfo = $objAdmin->getAdmin();
+        if (!empty($adminInfo)) {
             $data = [
-                'infoReal' => $entrenadorInfo[0],
+                'infoReal' => $adminInfo[0],
             ];
-            $this->render("agregarEntrenador/deleteEntrenador.php", $data);
+            $this->render("agregarAdmin/deleteAdmin.php", $data);
         } else {
-            echo "Entrenador no encontrado.";
-            header('Refresh: 3; URL=/agregarEntrenador');
+            echo "Administrador no encontrado.";
+            header('Refresh: 3; URL=/agregarAdmin');
             exit();
         }
     }
 
     # Se elimina de la Base de Datos
-    public function borrarEntrenador()
+    public function borrarAdmin()
     {
         if (isset($_POST['txtId'])) {
             $id = $_POST['txtId'] ?? null;
@@ -243,25 +243,25 @@ class AgregarEntrenadorController extends BaseController
             $observaciones = $_POST['txtObservaciones'] ?? null;
             $fkIdRol = $_POST['txtFKidRol'] ?? null;
 
-            $entrenadorObjDelete = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
-            $respuesta = $entrenadorObjDelete->deleteEntrenador();
+            $adminObjDelete = new AgregarAdminModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $respuesta = $adminObjDelete->deleteAdmin();
 
             if ($respuesta) {
-                # Eliminar las observaciones de la sesión para este entrenador
-                if (isset($_SESSION['observaciones_entrenador'][$id])) {
-                    unset($_SESSION['observaciones_entrenador'][$id]);
+                # Eliminar las observaciones de la sesión para este administrador
+                if (isset($_SESSION['observaciones_admin'][$id])) {
+                    unset($_SESSION['observaciones_admin'][$id]);
                 }
 
-                header("Location:/agregarEntrenador");
+                header("Location:/agregarAdmin");
                 exit();
             } else {
-                echo "Error al eliminar el entrenador. Por favor, inténtelo de nuevo.";
-                header('Refresh: 3; URL=/agregarEntrenador');
+                echo "Error al eliminar el administrador. Por favor, inténtelo de nuevo.";
+                header('Refresh: 3; URL=/agregarAdmin');
                 exit();
             }
         } else {
-            echo "ID de entrenador no proporcionado.";
-            header('Refresh: 3; URL=/agregarEntrenador');
+            echo "ID de administrador no proporcionado.";
+            header('Refresh: 3; URL=/agregarAdmin');
             exit();
         }
     }
@@ -276,30 +276,31 @@ class AgregarEntrenadorController extends BaseController
             
             if ($id && $nuevaObservacion) {
                 // Inicializar el array para este ID si no existe
-                if (!isset($_SESSION['observaciones_entrenador'][$id])) {
-                    $_SESSION['observaciones_entrenador'][$id] = [];
+                if (!isset($_SESSION['observaciones_admin'][$id])) {
+                    $_SESSION['observaciones_admin'][$id] = [];
                 }
                 
                 // Agregar la nueva observación con fecha
-                $_SESSION['observaciones_entrenador'][$id][] = [
+                $_SESSION['observaciones_admin'][$id][] = [
                     'texto' => $nuevaObservacion,
                     'fecha' => date('Y-m-d H:i:s')
                 ];
                 
                 // Redirigir de vuelta a la lista
-                header("Location:/agregarEntrenador");
+                header("Location:/agregarAdmin");
                 exit();
             } else {
                 echo "Datos incompletos para agregar observación.";
-                header('Refresh: 3; URL=/agregarEntrenador');
+                header('Refresh: 3; URL=/agregarAdmin');
                 exit();
             }
         } else {
             echo "Datos incompletos para agregar observación.";
-            header('Refresh: 3; URL=/agregarEntrenador');
+            header('Refresh: 3; URL=/agregarAdmin');
             exit();
         }
     }
 }
+
 
 ?>

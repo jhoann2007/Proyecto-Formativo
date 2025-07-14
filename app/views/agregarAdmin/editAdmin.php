@@ -1,5 +1,5 @@
 <div class="data-container">
-    <form action="/agregarEntrenador/update" method="post">
+    <form action="/agregarAdmin/update" method="post">
         <div class="form-group">
             <label for="txtId">Id</label>
             <input type="text" value="<?php echo $infoReal->id; ?>" name="txtId" id="txtId" readonly>

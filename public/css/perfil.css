@@ -1,4 +1,21 @@
 /* === ESTILOS EXISTENTES (los que me pasaste) === */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.index-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% del alto de la pantalla */
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    padding-bottom: 60px; /* AGREGAR ESTA LÍNEA */
+}
+
 .profile-layout-container {
     display: flex;
     min-height: 80vh;
@@ -102,18 +119,36 @@
 }
 
 /* === ESTILOS PARA EL STICKY FOOTER (sin cambios respecto a la última vez) === */
-body {
+/* body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-}
+} */
 
-main.main {
+/* main.main {
     flex-grow: 1;
-}
+} */
 
-#footer {
+/* #footer {
     text-align: center;
     width: 100%;
+} */
+
+.footer {
+    /* justify-content: space-between !important; */
+    position: fixed !important;
+    left: 270px !important; /* Ajustado al ancho del sidebar */
+    bottom: 0 !important;
+    width: calc(100% - 270px) !important; /* No invadir el menú lateral */
+    height: 100px !important;
+    padding: 15px 0 !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    background: rgba(10, 25, 47, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    color: #9ca3af !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 100 !important;
 }

@@ -18,7 +18,7 @@
     <link href="assets/vendor/bootstrap/css/perfil.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <!-- <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> -->
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Estilos propios -->
@@ -207,8 +207,6 @@
 
     <footer id="footer" class="footer position-relative light-background">
         <?php include 'assets/config/footer.php'; ?>
-        <!-- Ejemplo de footer para que no de error -->
-
     </footer>
 
     <!-- Scroll -->

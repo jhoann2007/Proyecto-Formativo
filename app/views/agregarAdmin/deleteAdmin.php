@@ -1,5 +1,5 @@
 <div class="data-container">
-    <form action="/agregarEntrenador/update" method="post">
+    <form action="/agregarAdmin/borrar" method="post">
         <div class="form-group">
             <label for="txtId">Id</label>
             <input type="text" value="<?php echo $infoReal->id; ?>" name="txtId" id="txtId" readonly>
@@ -53,11 +53,14 @@
             <input type="password" value="<?php echo $infoReal->password; ?>" name="txtPassword" id="txtPassword">
         </div>
         <div class="form-group">
+            <label for="txtObservaciones">Observaciones</label>
+            <input type="text" value="<?php echo $infoReal->observaciones; ?>" name="txtObservaciones" id="txtObservaciones">
+        </div>
             <label for="txtFKidRol">Rol</label>
             <input type="number" value="<?php echo $infoReal->fkidRol; ?>" name="txtFKidRol" id="txtFKidRol">
         </div>
         <div class="form-group">
-            <button type="submit">Editar</button>
+            <button type="submit">Eliminar</button>
         </div>
     </form>
 </div>

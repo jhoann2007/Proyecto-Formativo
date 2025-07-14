@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gimnasio SenGym</title>
+  <title>GymTech SENA</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

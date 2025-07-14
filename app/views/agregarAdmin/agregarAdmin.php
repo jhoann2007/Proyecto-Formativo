@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table-entrenador">
+    <table class="table-admin">
         <thead class="table-group">
             <tr>
                 <th>Nombre</th>
@@ -7,32 +7,32 @@
                 <th>N. Documento</th>
                 <th>Email</th>
                 <th>Estado</th>
-                <th colspan="4">Acciones</th>
+                <th colspan="3">Acciones</th>
             </tr>
         </thead>
-        <tbody class="tbody-entrenador">
+        <tbody class="tbody-admin">
             <?php
-            if (isset($entrenadores) && is_array($entrenadores) && count($entrenadores) > 0) {
-                foreach ($entrenadores as $entrenador) {
+            if (isset($admins) && is_array($admins) && count($admins) > 0) {
+                foreach ($admins as $admin) {
                     // Asegurar que las propiedades existan o usar valores por defecto
-                    $id = $entrenador->id ?? 0;
-                    $nombre = $entrenador->nombre ?? '';
-                    $tipoDocumento = $entrenador->tipoDocumento ?? '';
-                    $documento = $entrenador->documento ?? '';
-                    $fechaNacimiento = $entrenador->fechaNacimiento ?? '';
-                    $email = $entrenador->email ?? '';
-                    $genero = $entrenador->genero ?? '';
-                    $estado = $entrenador->estado ?? '';
-                    $telefono = $entrenador->telefono ?? '';
-                    $eps = $entrenador->eps ?? '';
-                    $tipoSangre = $entrenador->tipoSangre ?? '';
-                    $telefonoEmerjencia = $entrenador->telefonoEmerjencia ?? '';
-                    $password = $entrenador->password ?? '';
-                    $observaciones = $entrenador->observaciones ?? '';
+                    $id = $admin->id ?? 0;
+                    $nombre = $admin->nombre ?? '';
+                    $tipoDocumento = $admin->tipoDocumento ?? '';
+                    $documento = $admin->documento ?? '';
+                    $fechaNacimiento = $admin->fechaNacimiento ?? '';
+                    $email = $admin->email ?? '';
+                    $genero = $admin->genero ?? '';
+                    $estado = $admin->estado ?? '';
+                    $telefono = $admin->telefono ?? '';
+                    $eps = $admin->eps ?? '';
+                    $tipoSangre = $admin->tipoSangre ?? '';
+                    $telefonoEmerjencia = $admin->telefonoEmerjencia ?? '';
+                    $password = $admin->password ?? '';
+                    $observaciones = $admin->observaciones ?? '';
                     
                     // Verificar si existen las propiedades o usar valores por defecto
-                    $fkidRol = property_exists($entrenador, 'fkIdRol') ? $entrenador->fkIdRol : 
-                              (property_exists($entrenador, 'fkidRol') ? $entrenador->fkidRol : '');
+                    $fkidRol = property_exists($admin, 'fkIdRol') ? $admin->fkIdRol : 
+                              (property_exists($admin, 'fkidRol') ? $admin->fkidRol : '');
                     
                     echo "<tr data-ficha='{}'>
                         <td>{$nombre}</td>
@@ -40,7 +40,6 @@
                         <td>{$documento}</td>
                         <td>{$email}</td>
                         <td>{$estado}</td>
-                        <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalObservaciones{$id}'><i class='bi bi-chat-left-text'></i></button></td>
                         <td><button class='btn btn-sm btn-ver' data-bs-toggle='modal' data-bs-target='#modalView{$id}'><i class='bi bi-eye'></i></button></td>
                         <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id}'><i class='bi bi-pencil-square'></i></button></td>
                         <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id}'><i class='bi bi-trash'></i></button></td>
@@ -62,8 +61,8 @@
                                         <div class='p-2 border rounded mb-3' style='max-height: 200px; overflow-y: auto;'>
                                             ";
                                             // Mostrar observaciones desde la sesión
-                                            if (isset($_SESSION['observaciones_entrenador'][$id]) && !empty($_SESSION['observaciones_entrenador'][$id])) {
-                                                foreach ($_SESSION['observaciones_entrenador'][$id] as $obs) {
+                                            if (isset($_SESSION['observaciones_admin'][$id]) && !empty($_SESSION['observaciones_admin'][$id])) {
+                                                foreach ($_SESSION['observaciones_admin'][$id] as $obs) {
                                                     $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
                                                     $texto = isset($obs['texto']) ? $obs['texto'] : '';
                                                     
@@ -108,31 +107,18 @@
                                             echo "
                                         </div>
                                     </div>
-                                    
-                                    <!-- Formulario para agregar nueva observación -->
-                                    <form action='/agregarEntrenador/agregarObservacion' method='post'>
-                                        <input type='hidden' name='txtId' value='{$id}'>
-                                        <div class='mb-3'>
-                                            <label for='nuevaObservacion{$id}' class='form-label'>Agregar nueva observación:</label>
-                                            <textarea class='form-control' id='nuevaObservacion{$id}' name='nuevaObservacion' rows='3' required></textarea>
-                                        </div>
-                                        <div class='modal-footer'>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                            <button type='submit' class='btn btn-primary'>Guardar Observación</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>";
                     
-                    // Modal para Ver Entrenador
+                    // Modal para Ver Admin
                     echo "
                     <div class='modal fade' id='modalView{$id}' tabindex='-1' aria-labelledby='modalViewLabel{$id}' aria-hidden='true'>
                         <div class='modal-dialog modal-lg'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalViewLabel{$id}'>Detalles del Aprendiz</h5>
+                                    <h5 class='modal-title' id='modalViewLabel{$id}'>Detalles del Administrador</h5>
                                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
                                 </div>
                                 <div class='modal-body'>
@@ -164,48 +150,6 @@
                                             } else {
                                                 echo "<p><strong>Rol:</strong> {$fkidRol}</p>";
                                             }
-                                            
-                                            // Mostrar observaciones
-                                            echo "<p><strong>Observaciones:</strong></p>";
-                                            echo "<div class='p-2 border rounded' style='max-height: 150px; overflow-y: auto;'>";
-                                            
-                                            // Mostrar observaciones desde la sesión
-                                            if (isset($_SESSION['observaciones_entrenador'][$id]) && !empty($_SESSION['observaciones_entrenador'][$id])) {
-                                                foreach ($_SESSION['observaciones_entrenador'][$id] as $obs) {
-                                                    $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
-                                                    $texto = isset($obs['texto']) ? $obs['texto'] : '';
-                                                    
-                                                    if (!empty($texto)) {
-                                                        echo "<div class='p-1 mb-1'>";
-                                                        if (!empty($fecha)) {
-                                                            echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
-                                                        }
-                                                        echo htmlspecialchars($texto) . "</div>";
-                                                    }
-                                                }
-                                            } else if (!empty($observaciones)) {
-                                                // Intentar mostrar observaciones desde la base de datos
-                                                $decodedObs = json_decode($observaciones, true);
-                                                if (is_array($decodedObs)) {
-                                                    foreach ($decodedObs as $obs) {
-                                                        $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
-                                                        $texto = isset($obs['texto']) ? $obs['texto'] : $obs;
-                                                        
-                                                        if (!empty($texto)) {
-                                                            echo "<div class='p-1 mb-1'>";
-                                                            if (!empty($fecha)) {
-                                                                echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
-                                                            }
-                                                            echo htmlspecialchars($texto) . "</div>";
-                                                        }
-                                                    }
-                                                } else {
-                                                    echo $observaciones;
-                                                }
-                                            } else {
-                                                echo "<p class='text-muted'>No hay observaciones registradas</p>";
-                                            }
-                                            echo "</div>";
                                             echo "
                                         </div>
                                     </div>
@@ -217,20 +161,20 @@
                         </div>
                     </div>";
                     
-                    // Modal para Editar Entrenador
+                    // Modal para Editar Admin
                     echo "
                     <div class='modal fade' id='modalEdit{$id}' tabindex='-1' aria-labelledby='modalEditLabel{$id}' aria-hidden='true'>
                         <div class='modal-dialog modal-lg'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalEditLabel{$id}'>Editar Aprendiz</h5>
+                                    <h5 class='modal-title' id='modalEditLabel{$id}'>Editar Administrador</h5>
                                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
                                 </div>
                                 <div class='modal-body'>
-                                    <form action='/agregarEntrenador/update' method='post'>
+                                    <form action='/agregarAdmin/update' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
-                                        <!-- Campo oculto para el rol de entrenador (posición 2) -->
-                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[1]) ? $roles[1]->id : '') . "'>
+                                        <!-- Campo oculto para el rol de admin (posición 1) -->
+                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[0]) ? $roles[0]->id : '') . "'>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Nombre</label>
@@ -322,18 +266,18 @@
                         </div>
                     </div>";
                     
-                    // Modal para Eliminar Entrenador
+                    // Modal para Eliminar Admin
                     echo "
                     <div class='modal fade' id='modalDelete{$id}' tabindex='-1' aria-labelledby='modalDeleteLabel{$id}' aria-hidden='true'>
                         <div class='modal-dialog'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalDeleteLabel{$id}'>Eliminar Entrenador</h5>
+                                    <h5 class='modal-title' id='modalDeleteLabel{$id}'>Eliminar Administrador</h5>
                                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
                                 </div>
                                 <div class='modal-body'>
-                                    <p>¿Está seguro que desea eliminar al Entrenador <strong>{$nombre}</strong>?</p>
-                                    <form action='/agregarEntrenador/borrar' method='post'>
+                                    <p>¿Está seguro que desea eliminar al Administrador <strong>{$nombre}</strong>?</p>
+                                    <form action='/agregarAdmin/borrar' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
                                         <input type='hidden' name='txtNombre' value='{$nombre}'>
                                         <input type='hidden' name='txtTipoDocumento' value='{$tipoDocumento}'>
@@ -347,7 +291,6 @@
                                         <input type='hidden' name='txtTipoSangre' value='{$tipoSangre}'>
                                         <input type='hidden' name='txtTelefonoEmergencia' value='{$telefonoEmerjencia}'>
                                         <input type='hidden' name='txtPassword' value='{$password}'>
-                                        <input type='hidden' name='txtObservaciones' value='{$observaciones}'>
                                         <input type='hidden' name='txtFKidRol' value='{$fkidRol}'>
                                         <div class='modal-footer'>
                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
@@ -360,25 +303,25 @@
                     </div>";
                 }
             } else {
-                echo "<tr class='no-data'><td colspan='9' class='text-center'>No hay Entrenadores registrados</td></tr>";
+                echo "<tr class='no-data'><td colspan='9' class='text-center'>No hay Administradores registrados</td></tr>";
             }
             ?>
         </tbody>
     </table>
 </div>
 
-<!-- Modal para Agregar Entrenador -->
+<!-- Modal para Agregar Admin -->
 <div class="modal fade" id="modalAprendiz" tabindex="-1" aria-labelledby="modalAprendizLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-titulo" id="modalAprendizLabel">Agregar Entrenador</h5>
+                <h5 class="modal-titulo" id="modalAprendizLabel">Agregar Administrador</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form action="/agregarEntrenador/create" method="post">
-                    <!-- Campo oculto para asignar automáticamente el rol de Entrenador (posición 2) -->
-                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[1]) ? $roles[1]->id : ''; ?>">
+                <form action="/agregarAdmin/create" method="post">
+                    <!-- Campo oculto para asignar automáticamente el rol de administrador (posición 1) -->
+                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[0]) ? $roles[0]->id : ''; ?>">
                     
                     <div class="row mb-3">
                         <div class="col-md-6">

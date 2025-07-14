@@ -1,5 +1,6 @@
 <?php
 namespace App\Models;
+
 require_once MAIN_APP_ROUTE . "../models/baseModel.php";
 
 class CalendarioModel extends BaseModel
@@ -34,11 +35,11 @@ class CalendarioModel extends BaseModel
     public function updateEvento($id, $fecha, $hora_inicio, $hora_cierre, $id_encargado, $capacidad_max, $estado)
     {
         $sql = "UPDATE $this->table SET 
-                fecha = :fecha, 
-                hora_inicio = :hora_inicio, 
-                hora_cierre = :hora_cierre, 
-                id_encargado = :id_encargado, 
-                capacidad_max = :capacidad_max, 
+                fecha = :fecha,
+                hora_inicio = :hora_inicio,
+                hora_cierre = :hora_cierre,
+                id_encargado = :id_encargado,
+                capacidad_max = :capacidad_max,
                 estado = :estado,
                 updated_at = CURRENT_TIMESTAMP
                 WHERE id_calendario = :id_calendario";
@@ -55,19 +56,20 @@ class CalendarioModel extends BaseModel
 
     public function getEventosCalendario()
     {
-        $sql = "SELECT c.*, e.nombre as nombre_entrenador 
-                FROM $this->table c 
-                INNER JOIN entrenadores e ON c.id_encargado = e.id 
+        $sql = "SELECT c.*, u.nombre as nombre_entrenador 
+                FROM $this->table c
+                INNER JOIN usuario u ON c.id_encargado = u.id
+                WHERE u.fkIdRol = 2 AND u.estado = 'activo'
                 ORDER BY c.fecha ASC";
         return $this->dbConnection->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function findByDate($fecha)
     {
-        $sql = "SELECT c.*, e.nombre as nombre_entrenador 
-                FROM $this->table c 
-                INNER JOIN entrenadores e ON c.id_encargado = e.id 
-                WHERE c.fecha = :fecha";
+        $sql = "SELECT c.*, u.nombre as nombre_entrenador
+                FROM $this->table c
+                INNER JOIN usuario u ON c.id_encargado = u.id
+                WHERE c.fecha = :fecha AND u.fkIdRol = 2";
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->bindParam(':fecha', $fecha);
         $stmt->execute();
@@ -76,7 +78,7 @@ class CalendarioModel extends BaseModel
 
     public function getEntrenadores()
     {
-        $sql = "SELECT id, nombre FROM entrenadores WHERE estado = 'activo' ORDER BY nombre ASC";
+        $sql = "SELECT id, nombre FROM usuario WHERE estado = 'activo' AND fkIdRol = 2 ORDER BY nombre ASC";
         return $this->dbConnection->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
@@ -87,7 +89,7 @@ class CalendarioModel extends BaseModel
         $stmtAprendices = $this->dbConnection->prepare($sqlAprendices);
         $stmtAprendices->bindParam(':id', $id);
         $stmtAprendices->execute();
-        
+                
         // Luego eliminar el evento
         $sql = "DELETE FROM $this->table WHERE id_calendario = :id";
         $stmt = $this->dbConnection->prepare($sql);
@@ -111,7 +113,7 @@ class CalendarioModel extends BaseModel
 
     public function verificarRegistroAprendizDia($idAprendiz, $fecha)
     {
-        $sql = "SELECT COUNT(*) as total FROM aprendiz_registros 
+        $sql = "SELECT COUNT(*) as total FROM aprendiz_registros
                 WHERE id_aprendiz = :id_aprendiz AND fecha_registro = :fecha";
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->bindParam(':id_aprendiz', $idAprendiz);
@@ -123,10 +125,10 @@ class CalendarioModel extends BaseModel
 
     public function getRegistrosAprendicesPorEvento($idCalendario)
     {
-        $sql = "SELECT ar.*, u.nombre as nombre_aprendiz 
-                FROM aprendiz_registros ar 
-                INNER JOIN usuario u ON ar.id_aprendiz = u.id 
-                WHERE ar.id_calendario = :id_calendario 
+        $sql = "SELECT ar.*, u.nombre as nombre_aprendiz
+                FROM aprendiz_registros ar
+                INNER JOIN usuario u ON ar.id_aprendiz = u.id
+                WHERE ar.id_calendario = :id_calendario
                 ORDER BY ar.hora_entrada ASC";
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->bindParam(':id_calendario', $idCalendario);
@@ -136,9 +138,9 @@ class CalendarioModel extends BaseModel
 
     public function getRegistroAprendizPorFecha($idAprendiz, $fecha)
     {
-        $sql = "SELECT ar.*, c.hora_inicio, c.hora_cierre 
-                FROM aprendiz_registros ar 
-                INNER JOIN calendario c ON ar.id_calendario = c.id_calendario 
+        $sql = "SELECT ar.*, c.hora_inicio, c.hora_cierre
+                FROM aprendiz_registros ar
+                INNER JOIN calendario c ON ar.id_calendario = c.id_calendario
                 WHERE ar.id_aprendiz = :id_aprendiz AND ar.fecha_registro = :fecha";
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->bindParam(':id_aprendiz', $idAprendiz);

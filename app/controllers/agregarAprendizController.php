@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Models\AgregarAprendizModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
@@ -28,8 +30,8 @@ class AgregarAprendizController extends BaseController
         # Crear una instancia del modelo
         $agregarAprendizObj = new AgregarAprendizModel();
         
-        # Obtener todos los aprendices desde el modelo 
-        $aprendices = $agregarAprendizObj->getAll();
+        # Obtener solo los aprendices (rol 3) desde el modelo 
+        $aprendices = $agregarAprendizObj->getAprendicesOnly();
         
         # Obtener roles, grupos y centros de formación
         $roles = $agregarAprendizObj->getRoles();
@@ -115,7 +117,6 @@ class AgregarAprendizController extends BaseController
     {
         $objAprendiz = new AgregarAprendizModel($id);
         $aprendizInfo = $objAprendiz->getAprendiz();
-
         if (!empty($aprendizInfo)) {
             $data = [
                 'id' => $aprendizInfo[0]->id,
@@ -151,7 +152,6 @@ class AgregarAprendizController extends BaseController
     {
         $objAprendiz = new AgregarAprendizModel($id);
         $aprendizInfo = $objAprendiz->getAprendiz();
-
         if (!empty($aprendizInfo)) {
             # Obtener roles, grupos y centros de formación
             $roles = $objAprendiz->getRoles();
@@ -233,7 +233,6 @@ class AgregarAprendizController extends BaseController
     {
         $objAprendiz = new AgregarAprendizModel($id);
         $aprendizInfo = $objAprendiz->getAprendiz();
-
         if (!empty($aprendizInfo)) {
             $data = [
                 'infoReal' => $aprendizInfo[0],
@@ -327,4 +326,5 @@ class AgregarAprendizController extends BaseController
         }
     }
 }
+
 ?>

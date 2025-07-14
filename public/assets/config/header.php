@@ -36,15 +36,16 @@
     // Corregido: switch en lugar de witch
     switch ($rolUsuario) {
       case 'admin':
-        echo "
-                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
-                        <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>   Agregar Entrenador</a></li>
-                         <li><a href='/agregarRutina'><i class='bi bi-clipboard-check navicon'></i>Agregar Rutina</a></li>
+        echo "          
+                        <li><a href='/agregarAdmin' class=''><i class='bi bi-person-fill-add'></i>Agregar Administrador</a></li>
+                        <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>Agregar Entrenador</a></li>
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>Agregar Aprendiz</a></li>
+                        <li><a href='/agregarRutina'><i class='bi bi-clipboard-check navicon'></i>Agregar Rutina</a></li>
                         ";
         break;
       case 'entrenador':
         echo "
-                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>   Agregar Aprendiz</a></li>
+                        <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>Agregar Aprendiz</a></li>
                         ";
         break;
         // Opcional: un caso por defecto si quieres manejar roles no esperados

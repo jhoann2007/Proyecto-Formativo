@@ -178,13 +178,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 content += `
                     <hr>
                     <h6><i class="fas fa-users"></i> Aprendices Registrados (${evento.extendedProps.aprendices.length})</h6>
-                    <div class="mt-2">
+                    <div class="listaAprendices">
                 `
                 evento.extendedProps.aprendices.forEach(aprendiz => {
                     content += `
-                        <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded mb-2">
+                        <div class="estilo-aprendices">
                             <span><strong>${aprendiz.nombre_aprendiz}</strong></span>
-                            <span class="badge bg-primary">${aprendiz.hora_entrada} - ${aprendiz.hora_salida}</span>
+                            <span class="color-hora-aprendices">${aprendiz.hora_entrada} - ${aprendiz.hora_salida}</span>
                         </div>
                     `
                 })
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 content += `
                     <hr>
-                    <p class="text-muted"><i class="fas fa-info-circle"></i> No hay aprendices registrados para este horario</p>
+                    <p class="texto-muted"><i class="fas fa-info-circle"></i> No hay aprendices registrados para este horario</p>
                 `
             }
         }

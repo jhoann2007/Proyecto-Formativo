@@ -8,7 +8,7 @@
         <?php foreach ($rutinas as $rutina): ?>
             <div class="form-card">
                 <div class="card-content">
-                    <img src="/public/assets/img/rutina.jpg" alt="<?php echo $rutina->nombre; ?>" class="card-image">
+                    <img src="/img/ejercicio_rutina.jpg" alt="<?php echo $rutina->nombre; ?>" class="card-image">
                     <h3 class="card-title"><?php echo $rutina->nombre; ?></h3>
                     <p class="card-description"><?php echo $rutina->calentamiento; ?></p>
                 </div>

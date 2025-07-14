@@ -1,341 +1,269 @@
-/* Reset y estilos base */
+/* Fondo general del body y .calendar-container */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
-body {
+html, body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a2e; /* fondo oscuro */
+    height: 100%;
+    margin: 0;
 }
 
-.page-title {
+.index-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% del alto de la pantalla */
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    padding-bottom: 60px; /* AGREGAR ESTA LÍNEA */
+}
+
+.page-titulo {
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 5px;
     text-align: center;
+    color: #ffc107;
 }
 
-/* Contenedor del calendario */
+.page-subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #fff;
+}
+
+.listaAprendices {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #ffc107 !important;
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    border-radius: 6px !important;
+    padding: 2px !important;
+}
+
+.estilo-aprendices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px !important;
+}
+
+.color-hora-aprendices {
+    padding: 2px !important;
+    border-radius: 10px;
+    background-color: #ffc107;
+    color: #000;
+}
+
+.texto-muted {
+    color: #ffc107;
+}
+
 .calendar-container {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
     padding: 25px;
     margin-top: 20px;
 }
 
-/* Estilos del calendario FullCalendar */
-/* #calendar {
-    background: #fff;
-} */
-
-/* .fc {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
-
-/* .fc-header-toolbar {
-    background: #f8f9fa;
-    border-radius: 8px;
+/* FullCalendar - Encabezado y botones */
+.fc-header-toolbar {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
     padding: 15px 20px;
     margin-bottom: 20px;
-    border: 1px solid #e9ecef;
-} */
-
-/* .fc-toolbar-title {
-    color: #2c3e50 !important;
-    font-size: 1.5rem !important;
-    font-weight: 600 !important;
-} */
-
-/* .fc-button {
-    background: #007bff !important;
-    border: 1px solid #007bff !important;
-    border-radius: 6px !important;
-    color: white !important;
-    font-weight: 500 !important;
-    padding: 8px 16px !important;
-    transition: all 0.3s ease !important;
-} */
-
-/* .fc-button:hover {
-    background: #0056b3 !important;
-    border-color: #0056b3 !important;
-    transform: translateY(-1px) !important;
-} */
-
-/* .fc-button:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
-} */
-
-/* .fc-button-active {
-    background: #28a745 !important;
-    border-color: #28a745 !important;
-} */
-
-/* Días del calendario */
-/* .fc-daygrid-day {
-    background: #fff;
-    border: 1px solid #e9ecef;
-    transition: all 0.2s ease;
-} */
-
-.fc-daygrid-day:hover {
-    background: #f8f9fa;
-    cursor: pointer;
+    border-bottom: 2px solid #FFCE40;
+    /* color: #ffc107; */
 }
 
-/* .fc-day-today {
-    background: #e3f2fd !important;
-    border-color: #2196f3 !important;
-} */
+.fc-toolbar-title {
+    color: #ffc107 !important;
+    font-size: 1.6rem !important;
+    font-weight: 600 !important;
+}
 
-/* .fc-daygrid-day-number {
-    color: #495057;
-    font-weight: 500;
+.fc-button {
+    background: transparent !important;
+    border: 2px solid #FFCE40 !important;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    margin: 4px !important;
+    color: #ffc107 !important;
+    padding: 8px 14px !important;
+    border-radius: 6px !important;
+    transition: 0.3s ease-in-out !important;
+}
+
+.fc-button:hover {
+    background: #ffc107 !important;
+    color: #fff !important;
+}
+
+/* Tabla del calendario - bordes amarillos y esquinas redondeadas */
+.fc-scrollgrid {
+    border: 2px solid #FFCE40 !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+}
+
+.fc-scrollgrid-sync-table {
+    border-radius: 12px !important;
+}
+
+/* Encabezados de días de la semana - fondo amarillo menos claro y texto negro */
+.fc-col-header-cell {
+    background: #FFCE40 !important; /* amarillo menos claro */
+    border: 2px solid #FFCE40 !important;
+    color: #000 !important; /* texto negro */
+    font-weight: bold !important;
+}
+
+.fc-col-header-cell-cushion {
+    color: #000 !important; /* texto negro */
+}
+
+/* Días del Calendario */
+.fc-daygrid-day {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #FFCE40 !important;
+    transition: all 0.2s ease;
+    /* color: rgb(210, 8, 8); */
+}
+
+.fc-daygrid-day-number {
+    color: #ffc107;
+    font-weight: bold;
     padding: 8px;
-} */
+}
 
-/* .fc-day-other .fc-daygrid-day-number {
-    color: #adb5bd;
-} */
+.fc-day-today {
+    background: #ffcf406f !important;
+    /* color: #0c4b18 !important; */
+    border-radius: 8px;
+}
+
+/* Bordes internos de la tabla */
+.fc-daygrid-day-frame {
+    border: 2px solid #FFCE40 !important;
+}
+
+.fc-scrollgrid-section > * {
+    border: 2px solid #FFCE40 !important;
+}
+
+.fc-scrollgrid-section table {
+    border: 2px solid #FFCE40 !important;
+}
 
 /* Eventos */
-/* .fc-event {
-    border-radius: 4px !important;
-    font-weight: 500 !important;
+.fc-event {
+    background-color: #1a1a2e !important; /* Azul por defecto */
+    color: white !important;
     border: none !important;
-    padding: 2px 6px !important;
-    margin: 1px 0 !important;
-    transition: all 0.2s ease !important;
-} */
-
-/* .fc-event:hover {
-    transform: scale(1.02) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 6px !important;
+    padding: 2px 8px !important;
+    font-size: 0.85rem;
 }
 
-.fc-event-title {
-    font-size: 0.85rem;
-} */
+.fc-event:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+}
 
-/* Estados de eventos */
-/* .fc-event.evento-activo {
-    background-color: #28a745 !important;
-    border-color: #28a745 !important;
+/* Personalización por estado */
+.fc-event.evento-activo {
+    background-color: #ffc107 !important;
 }
 
 .fc-event.evento-inactivo {
-    background-color: #dc3545 !important;
-    border-color: #dc3545 !important;
-} */
-
-/* Modales */
-.modal-content {
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: #dc2626 !important;
 }
 
-.modal-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e9ecef;
-    border-radius: 12px 12px 0 0;
-    padding: 20px 25px;
+/* Modal */
+.modal-content {
+    background-color: rgba(0, 0, 0, 0.708);
+    color: white;
+    border: 2px solid #f2c744;
+    border-radius: 12px;
+}
+
+.modal-header, .modal-footer {
+    background-color: rgba(0, 0, 0, 0.708);
+    border-color: #f2c744;
 }
 
 .modal-title {
-    color: #2c3e50;
+    color: #ffc107;
     font-weight: 600;
-    font-size: 1.25rem;
 }
 
-.modal-body {
-    padding: 25px;
-}
-
-.modal-footer {
-    background-color: #f8f9fa;
-    border-top: 1px solid #e9ecef;
-    border-radius: 0 0 12px 12px;
-    padding: 15px 25px;
-}
-
-/* Formularios */
-.form-label {
-    color: #495057;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
+/* Inputs y formularios */
 .form-control, .form-select {
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    padding: 12px 15px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
+    background-color: #102b45;
+    color: white;
+    border: 1px solid #f2c744;
 }
 
 .form-control:focus, .form-select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.form-control::placeholder {
-    color: #adb5bd;
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
 }
 
 /* Botones */
-.btn {
-    border-radius: 8px;
-    font-weight: 500;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-}
-
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px solid #FFCE40;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-    transform: translateY(-1px);
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-    background-color: #545b62;
-    border-color: #545b62;
+    background-color: #ffc107;
+    border: 2px solid #FFCE40;
+    color: #000;
 }
 
 .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: #dc2626;
+    border-color: #dc2626;
 }
 
 .btn-danger:hover {
-    background-color: #c82333;
-    border-color: #c82333;
+    background-color: #b91c1c;
 }
 
-/* Alertas */
-.alert {
-    border-radius: 8px;
-    font-weight: 500;
-    border: none;
+.btn-warning {
+    background-color: #facc15;
+    border-color: #facc15;
+    color: black;
 }
 
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
+.btn-warning:hover {
+    background-color: #eab308;
 }
 
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-/* Información del evento */
-.event-info h6 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-}
-
-.event-info div {
-    line-height: 1.6;
-    color: #495057;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .sidebar-container {
-        position: relative;
-        width: 100%;
-        min-height: auto;
-    }
-    
-    .main-content {
-        margin-left: 0;
-    }
-    
-    .content-wrapper {
-        padding: 20px 15px;
-    }
-    
-    .calendar-container {
-        padding: 15px;
-        margin-top: 15px;
-    }
-    
-    .fc-header-toolbar {
-        padding: 10px 15px;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .fc-toolbar-title {
-        font-size: 1.2rem !important;
-    }
-    
-    .modal-body {
-        padding: 20px 15px;
-    }
-}
-
-@media (max-width: 576px) {
-    .page-title {
-        font-size: 1.5rem;
-    }
-    
-    .fc-button {
-        padding: 6px 12px !important;
-        font-size: 0.875rem !important;
-    }
-}
-
-/* Animaciones */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.modal.show .modal-dialog {
-    animation: fadeInUp 0.3s ease-out;
-}
-
-/* Efectos adicionales */
-.calendar-container {
-    animation: fadeInUp 0.5s ease-out;
-}
-
-.fc-daygrid-day.fc-day-has-event {
-    background-color: #f0f8ff;
-}
-
-.fc-daygrid-day.fc-day-has-event:hover {
-    background-color: #e6f3ff;
-}
-
-/* Mejoras visuales */
-.sidebar {
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.content-wrapper {
-    position: relative;
-    z-index: 1;
+.footer {
+    /* justify-content: space-between !important; */
+    position: fixed !important;
+    left: 270px !important; /* Ajustado al ancho del sidebar */
+    bottom: 0 !important;
+    width: calc(100% - 270px) !important; /* No invadir el menú lateral */
+    height: 100px !important;
+    padding: 15px 0 !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    background: rgba(10, 25, 47, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    color: #9ca3af !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 100 !important;
 }

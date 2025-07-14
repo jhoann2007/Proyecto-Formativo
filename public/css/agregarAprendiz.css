@@ -1,5 +1,133 @@
-.container {
+/* html, body {
+  height: 100%;
+  margin: 0;
+} */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.index-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% del alto de la pantalla */
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    padding-bottom: 60px; /* AGREGAR ESTA LÍNEA */
+}
+
+/* .container {
     margin-top: 100px;
+} */
+
+.container-general {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.button-agregarAprendiz {
+    display: flex;
+    justify-content: baseline;
+    padding: 10px;
+}
+
+.button-agregarAprendiz button {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    border: 2px solid #FFCE40;
+}
+
+.button-agregarAprendiz button:hover {
+    background-color: rgba(255, 255, 255, 0.153);
+    color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    border: 2px solid #FFCE40;
+}
+
+.dropdown {
+    margin-left: 10px;
+}
+
+.dropdown-item {
+    background-color: #1a1a2e;
+    color: #fff;
+}
+
+.buscar {
+    display: flex;
+    width: 25%;
+    color: #fff;
+}
+
+.buscar .texto-busqueda {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    color: #fff;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-right: 4px;
+}
+
+.buscar .texto-busqueda:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    color: #fff;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-right: 4px;
+}
+
+.buscar .lupa {
+    background-color: rgba(255, 255, 255, 0.05);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin-left: 4px;
+    border: 2px solid #FFCE40;
+    color: #fff;
+}
+
+.table-aprendiz {
+    width: 100%;
+    border-collapse: separate; /* <-- esto es clave */
+    border-spacing: 0;         /* evita separación entre celdas */
+    border: 1px solid #FFCE40;
+    border-radius: 10px;
+    overflow: hidden; /* para que el redondeo sea visible */
+}
+
+.table-aprendiz th,
+.table-aprendiz td {
+    border: 1px solid #FFCE40;
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+/* Elimina los bordes dobles en los extremos */
+.table-aprendiz thead tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.table-aprendiz thead tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.table-aprendiz tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.table-aprendiz tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
 }
 
 .btn-observaciones {
@@ -22,6 +150,84 @@
     color: white;
 }
 
-.form-control {
-    background-color: #000;
+.modal-titulo {
+    color: #FFCE40;
+    align-items: center;
+    text-align: center;
+    font: bold;
 }
+
+.modal-dialog {
+    border: 3px solid #FFCE40;
+    border-radius: 10px;
+}
+
+.modal-content {
+    background-color: rgba(25, 25, 46, 0.25);
+}
+
+.modal-header .btn-close {
+    color: #FFCE40 !important;
+}
+
+.form-control {
+    color: #fff !important;
+}
+
+option {
+    background-color: #1a1a2e;
+}
+
+/* .container-footer {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    justify-content: space-between !important;
+} */
+
+.footer {
+    /* justify-content: space-between !important; */
+    position: fixed !important;
+    left: 270px !important; /* Ajustado al ancho del sidebar */
+    bottom: 0 !important;
+    width: calc(100% - 270px) !important; /* No invadir el menú lateral */
+    height: 100px !important;
+    padding: 15px 0 !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    background: rgba(10, 25, 47, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    color: #9ca3af !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 100 !important;
+}
+
+/* Media queries para responsividad (ejemplo de la plantilla original) */
+@media (min-width: 1100px) {
+    .header~main{
+        margin-left: 320px; /* 315 */
+        margin-block-end: 150px;
+    }
+
+    .header~#footer {
+        margin-left: 30px;
+        padding-bottom: 60px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .header {
+        left: -100%;
+    }
+}
+
+.header.header-show {
+    left: 0;
+}
+
+@media screen and (max-width: 768px) {
+    [data-aos-delay] {
+        transition-delay: 0 !important;
+    }
+}
+

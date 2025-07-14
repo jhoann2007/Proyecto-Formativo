@@ -1,5 +1,5 @@
 <div class="data-container">
-    <form action="/agregarEntrenador/create" method="post">
+    <form action="/agregarAdmin/create" method="post">
         <div class="form-group">
             <label for="txtNombre">Nombre</label>
             <input type="text" name="txtNombre" id="txtNombre">
