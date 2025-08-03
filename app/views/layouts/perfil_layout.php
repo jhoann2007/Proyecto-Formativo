@@ -1,167 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gimnasio SenGym</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
-    <link href="../css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/perfil.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <!-- <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> -->
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Estilos propios -->
+    <title>Perfil - Gymtech</title>
+    <!-- Tus enlaces a CSS y Fonts ... -->
+    <link href="/assets/vendor/bootstrap/css/perfil.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/header.css">
-
-    <!-- Main CSS File -->
-    <link href="assets/css/main.css" rel="stylesheet">
-
-    <div class="background-shapes">
-        <div class="shape shape1"></div>
-        <div class="shape shape2"></div>
-        <div class="shape shape3"></div>
-    </div>
-
+    <link href="/assets/css/main.css" rel="stylesheet">
 </head>
 
 <body class="index-page">
+    <div class="background-shapes">
+        <!-- ... tus shapes ... -->
+    </div>
 
     <header id="header" class="header dark-background d-flex flex-column">
         <?php
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
+        // El include del header se mantiene
         include 'assets/config/header.php';
-
-        $idUsuario = $_SESSION['user_id'] ?? 'desconocido';
-        $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
-        $nombreUsuario = $_SESSION['user_nombre'] ?? 'desconocido';
-        $emailUsuario = $_SESSION['user_email'] ?? 'desconocido';
-
-        if (isset($admins) && is_array($admins) && count($admins) > 0) {
-            foreach ($admins as $adminz) {
-                // Asegurar que las propiedades existan o usar valores por defecto
-                $id = $idUsuario ?? 0;
-                $nombre = $adminz->nombre ?? '';
-                $documento = $adminz->documento ?? '';
-                $fechaNacimiento = $adminz->fechaNacimiento ?? '';
-                $email = $adminz->email ?? '';
-                $genero = $adminz->genero ?? '';
-                $estado = $adminz->estado ?? '';
-                $telefono = $adminz->telefono ?? '';
-                $eps = $adminz->eps ?? '';
-                $tipoSangre = $adminz->tipoSangre ?? '';
-                $peso = $adminz->peso ?? '';
-                $estatura = $adminz->estatura ?? '';
-                $telefonoEmerjencia = $adminz->telefonoEmerjencia ?? '';
-                $password = $adminz->password ?? '';
-                $observaciones = $adminz->observaciones ?? '';
-
-                // Verificar si existen las propiedades o usar valores por defecto
-                $fkidRol = property_exists($adminz, 'fkIdRol') ? $adminz->fkIdRol : (property_exists($adminz, 'fkidRol') ? $adminz->fkidRol : '');
-                $fkidGrupo = property_exists($adminz, 'fkIdGrupo') ? $adminz->fkIdGrupo : (property_exists($adminz, 'fkidGrupo') ? $adminz->fkidGrupo : '');
-                $fkidCentroFormacion = property_exists($adminz, 'fkIdCentroFormacion') ? $adminz->fkIdCentroFormacion : (property_exists($adminz, 'fkidCentroFormacion') ? $adminz->fkidCentroFormacion : '');
-
-                // Mostrar nombre del rol en lugar del ID
-                if (isset($roles) && is_array($roles)) {
-                    foreach ($roles as $rol) {
-                        if ($rol->id == $fkidRol) {
-                            $rol->nombre;
-                            break;
-                        }
-                    }
-                } else {
-                    $fkidRol;
-                }
-
-                // Mostrar ficha en lugar del ID de grupo
-                if (isset($grupos) && is_array($grupos)) {
-                    foreach ($grupos as $grupo) {
-                        if ($grupo->id == $fkidGrupo) {
-                            $grupo->ficha;
-                            break;
-                        }
-                    }
-                } else {
-                    $fkidGrupo;
-                }
-
-                // Mostrar nombre del centro de formación en lugar del ID
-                if (isset($centrosFormacion) && is_array($centrosFormacion)) {
-                    foreach ($centrosFormacion as $centro) {
-                        if ($centro->id == $fkidCentroFormacion) {
-                            $centro->nombre;
-                            break;
-                        }
-                    }
-                } else {
-                    $fkidCentroFormacion;
-                }
-            }
-        }
         ?>
-        <!-- Ejemplo de header para que no de error -->
     </header>
 
     <main class="main">
         <section id="about" class="about section">
             <div class="container section-title" data-aos="fade-up">
                 <h2 class="text-success">Perfil Profesional</h2>
-                <p>Descripción general de un aprendiz enfocado en el desarrollo profesional y personal.</p>
+                <p><?php echo htmlspecialchars($user->observations ?? 'Descripción general del usuario.'); ?></p>
             </div>
 
-            <!-- Contenedor principal para el layout del perfil -->
             <div class="container profile-layout-container" data-aos="fade-up" data-aos-delay="100">
 
-                <!-- Panel Izquierdo: Imagen e Información del Usuario -->
                 <div class="profile-left-panel">
                     <div class="user-image-container">
-                        <img src="assets/img/gigachad.png" alt="Foto de perfil" class="img-fluid rounded-circle">
+                        <!-- Asumo que tendrás una URL de imagen en la BD en el futuro -->
+                        <img src="<?php echo htmlspecialchars($user->picture); ?>" alt="Foto de perfil" class="img-fluid rounded-circle">
                     </div>
                     <div class="user-info-details">
-                        <p class="fst-italic py-3">Aprendiz con actitud proactiva, habilidades sociales y compromiso con el aprendizaje constante.</p>
-                        <div class="row"> <!-- Bootstrap row para mantener la estructura interna de dos columnas -->
+                        <h1 class="sitename"><?php echo htmlspecialchars($user->name); ?></h1>
+                        <div class="row">
                             <div class="col-lg-6">
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Nombre:</strong> <span><?php echo "$nombreUsuario" ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Documento:</strong> <span><?php echo "$documento" ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span><?php echo "$emailUsuario" ?></span></li>
-                                    <?php
-                                    if ($rolUsuario == 'aprendiz') {
-                                        echo "<li><i class='bi bi-chevron-right'></i> <strong>Ficha:</strong> <span>" . $grupo->ficha . "</span></li>";
-                                    }
-                                    ?>
+                                    <!-- Usamos los nombres de columna correctos de la BD -->
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Documento:</strong> <span><?php echo htmlspecialchars($user->document); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Tipo Doc:</strong> <span><?php echo htmlspecialchars($user->document_type); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Fecha Nac:</strong> <span><?php echo htmlspecialchars($user->birthdate); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span><?php echo htmlspecialchars($user->email); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Teléfono:</strong> <span><?php echo htmlspecialchars($user->phone); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Teléfono Emerjencia:</strong> <span><?php echo htmlspecialchars($user->emergency_phone); ?></span></li>
                                 </ul>
                             </div>
                             <div class="col-lg-6">
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Cargo:</strong> <span><?php echo "$rolUsuario" ?></span></li>
-                                    <?php
-                                    if ($rolUsuario == 'aprendiz') {
-                                        echo "<li><i class='bi bi-chevron-right'></i> <strong>Programa:</strong> <span>" . $centro->nombre . "</span></li>";
-                                    }
-                                    ?>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Contraseña:</strong> <span>******</span></li>
+                                    <!-- Usamos los campos que trajimos con los JOINs -->
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Rol:</strong> <span><?php echo htmlspecialchars(ucfirst($user->role_name)); ?></span></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Panel Derecho -->
+                <!-- El resto de tu layout... -->
                 <div class="profile-right-panel">
                     <!-- Parte Superior Derecha: Formación y Experiencia -->
                     <div class="profile-right-top">
@@ -169,17 +76,38 @@
                             <div class="col-md-6">
                                 <h3 class="text-success">Formación</h3>
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-mortarboard-fill"></i> Título académico</li>
-                                    <li><i class="bi bi-globe"></i> Idiomas</li>
-                                    <li><i class="bi bi-translate"></i> Cursos complementarios</li>
-                                    <li><i class="bi bi-pc-display"></i> Programa técnico o tecnológico</li>
+
+                                    <?php if (isset($user->center_name)): // Mostrar solo si tiene programa 
+                                    ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Centro Formacion:</strong> <span><?php echo htmlspecialchars($user->center_name); ?></span></li>
+                                    <?php else: ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Centro Formacion:</strong> <span>No vinculado</span></li>
+                                    <?php endif; ?>
+
+                                    <?php if (isset($user->program_name)): // Mostrar solo si tiene programa 
+                                    ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Programa:</strong> <span><?php echo htmlspecialchars($user->program_name); ?></span></li>
+                                    <?php else: ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Programa:</strong> <span>No vinculado</span></li>
+                                    <?php endif; ?>
+
+                                    <?php if (isset($user->group_token)): // Mostrar solo si es aprendiz y tiene ficha 
+                                    ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Grupo:</strong> <span><?php echo htmlspecialchars($user->group_token); ?></span></li>
+                                    <?php else: ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Grupo:</strong> <span>No vinculado</span></li>
+                                    <?php endif; ?>
+
                                 </ul>
                             </div>
                             <div class="col-md-6">
-                                <h3 class="text-success">Experiencia</h3>
+                                <h3 class="text-success">Salud</h3>
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-briefcase-fill"></i> Cargo 1</li>
-                                    <li><i class="bi bi-briefcase-fill"></i> Cargo 2</li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Genero:</strong> <span><?php echo htmlspecialchars($user->gender); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Tipo Sangre:</strong> <span><?php echo htmlspecialchars($user->blood_type); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Peso:</strong> <span><?php echo htmlspecialchars($user->weight); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Estatura:</strong> <span><?php echo htmlspecialchars($user->stature); ?></span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>EPS:</strong> <span><?php echo htmlspecialchars($user->eps); ?></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -187,20 +115,19 @@
 
                     <!-- Parte Inferior Derecha: Habilidades -->
                     <div class="profile-right-bottom">
-                        <h3 class="text-success">Habilidades</h3>
+                        <h3 class="text-success">Observaciones</h3>
                         <!-- Mantenemos la estructura de Bootstrap para las habilidades si se desea responsive interno -->
                         <ul class="list-unstyled row">
-                            <li class="col-md-6"><i class="bi bi-check-circle"></i> Habilidad 1</li>
-                            <li class="col-md-6"><i class="bi bi-check-circle"></i> Habilidad 2</li>
-                            <li class="col-md-6"><i class="bi bi-check-circle"></i> Habilidad 3</li>
-                            <li class="col-md-6"><i class="bi bi-check-circle"></i> Habilidad 4</li>
+                            <?php if (isset($user->observations)): // Mostrar solo si es aprendiz y tiene ficha 
+                                    ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Observaciones:</strong> <span><?php echo htmlspecialchars($user->observations); ?></span></li>
+                                    <?php else: ?>
+                                        <li><i class="bi bi-chevron-right"></i> <strong>Observaciones:</strong> <span>No emitida</span></li>
+                                    <?php endif; ?>
                         </ul>
                     </div>
                 </div>
             </div>
-
-            <div class="container text-center mt-5" data-aos="fade-up" data-aos-delay="200">
-                <p class="text-muted">Este contenido es editable por el aprendiz para fines académicos y profesionales.</p>
             </div>
         </section>
     </main>
@@ -234,7 +161,6 @@
             mirror: false
         });
     </script>
-
 </body>
 
 </html>

@@ -1,61 +1,56 @@
 <?php
+// Archivo: app/controllers/PerfilController.php
+
 namespace App\Controller;
+
 use App\Models\PerfilModel;
-use App\Models\AgregarAprendizModel;
-use App\Models\AgregarEntrenadorModel;
 
-require_once MAIN_APP_ROUTE . "../models/agregarEntrenadorModel.php";
-require_once MAIN_APP_ROUTE . "../models/agregarAprendizModel.php";
-
-require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/perfilModel.php";
+require_once __DIR__ . '/BaseController.php'; 
+require_once __DIR__ . '/../models/PerfilModel.php'; 
 
 class PerfilController extends BaseController
 {
-
-    public function index2()
-    {
-        $this->render('perfil/perfil.php');
-    }
-
     public function index()
     {
-        # Crear una instancia del modelo
-        $agregarAprendizObj = new AgregarAprendizModel();
-        $agregarEntrenadorObj = new AgregarEntrenadorModel();
-        $adminObj = new PerfilModel();
+        //echo "Punto 1: Entrando al método index de PerfilController.<br>"; // Punto de control 1
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['user_id'])) {
+            echo "Punto 2: No hay user_id en la sesión. Redirigiendo...<br>"; // Punto de control 2
+            $this->redirectTo('/');
+            return;
+        }
+
+        $userId = $_SESSION['user_id'];
+        //echo "Punto 3: El ID de usuario de la sesión es: " . htmlspecialchars($userId) . "<br>"; // Punto de control 3
         
-        # Obtener todos los aprendices desde el modelo 
-        $aprendices = $agregarAprendizObj->getAll();
-        $entrenadores = $agregarEntrenadorObj->getAll();
-        $admins = $adminObj->getAllUser();
+        $perfilModel = new PerfilModel();
         
-        # Obtener roles, grupos y centros de formación
-        $roles = $agregarAprendizObj->getRoles();
-        $grupos = $agregarAprendizObj->getGrupos();
-        $centrosFormacion = $agregarAprendizObj->getCentrosFormacion();
+        $userData = $perfilModel->getUserProfileById($userId);
         
-        # Pasar los datos a la vista 
-        $data = [
-            'title' => 'Lista de Usuarios',
-            'entrenadores' => $entrenadores,
-            'aprendices' => $aprendices,
-            'admins' => $admins,
-            'roles' => $roles,
-            'grupos' => $grupos,
-            'centrosFormacion' => $centrosFormacion
-        ];
-        
-        # Renderizar la vista a traves del metodo de BaseController
-        $this->render('perfil/perfil.php', $data);
+        // echo "Punto 4: Datos obtenidos del modelo:<br>"; // Punto de control 4
+        // echo "<pre>";
+        // print_r($userData); // Muestra el contenido del objeto o si es 'false'
+        // echo "</pre>";
+
+        if (!$userData) {
+            echo "Punto 5: userData es falso o vacío. Deteniendo ejecución.<br>"; // Punto de control 5
+            // exit; // Descomenta esta línea para detener aquí y ver los mensajes
+            return;
+        }
+
+        //echo "Punto 6: Todo correcto. A punto de renderizar la vista.<br>"; // Punto de control 6
+        // exit; // Descomenta esta línea para detener aquí y ver los mensajes
+
+        $this->render('perfil/perfil.php', ['user' => $userData]);
     }
 
-    public function __construct()
+     public function __construct()
     {
         // Se define el layout para este controlador 
         $this->layout = 'perfil_layout';
     }
-
-    
 }
-?>

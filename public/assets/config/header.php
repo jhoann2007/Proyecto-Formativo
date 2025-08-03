@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    } 
+?>
 <i class="header-toggle d-xl-none bi bi-list"></i>
 
 <div class="profile-img">
@@ -10,10 +15,7 @@
 
 <h1 class="sitename">
   <?php
-    if (session_status() === PHP_SESSION_NONE) {
-      session_start();
-    }
-    echo htmlspecialchars($_SESSION['user_nombre'] ?? 'Usuario');
+    echo htmlspecialchars($_SESSION['user_name'] ?? 'Usuario');
   ?>
 </h1>
 
@@ -31,10 +33,10 @@
 
     // Asegurarse de que 'user_rol_nombre' existe para evitar notices,
     // aunque tu script de login ya lo convierte a minúsculas y establece 'desconocido' por defecto.
-    $rolUsuario = $_SESSION['user_rol_nombre'] ?? 'desconocido';
+    $userRole = $_SESSION['user_role_name'] ?? 'desconocido';
 
     // Corregido: switch en lugar de witch
-    switch ($rolUsuario) {
+    switch ($userRole) {
       case 'admin':
         echo "          
                         <li><a href='/agregarAdmin' class=''><i class='bi bi-person-fill-add'></i>Agregar Administrador</a></li>
