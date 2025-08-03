@@ -50,18 +50,13 @@
                             <div class="col-lg-6">
                                 <ul class="list-unstyled">
                                     <!-- Usamos los nombres de columna correctos de la BD -->
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Documento:</strong> <span><?php echo htmlspecialchars($user->document); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Tipo Doc:</strong> <span><?php echo htmlspecialchars($user->document_type); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Fecha Nac:</strong> <span><?php echo htmlspecialchars($user->birthdate); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Correo:</strong> <span><?php echo htmlspecialchars($user->email); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Teléfono:</strong> <span><?php echo htmlspecialchars($user->phone); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Teléfono Emerjencia:</strong> <span><?php echo htmlspecialchars($user->emergency_phone); ?></span></li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled">
-                                    <!-- Usamos los campos que trajimos con los JOINs -->
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Rol:</strong> <span><?php echo htmlspecialchars(ucfirst($user->role_name)); ?></span></li>
+                                    <li><i class="bi bi-credit-card-2-front"></i> <strong>Documento:</strong> <span><?php echo htmlspecialchars($user->document); ?></span></li>
+                                    <li><i class="bi bi-cc-square"></i> <strong>Tipo Doc:</strong> <span><?php echo htmlspecialchars($user->document_type); ?></span></li>
+                                    <li><i class="bi bi-cake2"></i> <strong>Fecha Nac:</strong> <span><?php echo htmlspecialchars($user->birthdate); ?></span></li>
+                                    <li><i class="bi bi-envelope-at"></i> <strong>Correo:</strong> <span><?php echo htmlspecialchars($user->email); ?></span></li>
+                                    <li><i class="bi bi-telephone"></i> <strong>Teléfono:</strong> <span><?php echo htmlspecialchars($user->phone); ?></span></li>
+                                    <li><i class="bi bi-telephone-plus"></i> <strong>Teléfono Emerjencia:</strong> <span><?php echo htmlspecialchars($user->emergency_phone); ?></span></li>
+                                    <i class="bi bi-person-badge"></i> <strong>Rol:</strong> <span><?php echo htmlspecialchars(ucfirst($user->role_name)); ?></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -79,23 +74,23 @@
 
                                     <?php if (isset($user->center_name)): // Mostrar solo si tiene programa 
                                     ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Centro Formacion:</strong> <span><?php echo htmlspecialchars($user->center_name); ?></span></li>
+                                        <li><i class="bi bi-house"></i> <strong>Centro Formacion:</strong> <span><?php echo htmlspecialchars($user->center_name); ?></span></li>
                                     <?php else: ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Centro Formacion:</strong> <span>No vinculado</span></li>
+                                        <li><i class="bi bi-house"></i> <strong>Centro Formacion:</strong> <span>No vinculado</span></li>
                                     <?php endif; ?>
 
                                     <?php if (isset($user->program_name)): // Mostrar solo si tiene programa 
                                     ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Programa:</strong> <span><?php echo htmlspecialchars($user->program_name); ?></span></li>
+                                        <li><i class="bi bi-person-plus"></i> <strong>Programa:</strong> <span><?php echo htmlspecialchars($user->program_name); ?></span></li>
                                     <?php else: ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Programa:</strong> <span>No vinculado</span></li>
+                                        <li><i class="bi bi-person-plus"></i> <strong>Programa:</strong> <span>No vinculado</span></li>
                                     <?php endif; ?>
 
                                     <?php if (isset($user->group_token)): // Mostrar solo si es aprendiz y tiene ficha 
                                     ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Grupo:</strong> <span><?php echo htmlspecialchars($user->group_token); ?></span></li>
+                                        <li><i class="bi bi-people-fill"></i> <strong>Grupo:</strong> <span><?php echo htmlspecialchars($user->group_token); ?></span></li>
                                     <?php else: ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Grupo:</strong> <span>No vinculado</span></li>
+                                        <li><i class="bi bi-people-fill"></i> <strong>Grupo:</strong> <span>No vinculado</span></li>
                                     <?php endif; ?>
 
                                 </ul>
@@ -103,11 +98,11 @@
                             <div class="col-md-6">
                                 <h3 class="text-success">Salud</h3>
                                 <ul class="list-unstyled">
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Genero:</strong> <span><?php echo htmlspecialchars($user->gender); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Tipo Sangre:</strong> <span><?php echo htmlspecialchars($user->blood_type); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Peso:</strong> <span><?php echo htmlspecialchars($user->weight); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>Estatura:</strong> <span><?php echo htmlspecialchars($user->stature); ?></span></li>
-                                    <li><i class="bi bi-chevron-right"></i> <strong>EPS:</strong> <span><?php echo htmlspecialchars($user->eps); ?></span></li>
+                                    <li><i class="bi bi-gender-ambiguous"></i> <strong>Genero:</strong> <span><?php echo htmlspecialchars($user->gender); ?></span></li>
+                                    <li><i class="bi bi-droplet-half"></i> <strong>Tipo Sangre:</strong> <span><?php echo htmlspecialchars($user->blood_type); ?></span></li>
+                                    <li><i class="bi bi-apple"></i> <strong>Peso:</strong> <span><?php echo htmlspecialchars($user->weight); ?></span></li>
+                                    <li><i class="bi bi-file-arrow-up"></i> <strong>Estatura:</strong> <span><?php echo htmlspecialchars($user->stature); ?></span></li>
+                                    <li><i class="bi bi-capsule"></i> <strong>EPS:</strong> <span><?php echo htmlspecialchars($user->eps); ?></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -120,9 +115,9 @@
                         <ul class="list-unstyled row">
                             <?php if (isset($user->observations)): // Mostrar solo si es aprendiz y tiene ficha 
                                     ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Observaciones:</strong> <span><?php echo htmlspecialchars($user->observations); ?></span></li>
+                                        <li><i class="bi bi-eye"></i> <strong>Observaciones:</strong> <span><?php echo htmlspecialchars($user->observations); ?></span></li>
                                     <?php else: ?>
-                                        <li><i class="bi bi-chevron-right"></i> <strong>Observaciones:</strong> <span>No emitida</span></li>
+                                        <li><i class="bi bi-eye"></i> <strong>Observaciones:</strong> <span>No emitida</span></li>
                                     <?php endif; ?>
                         </ul>
                     </div>
