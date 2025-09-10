@@ -7,7 +7,7 @@
                 <th>N. Documento</th>
                 <th>Email</th>
                 <th>Estado</th>
-                <th colspan="4">Acciones</th>
+                <th colspan="5">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -15,37 +15,35 @@
             if (isset($aprendices) && is_array($aprendices) && count($aprendices) > 0) {
                 foreach ($aprendices as $aprendiz) {
                     // Asegurar que las propiedades existan o usar valores por defecto
-                    $id = $aprendiz->id ?? 0;
-                    $nombre = $aprendiz->nombre ?? '';
-                    $tipoDocumento = $aprendiz->tipoDocumento ?? '';
-                    $documento = $aprendiz->documento ?? '';
-                    $fechaNacimiento = $aprendiz->fechaNacimiento ?? '';
+                    $id = $aprendiz->id_user ?? 0;
+                    $nombre = $aprendiz->name ?? '';
+                    $tipoDocumento = $aprendiz->document_type ?? '';
+                    $documento = $aprendiz->document ?? '';
+                    $fechaNacimiento = $aprendiz->birthdate ?? '';
                     $email = $aprendiz->email ?? '';
-                    $genero = $aprendiz->genero ?? '';
-                    $estado = $aprendiz->estado ?? '';
-                    $telefono = $aprendiz->telefono ?? '';
+                    $genero = $aprendiz->gender ?? '';
+                    $estado = $aprendiz->status ?? '';
+                    $telefono = $aprendiz->phone ?? '';
                     $eps = $aprendiz->eps ?? '';
-                    $tipoSangre = $aprendiz->tipoSangre ?? '';
-                    $peso = $aprendiz->peso ?? '';
-                    $estatura = $aprendiz->estatura ?? '';
-                    $telefonoEmerjencia = $aprendiz->telefonoEmerjencia ?? '';
+                    $tipoSangre = $aprendiz->blood_type ?? '';
+                    $peso = $aprendiz->weight ?? '';
+                    $estatura = $aprendiz->stature ?? '';
+                    $telefonoEmerjencia = $aprendiz->emergency_phone ?? '';
                     $password = $aprendiz->password ?? '';
-                    $observaciones = $aprendiz->observaciones ?? '';
-                    
+                    $observaciones = $aprendiz->observations ?? '';
+
                     // Verificar si existen las propiedades o usar valores por defecto
-                    $fkidRol = property_exists($aprendiz, 'fkIdRol') ? $aprendiz->fkIdRol : 
-                              (property_exists($aprendiz, 'fkidRol') ? $aprendiz->fkidRol : '');
-                    $fkidGrupo = property_exists($aprendiz, 'fkIdGrupo') ? $aprendiz->fkIdGrupo : 
-                                (property_exists($aprendiz, 'fkidGrupo') ? $aprendiz->fkidGrupo : '');
-                    $fkidCentroFormacion = property_exists($aprendiz, 'fkIdCentroFormacion') ? $aprendiz->fkIdCentroFormacion : 
-                                         (property_exists($aprendiz, 'fkidCentroFormacion') ? $aprendiz->fkidCentroFormacion : '');
-                    
+                    $fkidRol = property_exists($aprendiz, 'fkIdRol') ? $aprendiz->fkIdRol : (property_exists($aprendiz, 'fkidRol') ? $aprendiz->fkidRol : '');
+                    $fkidGrupo = property_exists($aprendiz, 'fkIdGrupo') ? $aprendiz->fkIdGrupo : (property_exists($aprendiz, 'fkidGrupo') ? $aprendiz->fkidGrupo : '');
+                    $fkidCentroFormacion = property_exists($aprendiz, 'fkIdCentroFormacion') ? $aprendiz->fkIdCentroFormacion : (property_exists($aprendiz, 'fkidCentroFormacion') ? $aprendiz->fkidCentroFormacion : '');
+
                     echo "<tr data-ficha='{$fkidGrupo}'>
                         <td>{$nombre}</td>
                         <td>{$tipoDocumento}</td>
                         <td>{$documento}</td>
                         <td>{$email}</td>
                         <td>{$estado}</td>
+                        <td><button class='btn btn-sm btn-control' data-bs-toggle='modal' data-bs-target='#modalControl{$id}'><i class='bi bi-person-fill-add'></i>Control</button></td>
                         <td><button class='btn btn-sm btn-observaciones' data-bs-toggle='modal' data-bs-target='#modalObservaciones{$id}'><i class='bi bi-chat-left-text'></i></button></td>
                         <td><button class='btn btn-sm btn-ver' data-bs-toggle='modal' data-bs-target='#modalView{$id}'><i class='bi bi-eye'></i></button></td>
                         <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id}'><i class='bi bi-pencil-square'></i></button></td>
@@ -67,51 +65,51 @@
                                         <h6>Observaciones:</h6>
                                         <div class='p-2 border rounded mb-3' style='max-height: 200px; overflow-y: auto;'>
                                             ";
-                                            // Mostrar observaciones desde la sesión
-                                            if (isset($_SESSION['observaciones_aprendiz'][$id]) && !empty($_SESSION['observaciones_aprendiz'][$id])) {
-                                                foreach ($_SESSION['observaciones_aprendiz'][$id] as $obs) {
-                                                    $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
-                                                    $texto = isset($obs['texto']) ? $obs['texto'] : '';
-                                                    
-                                                    if (!empty($texto)) {
-                                                        echo "<div class='p-2 mb-2 bg-light rounded'>";
-                                                        if (!empty($fecha)) {
-                                                            echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
-                                                        }
-                                                        echo htmlspecialchars($texto) . "</div>";
-                                                    }
-                                                }
-                                            } else {
-                                                // Intentar mostrar observaciones desde la base de datos
-                                                $observacionesArray = [];
-                                                if (!empty($observaciones)) {
-                                                    // Intentar decodificar JSON
-                                                    $decodedObs = json_decode($observaciones, true);
-                                                    if (is_array($decodedObs)) {
-                                                        $observacionesArray = $decodedObs;
-                                                    } else {
-                                                        // Si no es JSON, tratar como texto simple
-                                                        $observacionesArray = [['texto' => $observaciones, 'fecha' => date('Y-m-d H:i:s')]];
-                                                    }
-                                                    
-                                                    // Mostrar observaciones
-                                                    foreach ($observacionesArray as $obs) {
-                                                        $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
-                                                        $texto = isset($obs['texto']) ? $obs['texto'] : $obs;
-                                                        
-                                                        if (!empty($texto)) {
-                                                            echo "<div class='p-2 mb-2 bg-light rounded'>";
-                                                            if (!empty($fecha)) {
-                                                                echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
-                                                            }
-                                                            echo htmlspecialchars($texto) . "</div>";
-                                                        }
-                                                    }
-                                                } else {
-                                                    echo "<p class='text-muted'>No hay observaciones registradas</p>";
-                                                }
-                                            }
-                                            echo "
+                    // Mostrar observaciones desde la sesión
+                    if (isset($_SESSION['observaciones_aprendiz'][$id]) && !empty($_SESSION['observaciones_aprendiz'][$id])) {
+                        foreach ($_SESSION['observaciones_aprendiz'][$id] as $obs) {
+                            $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                            $texto = isset($obs['texto']) ? $obs['texto'] : '';
+
+                            if (!empty($texto)) {
+                                echo "<div class='p-2 mb-2 bg-light rounded'>";
+                                if (!empty($fecha)) {
+                                    echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                }
+                                echo htmlspecialchars($texto) . "</div>";
+                            }
+                        }
+                    } else {
+                        // Intentar mostrar observaciones desde la base de datos
+                        $observacionesArray = [];
+                        if (!empty($observaciones)) {
+                            // Intentar decodificar JSON
+                            $decodedObs = json_decode($observaciones, true);
+                            if (is_array($decodedObs)) {
+                                $observacionesArray = $decodedObs;
+                            } else {
+                                // Si no es JSON, tratar como texto simple
+                                $observacionesArray = [['texto' => $observaciones, 'fecha' => date('Y-m-d H:i:s')]];
+                            }
+
+                            // Mostrar observaciones
+                            foreach ($observacionesArray as $obs) {
+                                $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                                $texto = isset($obs['texto']) ? $obs['texto'] : $obs;
+
+                                if (!empty($texto)) {
+                                    echo "<div class='p-2 mb-2 bg-light rounded'>";
+                                    if (!empty($fecha)) {
+                                        echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                    }
+                                    echo htmlspecialchars($texto) . "</div>";
+                                }
+                            }
+                        } else {
+                            echo "<p class='text-muted'>No hay observaciones registradas</p>";
+                        }
+                    }
+                    echo "
                                         </div>
                                     </div>
                                     
@@ -131,7 +129,7 @@
                             </div>
                         </div>
                     </div>";
-                    
+
                     // Modal para Ver Aprendiz
                     echo "
                     <div class='modal fade' id='modalView{$id}' tabindex='-1' aria-labelledby='modalViewLabel{$id}' aria-hidden='true'>
@@ -160,85 +158,85 @@
                                             <p><strong>Peso:</strong> {$peso}</p>
                                             <p><strong>Estatura:</strong> {$estatura}</p>
                                             <p><strong>Teléfono Emergencia:</strong> {$telefonoEmerjencia}</p>";
-                                            
-                                            // Mostrar nombre del rol en lugar del ID
-                                            if (isset($roles) && is_array($roles)) {
-                                                foreach ($roles as $rol) {
-                                                    if ($rol->id == $fkidRol) {
-                                                        echo "<p><strong>Rol:</strong> {$rol->nombre}</p>";
-                                                        break;
-                                                    }
-                                                }
-                                            } else {
-                                                echo "<p><strong>Rol:</strong> {$fkidRol}</p>";
-                                            }
-                                            
-                                            // Mostrar ficha en lugar del ID de grupo
-                                            if (isset($grupos) && is_array($grupos)) {
-                                                foreach ($grupos as $grupo) {
-                                                    if ($grupo->id == $fkidGrupo) {
-                                                        echo "<p><strong>Ficha:</strong> {$grupo->ficha}</p>";
-                                                        break;
-                                                    }
-                                                }
-                                            } else {
-                                                echo "<p><strong>Grupo:</strong> {$fkidGrupo}</p>";
-                                            }
-                                            
-                                            // Mostrar nombre del centro de formación en lugar del ID
-                                            if (isset($centrosFormacion) && is_array($centrosFormacion)) {
-                                                foreach ($centrosFormacion as $centro) {
-                                                    if ($centro->id == $fkidCentroFormacion) {
-                                                        echo "<p><strong>Centro Formación:</strong> {$centro->nombre}</p>";
-                                                        break;
-                                                    }
-                                                }
-                                            } else {
-                                                echo "<p><strong>Centro Formación:</strong> {$fkidCentroFormacion}</p>";
-                                            }
-                                            
-                                            // Mostrar observaciones
-                                            echo "<p><strong>Observaciones:</strong></p>";
-                                            echo "<div class='p-2 border rounded' style='max-height: 150px; overflow-y: auto;'>";
-                                            
-                                            // Mostrar observaciones desde la sesión
-                                            if (isset($_SESSION['observaciones_aprendiz'][$id]) && !empty($_SESSION['observaciones_aprendiz'][$id])) {
-                                                foreach ($_SESSION['observaciones_aprendiz'][$id] as $obs) {
-                                                    $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
-                                                    $texto = isset($obs['texto']) ? $obs['texto'] : '';
-                                                    
-                                                    if (!empty($texto)) {
-                                                        echo "<div class='p-1 mb-1'>";
-                                                        if (!empty($fecha)) {
-                                                            echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
-                                                        }
-                                                        echo htmlspecialchars($texto) . "</div>";
-                                                    }
-                                                }
-                                            } else if (!empty($observaciones)) {
-                                                // Intentar mostrar observaciones desde la base de datos
-                                                $decodedObs = json_decode($observaciones, true);
-                                                if (is_array($decodedObs)) {
-                                                    foreach ($decodedObs as $obs) {
-                                                        $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
-                                                        $texto = isset($obs['texto']) ? $obs['texto'] : $obs;
-                                                        
-                                                        if (!empty($texto)) {
-                                                            echo "<div class='p-1 mb-1'>";
-                                                            if (!empty($fecha)) {
-                                                                echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
-                                                            }
-                                                            echo htmlspecialchars($texto) . "</div>";
-                                                        }
-                                                    }
-                                                } else {
-                                                    echo $observaciones;
-                                                }
-                                            } else {
-                                                echo "<p class='text-muted'>No hay observaciones registradas</p>";
-                                            }
-                                            echo "</div>";
-                                            echo "
+
+                    // Mostrar nombre del rol en lugar del ID
+                    if (isset($roles) && is_array($roles)) {
+                        foreach ($roles as $rol) {
+                            if ($rol->id_role == $fkidRol) {
+                                echo "<p><strong>Rol:</strong> {$rol->nombre}</p>";
+                                break;
+                            }
+                        }
+                    } else {
+                        echo "<p><strong>Rol:</strong> {$fkidRol}</p>";
+                    }
+
+                    // Mostrar ficha en lugar del ID de grupo
+                    if (isset($grupos) && is_array($grupos)) {
+                        foreach ($grupos as $grupo) {
+                            if ($grupo->id == $fkidGrupo) {
+                                echo "<p><strong>Ficha:</strong> {$grupo->ficha}</p>";
+                                break;
+                            }
+                        }
+                    } else {
+                        echo "<p><strong>Grupo:</strong> {$fkidGrupo}</p>";
+                    }
+
+                    // Mostrar nombre del centro de formación en lugar del ID
+                    if (isset($centrosFormacion) && is_array($centrosFormacion)) {
+                        foreach ($centrosFormacion as $centro) {
+                            if ($centro->id == $fkidCentroFormacion) {
+                                echo "<p><strong>Centro Formación:</strong> {$centro->nombre}</p>";
+                                break;
+                            }
+                        }
+                    } else {
+                        echo "<p><strong>Centro Formación:</strong> {$fkidCentroFormacion}</p>";
+                    }
+
+                    // Mostrar observaciones
+                    echo "<p><strong>Observaciones:</strong></p>";
+                    echo "<div class='p-2 border rounded' style='max-height: 150px; overflow-y: auto;'>";
+
+                    // Mostrar observaciones desde la sesión
+                    if (isset($_SESSION['observaciones_aprendiz'][$id]) && !empty($_SESSION['observaciones_aprendiz'][$id])) {
+                        foreach ($_SESSION['observaciones_aprendiz'][$id] as $obs) {
+                            $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                            $texto = isset($obs['texto']) ? $obs['texto'] : '';
+
+                            if (!empty($texto)) {
+                                echo "<div class='p-1 mb-1'>";
+                                if (!empty($fecha)) {
+                                    echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                }
+                                echo htmlspecialchars($texto) . "</div>";
+                            }
+                        }
+                    } else if (!empty($observaciones)) {
+                        // Intentar mostrar observaciones desde la base de datos
+                        $decodedObs = json_decode($observaciones, true);
+                        if (is_array($decodedObs)) {
+                            foreach ($decodedObs as $obs) {
+                                $fecha = isset($obs['fecha']) ? $obs['fecha'] : '';
+                                $texto = isset($obs['texto']) ? $obs['texto'] : $obs;
+
+                                if (!empty($texto)) {
+                                    echo "<div class='p-1 mb-1'>";
+                                    if (!empty($fecha)) {
+                                        echo "<small class='text-muted'>" . date('d/m/Y H:i', strtotime($fecha)) . "</small><br>";
+                                    }
+                                    echo htmlspecialchars($texto) . "</div>";
+                                }
+                            }
+                        } else {
+                            echo $observaciones;
+                        }
+                    } else {
+                        echo "<p class='text-muted'>No hay observaciones registradas</p>";
+                    }
+                    echo "</div>";
+                    echo "
                                         </div>
                                     </div>
                                 </div>
@@ -248,7 +246,7 @@
                             </div>
                         </div>
                     </div>";
-                    
+
                     // Modal para Editar Aprendiz
                     echo "
                     <div class='modal fade' id='modalEdit{$id}' tabindex='-1' aria-labelledby='modalEditLabel{$id}' aria-hidden='true'>
@@ -262,7 +260,7 @@
                                     <form action='/agregarAprendiz/update' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
                                         <!-- Campo oculto para el rol de aprendiz (posición 0) -->
-                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[2]) ? $roles[2]->id : '') . "'>
+                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[2]) ? $roles[2]->id_role : '') . "'>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Nombre</label>
@@ -271,11 +269,11 @@
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Documento</label>
                                                 <select class='form-control' name='txtTipoDocumento'>
-                                                    <option value='CC' ".($tipoDocumento == 'CC' ? 'selected' : '').">Cédula de ciudadanía</option>
-                                                    <option value='CE' ".($tipoDocumento == 'CE' ? 'selected' : '').">Cédula de Extranjería</option>
-                                                    <option value='TI' ".($tipoDocumento == 'TI' ? 'selected' : '').">Tarjeta de identidad</option>
-                                                    <option value='PEP' ".($tipoDocumento == 'PEP' ? 'selected' : '').">Permiso especial de permanencia</option>
-                                                    <option value='PPT' ".($tipoDocumento == 'PPT' ? 'selected' : '').">Permiso por Protección Temporal</option>
+                                                    <option value='CC' " . ($tipoDocumento == 'CC' ? 'selected' : '') . ">Cédula de ciudadanía</option>
+                                                    <option value='CE' " . ($tipoDocumento == 'CE' ? 'selected' : '') . ">Cédula de Extranjería</option>
+                                                    <option value='TI' " . ($tipoDocumento == 'TI' ? 'selected' : '') . ">Tarjeta de identidad</option>
+                                                    <option value='PEP' " . ($tipoDocumento == 'PEP' ? 'selected' : '') . ">Permiso especial de permanencia</option>
+                                                    <option value='PPT' " . ($tipoDocumento == 'PPT' ? 'selected' : '') . ">Permiso por Protección Temporal</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -297,8 +295,8 @@
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Género</label>
                                                 <select class='form-control' name='txtGenero'>
-                                                    <option value='M' ".($genero == 'M' ? 'selected' : '').">Masculino</option>
-                                                    <option value='F' ".($genero == 'F' ? 'selected' : '').">Femenino</option>
+                                                    <option value='M' " . ($genero == 'M' ? 'selected' : '') . ">Masculino</option>
+                                                    <option value='F' " . ($genero == 'F' ? 'selected' : '') . ">Femenino</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -306,8 +304,8 @@
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Estado</label>
                                                 <select class='form-control' name='txtEstado'>
-                                                    <option value='activo' ".($estado == 'activo' ? 'selected' : '').">Activo</option>
-                                                    <option value='inactivo' ".($estado == 'inactivo' ? 'selected' : '').">Inactivo</option>
+                                                    <option value='activo' " . ($estado == 'activo' ? 'selected' : '') . ">Activo</option>
+                                                    <option value='inactivo' " . ($estado == 'inactivo' ? 'selected' : '') . ">Inactivo</option>
                                                 </select>
                                             </div>
                                             <div class='col-md-6'>
@@ -323,14 +321,14 @@
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Sangre</label>
                                                 <select class='form-control' name='txtTipoSangre'>
-                                                    <option value='A+' ".($tipoSangre == 'A+' ? 'selected' : '').">A+</option>
-                                                    <option value='A-' ".($tipoSangre == 'A-' ? 'selected' : '').">A-</option>
-                                                    <option value='B+' ".($tipoSangre == 'B+' ? 'selected' : '').">B+</option>
-                                                    <option value='B-' ".($tipoSangre == 'B-' ? 'selected' : '').">B-</option>
-                                                    <option value='AB+' ".($tipoSangre == 'AB+' ? 'selected' : '').">AB+</option>
-                                                    <option value='AB-' ".($tipoSangre == 'AB-' ? 'selected' : '').">AB-</option>
-                                                    <option value='O+' ".($tipoSangre == 'O+' ? 'selected' : '').">O+</option>
-                                                    <option value='O-' ".($tipoSangre == 'O-' ? 'selected' : '').">O-</option>
+                                                    <option value='A+' " . ($tipoSangre == 'A+' ? 'selected' : '') . ">A+</option>
+                                                    <option value='A-' " . ($tipoSangre == 'A-' ? 'selected' : '') . ">A-</option>
+                                                    <option value='B+' " . ($tipoSangre == 'B+' ? 'selected' : '') . ">B+</option>
+                                                    <option value='B-' " . ($tipoSangre == 'B-' ? 'selected' : '') . ">B-</option>
+                                                    <option value='AB+' " . ($tipoSangre == 'AB+' ? 'selected' : '') . ">AB+</option>
+                                                    <option value='AB-' " . ($tipoSangre == 'AB-' ? 'selected' : '') . ">AB-</option>
+                                                    <option value='O+' " . ($tipoSangre == 'O+' ? 'selected' : '') . ">O+</option>
+                                                    <option value='O-' " . ($tipoSangre == 'O-' ? 'selected' : '') . ">O-</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -366,25 +364,25 @@
                                                 <label class='form-label'>Ficha</label>
                                                 <select class='form-control' name='txtFKidGrupo'>
                                                     <option value=''>Seleccionar Ficha</option>";
-                                                    if (isset($grupos) && is_array($grupos)) {
-                                                        foreach ($grupos as $grupo) {
-                                                            $selected = ($fkidGrupo == $grupo->id) ? 'selected' : '';
-                                                            echo "<option value='{$grupo->id}' {$selected}>{$grupo->ficha}</option>";
-                                                        }
-                                                    }
-                                                echo "</select>
+                    if (isset($grupos) && is_array($grupos)) {
+                        foreach ($grupos as $grupo) {
+                            $selected = ($fkidGrupo == $grupo->id_group) ? 'selected' : '';
+                            echo "<option value='{$grupo->id_group}' {$selected}>{$grupo->token_number}</option>";
+                        }
+                    }
+                    echo "</select>
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Centro Formación</label>
                                                 <select class='form-control' name='txtFKidCentroFormacion'>
                                                     <option value=''>Seleccionar Centro</option>";
-                                                    if (isset($centrosFormacion) && is_array($centrosFormacion)) {
-                                                        foreach ($centrosFormacion as $centro) {
-                                                            $selected = ($fkidCentroFormacion == $centro->id) ? 'selected' : '';
-                                                            echo "<option value='{$centro->id}' {$selected}>{$centro->nombre}</option>";
-                                                        }
-                                                    }
-                                                echo "</select>
+                    if (isset($centrosFormacion) && is_array($centrosFormacion)) {
+                        foreach ($centrosFormacion as $centro) {
+                            $selected = ($fkidCentroFormacion == $centro->id_trainingcenter) ? 'selected' : '';
+                            echo "<option value='{$centro->id_trainingcenter}' {$selected}>{$centro->name}</option>";
+                        }
+                    }
+                    echo "</select>
                                             </div>
                                         </div>
                                         <div class='modal-footer'>
@@ -396,7 +394,7 @@
                             </div>
                         </div>
                     </div>";
-                    
+
                     // Modal para Eliminar Aprendiz
                     echo "
                     <div class='modal fade' id='modalDelete{$id}' tabindex='-1' aria-labelledby='modalDeleteLabel{$id}' aria-hidden='true'>
@@ -437,6 +435,103 @@
                             </div>
                         </div>
                     </div>";
+
+                    echo "
+                    <div class='modal fade' id='modalControl{$id}' tabindex='-1' aria-labelledby='modalControlLabel{$id}' aria-hidden='true'>
+    <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-titulo' id='modalAprendizLabel'>Agregar Control de Progreso</h5>
+                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
+            </div>
+            <div class='modal-body'>
+                <form action='/controlProgreso/create' method='post'>
+                    <div class='row mb-3'>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Fecha Realización</label>
+                            <input type='date' class='form-control' name='txtFechaRealizacion' required>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Peso</label>
+                            <input type='text' class='form-control' name='txtPeso' required>
+                        </div>
+                    </div>
+                    <div class='row mb-3'>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Cintura</label>
+                            <input type='text' class='form-control' name='txtCintura' required>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Cadera</label>
+                            <input type='text' class='form-control' name='txtCadera' required>
+                        </div>
+                    </div>
+                    <div class='row mb-3'>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Muslo Derecho</label>
+                            <input type='text' class='form-control' name='txtMusloDerecho' required>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Muslo Izquierdo</label>
+                            <input type='text' class='form-control' name='txtMusloIzquierdo' required>
+                        </div>
+                    </div>
+                    <div class='row mb-3'>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Brazo Derecho</label>
+                            <input type='text' class='form-control' name='txtBrazoDerecho' required>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Brazo Izquierdo</label>
+                            <input type='text' class='form-control' name='txtBrazoIzquierdo' required>
+                        </div>
+                    </div>
+                    <div class='row mb-3'>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Antebrazo Derecho</label>
+                            <input type='text' class='form-control' name='txtAntebrazoDerecho' required>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Antebrazo Izquierdo</label>
+                            <input type='text' class='form-control' name='txtAntebrazoIzquierdo' required>
+                        </div>
+                    </div>
+                    <div class='row mb-3'>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Pantorrilla Derecha</label>
+                            <input type='text' class='form-control' name='txtPantorrillaDerecha' required>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Pantorrilla Izquierda</label>
+                            <input type='text' class='form-control' name='txtPantorrillaIzquierda' required>
+                        </div>
+                    </div>
+                    <div class='row mb-3'>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Examén Médico</label>
+                            <input type='text' class='form-control' name='txtExamenMedico' required>
+                        </div>
+                        <div class='col-md-6'>
+                            <label class='form-label'>Fecha examén</label>
+                            <input type='date' class='form-control' name='txtFechaExamen' required>
+                        </div>
+                    </div>
+                    <div class='row mb-3'>
+                        <div class='col-md-12'>
+                            <label class='form-label'>Observaciones</label>
+                            <textarea class='form-control' name='txtObservaciones'></textarea>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
+                        <button type='submit' class='btn btn-primary'>Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                    ";
                 }
             } else {
                 echo "<tr class='no-data'><td colspan='9' class='text-center'>No hay aprendices registrados</td></tr>";
@@ -457,8 +552,21 @@
             <div class="modal-body">
                 <form action="/agregarAprendiz/create" method="post">
                     <!-- Campo oculto para asignar automáticamente el rol de aprendiz (posición 3) -->
-                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[2]) ? $roles[2]->id : ''; ?>">
-                    
+                    <!-- <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[2]) ? $roles[2]->id : ''; ?>"> -->
+
+                    <?php
+                    $aprendizRoleId = '';
+                    if (isset($roles) && is_array($roles)) {
+                        foreach ($roles as $rol) {
+                            if (strtolower($rol->name) === 'aprendiz' || $rol->id_role == 3) {
+                                $aprendizRoleId = $rol->id_role;
+                                break;
+                            }
+                        }
+                    }
+                    ?>
+                    <input type="hidden" name="txtFKidRol" value="<?php echo $aprendizRoleId; ?>">
+
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Nombre</label>
@@ -568,7 +676,7 @@
                                 <?php
                                 if (isset($grupos) && is_array($grupos)) {
                                     foreach ($grupos as $grupo) {
-                                        echo "<option value='{$grupo->id}'>{$grupo->ficha}</option>";
+                                        echo "<option value='{$grupo->id_group}'>{$grupo->token_number}</option>";
                                     }
                                 }
                                 ?>
@@ -581,7 +689,7 @@
                                 <?php
                                 if (isset($centrosFormacion) && is_array($centrosFormacion)) {
                                     foreach ($centrosFormacion as $centro) {
-                                        echo "<option value='{$centro->id}'>{$centro->nombre}</option>";
+                                        echo "<option value='{$centro->id_trainingcenter}'>{$centro->name}</option>";
                                     }
                                 }
                                 ?>

@@ -16,6 +16,10 @@ require_once '../app/controllers/inicioController.php';
 require_once '../app/controllers/olvidoContraseniaController.php';
 require_once '../app/controllers/ingresoController.php';
 require_once '../app/controllers/rutinaController.php';
+require_once '../app/controllers/agregarGrupoController.php';
+require_once '../app/controllers/agregarCentroController.php';
+require_once '../app/controllers/agregarProgramaController.php';
+require_once '../app/controllers/agregarRolController.php';
 
 
 

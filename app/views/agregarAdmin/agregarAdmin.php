@@ -15,24 +15,26 @@
             if (isset($admins) && is_array($admins) && count($admins) > 0) {
                 foreach ($admins as $admin) {
                     // Asegurar que las propiedades existan o usar valores por defecto
-                    $id = $admin->id ?? 0;
-                    $nombre = $admin->nombre ?? '';
-                    $tipoDocumento = $admin->tipoDocumento ?? '';
-                    $documento = $admin->documento ?? '';
-                    $fechaNacimiento = $admin->fechaNacimiento ?? '';
+                    $id = $admin->id_user ?? 0;
+                    $nombre = $admin->name ?? '';
+                    $tipoDocumento = $admin->document_type ?? '';
+                    $documento = $admin->document ?? '';
+                    $fechaNacimiento = $admin->birthdate ?? '';
                     $email = $admin->email ?? '';
-                    $genero = $admin->genero ?? '';
-                    $estado = $admin->estado ?? '';
-                    $telefono = $admin->telefono ?? '';
+                    $genero = $admin->gender ?? '';
+                    $estado = $admin->status ?? '';
+                    $telefono = $admin->phone ?? '';
                     $eps = $admin->eps ?? '';
-                    $tipoSangre = $admin->tipoSangre ?? '';
-                    $telefonoEmerjencia = $admin->telefonoEmerjencia ?? '';
+                    $tipoSangre = $admin->blood_type ?? '';
+                    $telefonoEmerjencia = $admin->emergency_phone ?? '';
                     $password = $admin->password ?? '';
-                    $observaciones = $admin->observaciones ?? '';
+                    $observaciones = $admin->observations ?? '';
                     
+
+                    $fkidRol = $admin->id_role ?? '';
                     // Verificar si existen las propiedades o usar valores por defecto
-                    $fkidRol = property_exists($admin, 'fkIdRol') ? $admin->fkIdRol : 
-                              (property_exists($admin, 'fkidRol') ? $admin->fkidRol : '');
+                    // $fkidRol = property_exists($admin, 'id_role') ? $admin->id_role : 
+                    //           (property_exists($admin, 'id_role') ? $admin->id_role : '');
                     
                     echo "<tr data-ficha='{}'>
                         <td>{$nombre}</td>
@@ -142,8 +144,8 @@
                                             // Mostrar nombre del rol en lugar del ID
                                             if (isset($roles) && is_array($roles)) {
                                                 foreach ($roles as $rol) {
-                                                    if ($rol->id == $fkidRol) {
-                                                        echo "<p><strong>Rol:</strong> {$rol->nombre}</p>";
+                                                    if ($rol->id_role == $fkidRol) {
+                                                        echo "<p><strong>Rol:</strong> {$rol->name}</p>";
                                                         break;
                                                     }
                                                 }
@@ -174,7 +176,7 @@
                                     <form action='/agregarAdmin/update' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
                                         <!-- Campo oculto para el rol de admin (posición 1) -->
-                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[0]) ? $roles[0]->id : '') . "'>
+                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[0]) ? $roles[0]->id_role : '') . "'>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Nombre</label>
@@ -321,7 +323,20 @@
             <div class="modal-body">
                 <form action="/agregarAdmin/create" method="post">
                     <!-- Campo oculto para asignar automáticamente el rol de administrador (posición 1) -->
-                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[0]) ? $roles[0]->id : ''; ?>">
+                    <!-- <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[0]) ? $roles[0]->id_role : ''; ?>"> -->
+                    <!-- ✅ CORREGIDO: Buscar específicamente el rol de administrador -->
+                    <?php
+                    $adminRoleId = '';
+                    if (isset($roles) && is_array($roles)) {
+                        foreach ($roles as $rol) {
+                            if (strtolower($rol->name) === 'admin' || $rol->id_role == 1) {
+                                $adminRoleId = $rol->id_role;
+                                break;
+                            }
+                        }
+                    }
+                    ?>
+                    <input type="hidden" name="txtFKidRol" value="<?php echo $adminRoleId; ?>">
                     
                     <div class="row mb-3">
                         <div class="col-md-6">

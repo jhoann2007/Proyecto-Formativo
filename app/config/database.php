@@ -2,7 +2,7 @@
 return [
     'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'mydb',
+    'database' => 'gymtech',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8mb4',

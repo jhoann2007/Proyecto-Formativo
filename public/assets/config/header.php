@@ -39,9 +39,14 @@ if (session_status() === PHP_SESSION_NONE) {
     switch ($userRole) {
       case 'admin':
         echo "          
+                        <li><a href='/centro' class=''><i class='bi bi-person-fill-add'></i>Agregar Centro</a></li>
+                        <li><a href='/programa' class=''><i class='bi bi-person-fill-add'></i>Agregar Programa</a></li>
+                        <li><a href='/grupo' class=''><i class='bi bi-person-fill-add'></i>Agregar Grupo</a></li>
+                        <li><a href='/rol' class=''><i class='bi bi-person-fill-add'></i>Agregar Rol</a></li>
                         <li><a href='/agregarAdmin' class=''><i class='bi bi-person-fill-add'></i>Agregar Administrador</a></li>
                         <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>Agregar Entrenador</a></li>
                         <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>Agregar Aprendiz</a></li>
+                        <li><a href='/controlProgreso' class=''><i class='bi bi-person-fill-add'></i>Control de Progreso</a></li>
                         <li><a href='/agregarRutina'><i class='bi bi-clipboard-check navicon'></i>Agregar Rutina</a></li>
                         ";
         break;

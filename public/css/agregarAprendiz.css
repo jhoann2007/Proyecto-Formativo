@@ -130,6 +130,11 @@ html, body {
     border-bottom-right-radius: 10px;
 }
 
+.btn-control {
+    background-color: #1a1a2e;
+    color: #fff;
+}
+
 .btn-observaciones {
     background-color: #6f42c1;
     color: white;

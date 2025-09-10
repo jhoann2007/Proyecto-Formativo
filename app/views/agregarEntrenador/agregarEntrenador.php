@@ -15,20 +15,20 @@
             if (isset($entrenadores) && is_array($entrenadores) && count($entrenadores) > 0) {
                 foreach ($entrenadores as $entrenador) {
                     // Asegurar que las propiedades existan o usar valores por defecto
-                    $id = $entrenador->id ?? 0;
-                    $nombre = $entrenador->nombre ?? '';
-                    $tipoDocumento = $entrenador->tipoDocumento ?? '';
-                    $documento = $entrenador->documento ?? '';
-                    $fechaNacimiento = $entrenador->fechaNacimiento ?? '';
+                    $id = $entrenador->id_user ?? 0;
+                    $nombre = $entrenador->name ?? '';
+                    $tipoDocumento = $entrenador->document_type ?? '';
+                    $documento = $entrenador->document ?? '';
+                    $fechaNacimiento = $entrenador->birthdate ?? '';
                     $email = $entrenador->email ?? '';
-                    $genero = $entrenador->genero ?? '';
-                    $estado = $entrenador->estado ?? '';
-                    $telefono = $entrenador->telefono ?? '';
+                    $genero = $entrenador->gender ?? '';
+                    $estado = $entrenador->status ?? '';
+                    $telefono = $entrenador->phone ?? '';
                     $eps = $entrenador->eps ?? '';
-                    $tipoSangre = $entrenador->tipoSangre ?? '';
-                    $telefonoEmerjencia = $entrenador->telefonoEmerjencia ?? '';
+                    $tipoSangre = $entrenador->blood_type ?? '';
+                    $telefonoEmerjencia = $entrenador->emergency_phone ?? '';
                     $password = $entrenador->password ?? '';
-                    $observaciones = $entrenador->observaciones ?? '';
+                    $observaciones = $entrenador->observations ?? '';
                     
                     // Verificar si existen las propiedades o usar valores por defecto
                     $fkidRol = property_exists($entrenador, 'fkIdRol') ? $entrenador->fkIdRol : 
@@ -156,7 +156,7 @@
                                             // Mostrar nombre del rol en lugar del ID
                                             if (isset($roles) && is_array($roles)) {
                                                 foreach ($roles as $rol) {
-                                                    if ($rol->id == $fkidRol) {
+                                                    if ($rol->id_role == $fkidRol) {
                                                         echo "<p><strong>Rol:</strong> {$rol->nombre}</p>";
                                                         break;
                                                     }
@@ -230,7 +230,7 @@
                                     <form action='/agregarEntrenador/update' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
                                         <!-- Campo oculto para el rol de entrenador (posición 2) -->
-                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[1]) ? $roles[1]->id : '') . "'>
+                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[1]) ? $roles[1]->id_role : '') . "'>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Nombre</label>
@@ -378,7 +378,19 @@
             <div class="modal-body">
                 <form action="/agregarEntrenador/create" method="post">
                     <!-- Campo oculto para asignar automáticamente el rol de Entrenador (posición 2) -->
-                    <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[1]) ? $roles[1]->id : ''; ?>">
+                    <!-- <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[1]) ? $roles[1]->id_user : ''; ?>"> -->
+                    <?php
+                    $entrenadorRoleId = '';
+                    if (isset($roles) && is_array($roles)) {
+                        foreach ($roles as $rol) {
+                            if (strtolower($rol->name) === 'entrenador' || $rol->id_role == 2) {
+                                $entrenadorRoleId = $rol->id_role;
+                                break;
+                            }
+                        }
+                    }
+                    ?>
+                    <input type="hidden" name="txtFKidRol" value="<?php echo $entrenadorRoleId; ?>">
                     
                     <div class="row mb-3">
                         <div class="col-md-6">

@@ -1,9 +1,9 @@
 <?php 
 namespace App\Controller;
-use App\Models\AgregarEntrenadorModel;
+use App\Models\AgregarUsuarioModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/agregarEntrenadorModel.php";
+require_once MAIN_APP_ROUTE . "../models/agregarUsuarioModel.php";
 
 class AgregarEntrenadorController extends BaseController 
 {
@@ -26,7 +26,7 @@ class AgregarEntrenadorController extends BaseController
     public function index()
     {
         # Crear una instancia del modelo 
-        $agregarEntrenadorObj = new AgregarEntrenadorModel();
+        $agregarEntrenadorObj = new AgregarUsuarioModel();
 
         # Obtener solo los entrenadores (rol 2) desde el modelo
         $entrenadores = $agregarEntrenadorObj->getEntrenadoresOnly();
@@ -64,7 +64,7 @@ class AgregarEntrenadorController extends BaseController
         $fkIdRol = $_POST['txtFKidRol'] ?? null;
 
         if($nombre) {
-            $objEntrenador = new AgregarEntrenadorModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $objEntrenador = new AgregarUsuarioModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, null, null, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, null, null);
             $respuesta = $objEntrenador->save();
 
             if($respuesta) {
@@ -103,27 +103,27 @@ class AgregarEntrenadorController extends BaseController
         }
     }
 
-    public function view($id)
+    public function view($id_user)
     {
-        $objEntrenador = new AgregarEntrenadorModel($id);
-        $entrenadorInfo = $objEntrenador->getEntrenador();
+        $objEntrenador = new AgregarUsuarioModel($id_user);
+        $entrenadorInfo = $objEntrenador->getUser();
         if(!empty($entrenadorInfo)) {
             $data = [
-                'id' => $entrenadorInfo[0]->id,
-                'nombre' => $entrenadorInfo[0]->nombre,
-                'tipoDocumento' => $entrenadorInfo[0]->tipoDocumento,
-                'documento' => $entrenadorInfo[0]->documento,
-                'fechaNacimiento' => $entrenadorInfo[0]->fechaNacimiento,
+                'id_user' => $entrenadorInfo[0]->id_user,
+                'name' => $entrenadorInfo[0]->name,
+                'document_type' => $entrenadorInfo[0]->document_type,
+                'document' => $entrenadorInfo[0]->document,
+                'birthdate' => $entrenadorInfo[0]->birthdate,
                 'email' => $entrenadorInfo[0]->email,
-                'genero' => $entrenadorInfo[0]->genero, 
-                'estado' => $entrenadorInfo[0]->estado, 
-                'telefono' => $entrenadorInfo[0]->telefono, 
+                'gender' => $entrenadorInfo[0]->gender, 
+                'status' => $entrenadorInfo[0]->status, 
+                'phone' => $entrenadorInfo[0]->phone, 
                 'eps' => $entrenadorInfo[0]->eps,
-                'tipoSangre' => $entrenadorInfo[0]->tipoSangre,
-                'telefonoEmerjencia' => $entrenadorInfo[0]->telefonoEmerjencia,
+                'blood_type' => $entrenadorInfo[0]->blood_type,
+                'emergency_phone' => $entrenadorInfo[0]->emergency_phone,
                 'password' => $entrenadorInfo[0]->password, 
-                'observaciones' => $entrenadorInfo[0]->observaciones,
-                'fkIdRol' => $entrenadorInfo[0]->fkIdRol
+                'observations' => $entrenadorInfo[0]->observations,
+                'id_role' => $entrenadorInfo[0]->id_role
             ];
             $this->render("agregarEntrenador/viewOneEntrenador.php", $data);
         } else {
@@ -134,10 +134,10 @@ class AgregarEntrenadorController extends BaseController
     }
 
     # Mostrar lo que se quiere editar en el formulario 
-    public function editEntrenador($id)
+    public function editEntrenador($id_user)
     {
-        $objEntrenador = new AgregarEntrenadorModel($id);
-        $entrenadorInfo = $objEntrenador->getEntrenador();
+        $objEntrenador = new AgregarUsuarioModel($id_user);
+        $entrenadorInfo = $objEntrenador->getUser();
         if (!empty($entrenadorInfo)) {
             # Obtener roles
             $roles = $objEntrenador->getRoles();
@@ -188,8 +188,8 @@ class AgregarEntrenadorController extends BaseController
                 ];
             }
 
-            $entrenadorObjEdit = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
-            $respuesta = $entrenadorObjEdit->editEntrenador();
+            $entrenadorObjEdit = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, null, null, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $respuesta = $entrenadorObjEdit->editUser();
 
             if ($respuesta) {
                 header("Location:/agregarEntrenador");
@@ -207,10 +207,10 @@ class AgregarEntrenadorController extends BaseController
     }
 
     # Muestra lo que se quiere eliminar 
-    public function deleteEntrenador($id)
+    public function deleteEntrenador($id_user)
     {
-        $objEntrenador = new AgregarEntrenadorModel($id);
-        $entrenadorInfo = $objEntrenador->getEntrenador();
+        $objEntrenador = new AgregarUsuarioModel($id_user);
+        $entrenadorInfo = $objEntrenador->getUser();
         if (!empty($entrenadorInfo)) {
             $data = [
                 'infoReal' => $entrenadorInfo[0],
@@ -243,8 +243,8 @@ class AgregarEntrenadorController extends BaseController
             $observaciones = $_POST['txtObservaciones'] ?? null;
             $fkIdRol = $_POST['txtFKidRol'] ?? null;
 
-            $entrenadorObjDelete = new AgregarEntrenadorModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
-            $respuesta = $entrenadorObjDelete->deleteEntrenador();
+            $entrenadorObjDelete = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, null, null, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $respuesta = $entrenadorObjDelete->deleteUser();
 
             if ($respuesta) {
                 # Eliminar las observaciones de la sesión para este entrenador

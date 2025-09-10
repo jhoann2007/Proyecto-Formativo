@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller;
-use App\Models\AgregarAdminModel;
+use App\Models\AgregarUsuarioModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/agregarAdminModel.php";
+require_once MAIN_APP_ROUTE . "../models/agregarUsuarioModel.php";
 
 class agregarAdminController extends BaseController
 {
@@ -16,20 +16,15 @@ class agregarAdminController extends BaseController
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-
-        # Inicializar el array de observaciones en la sesión si no existe
-        if (!isset($_SESSION['observaciones_admin'])) {
-            $_SESSION['observaciones_admin'] = [];
-        }
     }
 
     public function index()
     {
         # Crear una instancia del modelo 
-        $agregarAdminObj = new AgregarAdminModel();
+        $agregarAdminObj = new AgregarUsuarioModel();
 
         # Obtener solo los administradores (rol 1) desde el modelo
-        $admins = $agregarAdminObj->getAdminOnly();
+        $admins = $agregarAdminObj->getAdminsOnly();
 
         # Obtener roles
         $roles = $agregarAdminObj->getRoles();
@@ -64,7 +59,7 @@ class agregarAdminController extends BaseController
         $fkIdRol = $_POST['txtFKidRol'] ?? null;
 
         if($nombre) {
-            $objAdmin = new AgregarAdminModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $objAdmin = new AgregarUsuarioModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, null, null,  $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
             $respuesta = $objAdmin->save();
 
             if($respuesta) {
@@ -103,27 +98,27 @@ class agregarAdminController extends BaseController
         }
     }
 
-    public function view($id)
+    public function view($id_user)
     {
-        $objAdmin = new AgregarAdminModel($id);
-        $adminInfo = $objAdmin->getAdmin();
+        $objAdmin = new AgregarUsuarioModel($id_user);
+        $adminInfo = $objAdmin->getUser();
         if(!empty($adminInfo)) {
             $data = [
-                'id' => $adminInfo[0]->id,
-                'nombre' => $adminInfo[0]->nombre,
-                'tipoDocumento' => $adminInfo[0]->tipoDocumento,
-                'documento' => $adminInfo[0]->documento,
-                'fechaNacimiento' => $adminInfo[0]->fechaNacimiento,
+                'id_user' => $adminInfo[0]->id_user,
+                'name' => $adminInfo[0]->name,
+                'document_type' => $adminInfo[0]->document_type,
+                'document' => $adminInfo[0]->document,
+                'birthdate' => $adminInfo[0]->birthdate,
                 'email' => $adminInfo[0]->email,
-                'genero' => $adminInfo[0]->genero, 
-                'estado' => $adminInfo[0]->estado, 
-                'telefono' => $adminInfo[0]->telefono, 
+                'gender' => $adminInfo[0]->gender, 
+                'status' => $adminInfo[0]->status, 
+                'phone' => $adminInfo[0]->phone, 
                 'eps' => $adminInfo[0]->eps,
-                'tipoSangre' => $adminInfo[0]->tipoSangre,
-                'telefonoEmerjencia' => $adminInfo[0]->telefonoEmerjencia,
+                'blood_type' => $adminInfo[0]->blood_type,
+                'emergency_phone' => $adminInfo[0]->emergency_phone,
                 'password' => $adminInfo[0]->password, 
-                'observaciones' => $adminInfo[0]->observaciones,
-                'fkIdRol' => $adminInfo[0]->fkIdRol
+                'observations' => $adminInfo[0]->observations,
+                'id_role' => $adminInfo[0]->id_role
             ];
             $this->render("agregarAdmin/viewOneAdmin.php", $data);
         } else {
@@ -134,10 +129,10 @@ class agregarAdminController extends BaseController
     }
 
     # Mostrar lo que se quiere editar en el formulario 
-    public function editAdmin($id)
+    public function editAdmin($id_user)
     {
-        $objAdmin = new AgregarAdminModel($id);
-        $adminInfo = $objAdmin->getAdmin();
+        $objAdmin = new AgregarUsuarioModel($id_user);
+        $adminInfo = $objAdmin->getUser();
         if (!empty($adminInfo)) {
             # Obtener roles
             $roles = $objAdmin->getRoles();
@@ -188,8 +183,8 @@ class agregarAdminController extends BaseController
                 ];
             }
 
-            $adminObjEdit = new AgregarAdminModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
-            $respuesta = $adminObjEdit->editAdmin();
+            $adminObjEdit = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, null, null, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $respuesta = $adminObjEdit->editUser();
 
             if ($respuesta) {
                 header("Location:/agregarAdmin");
@@ -207,10 +202,10 @@ class agregarAdminController extends BaseController
     }
 
     # Muestra lo que se quiere eliminar 
-    public function deleteAdmin($id)
+    public function deleteAdmin($id_user)
     {
-        $objAdmin = new AgregarAdminModel($id);
-        $adminInfo = $objAdmin->getAdmin();
+        $objAdmin = new AgregarUsuarioModel($id_user);
+        $adminInfo = $objAdmin->getUser();
         if (!empty($adminInfo)) {
             $data = [
                 'infoReal' => $adminInfo[0],
@@ -243,8 +238,8 @@ class agregarAdminController extends BaseController
             $observaciones = $_POST['txtObservaciones'] ?? null;
             $fkIdRol = $_POST['txtFKidRol'] ?? null;
 
-            $adminObjDelete = new AgregarAdminModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
-            $respuesta = $adminObjDelete->deleteAdmin();
+            $adminObjDelete = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, null, null, $telefonoEmerjencia, $password, $observaciones, $fkIdRol);
+            $respuesta = $adminObjDelete->deleteUser();
 
             if ($respuesta) {
                 # Eliminar las observaciones de la sesión para este administrador
