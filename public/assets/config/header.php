@@ -47,6 +47,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <li><a href='/agregarEntrenador' class=''><i class='bi bi-person-fill-add'></i>Agregar Entrenador</a></li>
                         <li><a href='/agregarAprendiz' class=''><i class='bi bi-person-fill-add'></i>Agregar Aprendiz</a></li>
                         <li><a href='/controlProgreso' class=''><i class='bi bi-person-fill-add'></i>Control de Progreso</a></li>
+                        <li><a href='/ejercicio'><i class='bi bi-clipboard-check navicon'></i>Crear ejercicio</a></li>
                         <li><a href='/agregarRutina'><i class='bi bi-clipboard-check navicon'></i>Agregar Rutina</a></li>
                         ";
         break;

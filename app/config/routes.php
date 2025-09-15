@@ -1,5 +1,21 @@
 <?php
 return [
+    # EJERCICIOS
+    '/ejercicio' => [
+        'controller' => 'App\Controller\EjercicioController',
+        'action' => 'index'
+    ],
+    '/ejercicio/agregarEjercicio' => [
+        'controller' => 'App\Controller\EjercicioController',
+        'action' => 'agregarEjercicio'
+    ],
+    # GRUPOS MUSCULARES
+     '/ejercicio/agregarGrupoMuscular', [
+        'controller' => 
+        'App\Controller\EjercicioController',
+         'action' => 'agregarGrupoMuscular'
+    ],
+
     # RUTINAS
     '/agregarRutina' => [
         'controller' => 'App\Controller\RutinaController',
