@@ -107,7 +107,7 @@
                                                     <option value=''>Seleccionar Centro</option>";
                                                     if (isset($centers) && is_array($centers)) {
                                                         foreach ($centers as $center) {
-                                                            $selected = ($id_trainingcenter == $center->id) ? 'selected' : '';
+                                                            $selected = ($id_trainingcenter == $center->id_trainingcenter) ? 'selected' : '';
                                                             echo "<option value='{$center->id_trainingcenter}' {$selected}>{$center->name}</option>";
                                                         }
                                                     }                               

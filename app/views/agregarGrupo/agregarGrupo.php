@@ -112,7 +112,7 @@
                                                     <option value=''>Seleccionar Programa</option>";
                                                     if (isset($programas) && is_array($programas)) {
                                                         foreach ($programas as $program) {
-                                                            $selected = ($id_trainingprogram == $program->id) ? 'selected' : '';
+                                                            $selected = ($id_trainingprogram == $program->id_trainingprogram) ? 'selected' : '';
                                                             echo "<option value='{$program->id_trainingprogram}' {$selected}>{$program->token_number}</option>";
                                                         }
                                                     }                               

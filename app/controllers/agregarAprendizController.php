@@ -54,27 +54,27 @@ class AgregarAprendizController extends BaseController
     # Guarda los datos del formulario
     public function create()
     {
-        $nombre = $_POST['txtNombre'] ?? null;
-        $tipoDocumento = $_POST['txtTipoDocumento'] ?? null;
-        $documento = $_POST['txtDocumento'] ?? null;
-        $fechaNacimiento = $_POST['txtFechaNacimiento'] ?? null;
+        $name = $_POST['txtNombre'] ?? null;
+        $document_type = $_POST['txtTipoDocumento'] ?? null;
+        $document = $_POST['txtDocumento'] ?? null;
+        $birthdate = $_POST['txtFechaNacimiento'] ?? null;
         $email = $_POST['txtEmail'] ?? null;
-        $genero = $_POST['txtGenero'] ?? null;
-        $estado = $_POST['txtEstado'] ?? null;
-        $telefono = $_POST['txtTelefono'] ?? null;
+        $gender = $_POST['txtGenero'] ?? null;
+        $status = $_POST['txtEstado'] ?? null;
+        $phone = $_POST['txtTelefono'] ?? null;
         $eps = $_POST['txtEps'] ?? null;
-        $tipoSangre = $_POST['txtTipoSangre'] ?? null;
-        $peso = $_POST['txtPeso'] ?? null;
-        $estatura = $_POST['txtEstatura'] ?? null;
-        $telefonoEmerjencia = $_POST['txtTelefonoEmergencia'] ?? null;
+        $blood_type = $_POST['txtTipoSangre'] ?? null;
+        $weight = $_POST['txtPeso'] ?? null;
+        $stature = $_POST['txtEstatura'] ?? null;
+        $emergency_phone = $_POST['txtTelefonoEmergencia'] ?? null;
         $password = $_POST['txtPassword'] ?? null;
-        $observaciones = $_POST['txtObservaciones'] ?? null;
-        $fkIdRol = $_POST['txtFKidRol'] ?? null;
-        $fkIdGrupo = $_POST['txtFKidGrupo'] ?? null;
-        $fkIdCentroFormacion = $_POST['txtFKidCentroFormacion'] ?? null;
+        $observations = $_POST['txtObservaciones'] ?? null;
+        $id_role = $_POST['txtFKidRol'] ?? null;
+        $id_group = $_POST['txtFKidGrupo'] ?? null;
+        $id_trainingcenter = $_POST['txtFKidCentroFormacion'] ?? null;
         
-        if ($nombre) {
-            $objAprendiz = new AgregarUsuarioModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
+        if ($name) {
+            $objAprendiz = new AgregarUsuarioModel(null, $name, $document_type, $document, $birthdate, $email, $gender, $status, $phone, $eps, $blood_type, $weight, $stature, $emergency_phone, $password, $observations, $id_role, $id_group, $id_trainingcenter);
             $resp = $objAprendiz->save();
             
             if ($resp) {
