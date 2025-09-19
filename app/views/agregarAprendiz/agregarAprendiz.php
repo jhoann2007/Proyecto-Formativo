@@ -625,7 +625,15 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">EPS</label>
-                            <input type="text" class="form-control" name="txtEps">
+                            <!-- <input type="text" class="form-control" name="txtEps"> -->
+                            <select class="form-control" name="txtEps" required>
+                                <option value="">Seleccionar EPS</option>
+                                <option value="Nueva EPS">Nueva EPS</option>
+                                <option value="Salud Total EPS">Salud Total EPS</option>
+                                <option value="EPS Sura">EPS Sura</option>
+                                <option value="EPS Sanitas">EPS Sanitas</option>
+                                <option value="Famisanar">Famisanar</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tipo Sangre</label>
