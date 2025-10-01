@@ -1,0 +1,24 @@
+/* Restablecer los estilos predeterminados */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+/* Eliminar estilos de lista */
+ul {
+  list-style: none;
+}
+
+/* Eliminar estilos de enlaces */
+a {
+  text-decoration: none;
+}
+
+/* Eliminar estilos de botones */
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer; /* Indicar que es un botón */
+}

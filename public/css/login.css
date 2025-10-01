@@ -1,0 +1,460 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #040B14, #0A203C);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.shape1 {
+    width: 300px;
+    height: 300px;
+    background: #ff9966;
+    top: 10%;
+    left: 10%;
+    animation: float 20s infinite ease-in-out;
+}
+
+.shape2 {
+    width: 200px;
+    height: 200px;
+    background: #00b4db;
+    top: 60%;
+    right: 10%;
+    animation: float 15s infinite ease-in-out reverse;
+}
+
+.shape3 {
+    width: 150px;
+    height: 150px;
+    background: #ff5e62;
+    bottom: 10%;
+    left: 20%;
+    animation: float 25s infinite ease-in-out;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    33% {
+        transform: translateY(-20px) rotate(120deg);
+    }
+
+    66% {
+        transform: translateY(20px) rotate(240deg);
+    }
+}
+
+.container {
+    display: flex;
+    width: 850px;
+    height: 550px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.form-container {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-form,
+.recovery-form {
+    position: absolute;
+    width: 85%;
+    padding: 0 40px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.login-form {
+    transform: translateX(0);
+}
+
+.recovery-form {
+    transform: translateX(100%);
+}
+
+.container.recovery-active .login-form {
+    transform: translateX(-100%);
+}
+
+.container.recovery-active .recovery-form {
+    transform: translateX(0);
+}
+
+.logo-section {
+    flex: 1;
+    background-image: url(../assets/img/gym02.png);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-section::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain; 
+}
+
+.logo i {
+    font-size: 50px;
+    color: #1a2a6c;
+}
+
+.logo-section h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    font-weight: 700;
+}
+
+.logo-section h2 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-section p {
+    font-size: 18px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.form-container h2 {
+    color: white;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 28px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+
+input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    background: linear-gradient(135deg, #040B14, #0A203C);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: linear-gradient(135deg, #040B14, #0A203C);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+label {
+    position: absolute;
+    left: 45px;
+    top: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+input:focus+label,
+input:not(:placeholder-shown)+label {
+    top: -10px;
+    left: 15px;
+    font-size: 12px;
+    color: #FDC300;
+}
+
+.btn01 {
+    position: relative; 
+    width: 70%;
+    padding: 15px; 
+    background-color: #000; 
+    color: white;
+    border-radius: 25px; 
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    margin: 10px auto 0 auto; 
+    border: none; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.btn01::before {
+    content: '';
+    position: absolute;
+    top: -5px; 
+    left: -5px; 
+    right: -5px; 
+    bottom: -5px; 
+    background: linear-gradient(to right, #FDC300, #FDFD00); 
+    border-radius: 30px; 
+    z-index: -1;
+    transition: all 0.3s; 
+}
+
+.btn01 span {
+    background-image: linear-gradient(to right, #FDC300, #FDFD00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+    display: inline-block; 
+    line-height: 1; 
+}
+
+.btn01:hover::before {
+    border-image: linear-gradient(to left, #FDC300, #FDFD00); 
+    border-image-slice: 1;
+    border-radius: 35px;
+}
+
+.btn01:hover span {
+    background-image: linear-gradient(to left, #FDC300, #FDFD00);
+}
+
+.btn02 {
+    width: 70%; 
+    padding: 15px;
+    background: linear-gradient(to right, #FDC300, #FDFD00);
+    border: none;
+    border-radius: 25px; 
+    color: white; 
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    margin-top: 10px;
+    margin: 10px auto 0 auto; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn02:hover {
+    background: linear-gradient(to left, #FDC300, #FDFD00);
+}
+
+.btn02 span {
+    color: #000;
+}
+
+.btn02:hover span {
+    background-image: #000; 
+}
+
+.extra-links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.extra-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.extra-links a:hover {
+    color: #fdbb2d;
+    text-decoration: underline;
+}
+
+.code-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.code-inputs input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0;
+}
+
+.recovery-info {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+}
+
+.error-message {
+    color: #ff5e62;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.success-message {
+    color: #00b894;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.recaptcha-container {
+    justify-content: center;
+    margin: 20px 5px;
+}
+
+.g-recaptcha {
+    transform: scale(0.9);
+    transform-origin: 0 0;
+}
+
+/* Estilos para SweetAlert2 en tema oscuro */
+.swal2-dark-popup {
+    background: linear-gradient(135deg, #040B14, #0A203C) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+.swal2-dark-title {
+    color: #FDC300 !important; /* Color de título que combine con tus botones */
+}
+
+.swal2-dark-content {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.swal2-dark-button {
+    background: linear-gradient(to right, #FDC300, #FDFD00) !important;
+    color: #000 !important;
+    border: none !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.swal2-dark-button:focus {
+    box-shadow: 0 0 0 3px rgba(253, 195, 0, 0.5) !important;
+}
+
+@media (max-width: 850px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+    }
+
+    .logo-section {
+        padding: 20px;
+    }
+
+    .form-container {
+        padding: 30px 20px;
+    }
+
+    .g-recaptcha {
+        transform: scale(0.8);
+    }
+}

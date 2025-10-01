@@ -1,0 +1,242 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+.index-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 100% del alto de la pantalla */
+}
+.main {
+  flex: 1;
+  padding: 20px;
+  padding-bottom: 60px; /* AGREGAR ESTA LÍNEA */
+}
+.container-general {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+.data-container {
+  margin-left: 10px;
+  padding: 10px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 5px;
+}
+.form-card {
+  background: rgba(25, 25, 46, 0.25);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 260px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #ffce40;
+  box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4);
+}
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.card-image {
+  width: 200px;
+  height: auto;
+  margin-bottom: 1rem;
+  padding: 50px;
+}
+.card-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.card-description {
+  font-size: 0.9rem;
+  color: #555;
+}
+.card-footer {
+  text-align: center;
+  margin-top: auto;
+}
+.card-footer .ver-btn {
+  /* Estilo específico para el botón "Ver Control de Progreso" */
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #ffce40; /* Color amarillo para el botón */
+  color: #1a1a2e; /* Texto oscuro para contraste */
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none; /* Quitar subrayado del enlace */
+  display: inline-block; /* Para que se comporte como un bloque y tome el width */
+  transition: background-color 0.3s ease;
+}
+.card-footer .ver-btn:hover {
+  background-color: #e6b800; /* Amarillo ligeramente más oscuro al pasar el ratón */
+}
+
+.button-agregarControlProgreso {
+  padding: 10px;
+}
+.button-agregarControlProgreso button {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+  border: 2px solid #ffce40;
+}
+.button-agregarControlProgreso button:hover {
+  background-color: rgba(255, 255, 255, 0.153);
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+  border: 2px solid #ffce40;
+}
+.buscar {
+  display: flex;
+  width: 25%;
+  color: #fff;
+}
+.buscar .texto-busqueda {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid #ffce40;
+  box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+  color: #fff;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-right: 4px;
+}
+.buscar .texto-busqueda:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid #ffce40;
+  box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+  color: #fff;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-right: 4px;
+}
+.buscar .lupa {
+  background-color: rgba(255, 255, 255, 0.05);
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  margin-left: 4px;
+  border: 2px solid #ffce40;
+  color: #fff;
+}
+.modal-titulo {
+  color: #ffce40;
+  align-items: center;
+  text-align: center;
+  font: bold;
+}
+.modal-dialog {
+  border: 3px solid #ffce40;
+  border-radius: 10px;
+}
+.modal-content {
+  background-color: rgba(25, 25, 46, 0.25);
+}
+.modal-header .btn-close {
+  /* Bootstrap's btn-close uses background-image, so direct color might not work. */
+  /* Se puede intentar con filter para cambiar el color del icono */
+  filter: invert(1) grayscale(1) brightness(2); /* Intento para hacerlo visible en fondo oscuro */
+}
+.form-control {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #ffce40;
+}
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffce40;
+  box-shadow: 0 0 0 0.25rem rgba(255, 206, 64, 0.25);
+}
+option {
+  background-color: #1a1a2e;
+  color: #fff;
+}
+.footer {
+  position: fixed !important;
+  left: 270px !important; /* Ajustado al ancho del sidebar */
+  bottom: 0 !important;
+  width: calc(100% - 270px) !important; /* No invadir el menú lateral */
+  height: 100px !important;
+  padding: 15px 0 !important;
+  font-size: 13px !important;
+  text-align: center !important;
+  background: rgba(10, 25, 47, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  color: #9ca3af !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  z-index: 100 !important;
+}
+
+/* Nuevos estilos para apprenticeHistory.php */
+.list-group {
+  background: rgba(25, 25, 46, 0.25);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 2px solid #ffce40;
+  box-shadow: 0 5px 18px rgba(250, 248, 45, 0.4);
+  padding: 1rem;
+}
+
+.list-group-item {
+  background-color: transparent; /* Hacer los elementos de la lista transparentes */
+  border: 1px solid rgba(255, 206, 64, 0.3); /* Borde amarillo claro */
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  color: #fff; /* Texto blanco para el contenido */
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item:last-child {
+  margin-bottom: 0;
+}
+
+.list-group-item .view-control-btn {
+  background-color: #ffce40;
+  color: #1a1a2e;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item .view-control-btn:hover {
+  background-color: #e6b800;
+}
+
+/* Estilos para el contenido del modal (detalles) */
+#controlDetailsBody p {
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+#controlDetailsBody strong {
+  color: #ffce40;
+}

@@ -1,0 +1,269 @@
+/* Fondo general del body y .calendar-container */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a2e; /* fondo oscuro */
+    height: 100%;
+    margin: 0;
+}
+
+.index-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% del alto de la pantalla */
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    padding-bottom: 60px; /* AGREGAR ESTA LÍNEA */
+}
+
+.page-titulo {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #ffc107;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #fff;
+}
+
+.listaAprendices {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #ffc107 !important;
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    border-radius: 6px !important;
+    padding: 2px !important;
+}
+
+.estilo-aprendices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px !important;
+}
+
+.color-hora-aprendices {
+    padding: 2px !important;
+    border-radius: 10px;
+    background-color: #ffc107;
+    color: #000;
+}
+
+.texto-muted {
+    color: #ffc107;
+}
+
+.calendar-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    padding: 25px;
+    margin-top: 20px;
+}
+
+/* FullCalendar - Encabezado y botones */
+.fc-header-toolbar {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #FFCE40;
+    /* color: #ffc107; */
+}
+
+.fc-toolbar-title {
+    color: #ffc107 !important;
+    font-size: 1.6rem !important;
+    font-weight: 600 !important;
+}
+
+.fc-button {
+    background: transparent !important;
+    border: 2px solid #FFCE40 !important;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+    margin: 4px !important;
+    color: #ffc107 !important;
+    padding: 8px 14px !important;
+    border-radius: 6px !important;
+    transition: 0.3s ease-in-out !important;
+}
+
+.fc-button:hover {
+    background: #ffc107 !important;
+    color: #fff !important;
+}
+
+/* Tabla del calendario - bordes amarillos y esquinas redondeadas */
+.fc-scrollgrid {
+    border: 2px solid #FFCE40 !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+}
+
+.fc-scrollgrid-sync-table {
+    border-radius: 12px !important;
+}
+
+/* Encabezados de días de la semana - fondo amarillo menos claro y texto negro */
+.fc-col-header-cell {
+    background: #FFCE40 !important; /* amarillo menos claro */
+    border: 2px solid #FFCE40 !important;
+    color: #000 !important; /* texto negro */
+    font-weight: bold !important;
+}
+
+.fc-col-header-cell-cushion {
+    color: #000 !important; /* texto negro */
+}
+
+/* Días del Calendario */
+.fc-daygrid-day {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #FFCE40 !important;
+    transition: all 0.2s ease;
+    /* color: rgb(210, 8, 8); */
+}
+
+.fc-daygrid-day-number {
+    color: #ffc107;
+    font-weight: bold;
+    padding: 8px;
+}
+
+.fc-day-today {
+    background: #ffcf406f !important;
+    /* color: #0c4b18 !important; */
+    border-radius: 8px;
+}
+
+/* Bordes internos de la tabla */
+.fc-daygrid-day-frame {
+    border: 2px solid #FFCE40 !important;
+}
+
+.fc-scrollgrid-section > * {
+    border: 2px solid #FFCE40 !important;
+}
+
+.fc-scrollgrid-section table {
+    border: 2px solid #FFCE40 !important;
+}
+
+/* Eventos */
+.fc-event {
+    background-color: #1a1a2e !important; /* Azul por defecto */
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 2px 8px !important;
+    font-size: 0.85rem;
+}
+
+.fc-event:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+}
+
+/* Personalización por estado */
+.fc-event.evento-activo {
+    background-color: #ffc107 !important;
+}
+
+.fc-event.evento-inactivo {
+    background-color: #dc2626 !important;
+}
+
+/* Modal */
+.modal-content {
+    background-color: rgba(0, 0, 0, 0.708);
+    color: white;
+    border: 2px solid #f2c744;
+    border-radius: 12px;
+}
+
+.modal-header, .modal-footer {
+    background-color: rgba(0, 0, 0, 0.708);
+    border-color: #f2c744;
+}
+
+.modal-title {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+/* Inputs y formularios */
+.form-control, .form-select {
+    background-color: #102b45;
+    color: white;
+    border: 1px solid #f2c744;
+}
+
+.form-control:focus, .form-select:focus {
+    border: 2px solid #FFCE40;
+    box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+}
+
+/* Botones */
+.btn-primary {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px solid #FFCE40;
+}
+
+.btn-primary:hover {
+    background-color: #ffc107;
+    border: 2px solid #FFCE40;
+    color: #000;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+.btn-warning {
+    background-color: #facc15;
+    border-color: #facc15;
+    color: black;
+}
+
+.btn-warning:hover {
+    background-color: #eab308;
+}
+
+.footer {
+    /* justify-content: space-between !important; */
+    position: fixed !important;
+    left: 270px !important; /* Ajustado al ancho del sidebar */
+    bottom: 0 !important;
+    width: calc(100% - 270px) !important; /* No invadir el menú lateral */
+    height: 100px !important;
+    padding: 15px 0 !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    background: rgba(10, 25, 47, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    color: #9ca3af !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    z-index: 100 !important;
+}
