@@ -6,10 +6,6 @@
 </head>
 
 <body class="index-page">
-    <div class="background-shapes">
-        <!-- ... tus shapes ... -->
-    </div>
-
     <header id="header" class="header dark-background d-flex flex-column">
         <?php
         if (session_status() === PHP_SESSION_NONE) {
@@ -45,8 +41,8 @@
                                     <li><i class="bi bi-cake2"></i> <strong>Fecha Nac:</strong> <span><?php echo htmlspecialchars($user->birthdate); ?></span></li>
                                     <li><i class="bi bi-envelope-at"></i> <strong>Correo:</strong> <span><?php echo htmlspecialchars($user->email); ?></span></li>
                                     <li><i class="bi bi-telephone"></i> <strong>Teléfono:</strong> <span><?php echo htmlspecialchars($user->phone); ?></span></li>
-                                    <li><i class="bi bi-telephone-plus"></i> <strong>Teléfono Emerjencia:</strong> <span><?php echo htmlspecialchars($user->emergency_phone); ?></span></li>
-                                    <i class="bi bi-person-badge"></i> <strong>Rol:</strong> <span><?php echo htmlspecialchars(ucfirst($user->role_name)); ?></span></li>
+                                    <li><i class="bi bi-telephone-plus"></i> <strong>Teléfono Emj:</strong> <span><?php echo htmlspecialchars($user->emergency_phone); ?></span></li>
+                                    <li><i class="bi bi-person-badge"></i> <strong>Rol:</strong> <span><?php echo htmlspecialchars(ucfirst($user->role_name)); ?></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -64,9 +60,9 @@
 
                                     <?php if (isset($user->center_name)): // Mostrar solo si tiene programa 
                                     ?>
-                                        <li><i class="bi bi-house"></i> <strong>Centro Formacion:</strong> <span><?php echo htmlspecialchars($user->center_name); ?></span></li>
+                                        <li><i class="bi bi-house"></i> <strong>Centro For:</strong> <span><?php echo htmlspecialchars($user->center_name); ?></span></li>
                                     <?php else: ?>
-                                        <li><i class="bi bi-house"></i> <strong>Centro Formacion:</strong> <span>No vinculado</span></li>
+                                        <li><i class="bi bi-house"></i> <strong>Centro For:</strong> <span>No vinculado</span></li>
                                     <?php endif; ?>
 
                                     <?php if (isset($user->program_name)): // Mostrar solo si tiene programa 
@@ -120,32 +116,6 @@
     <footer id="footer" class="footer position-relative light-background">
         <?php include 'assets/config/footer.php'; ?>
     </footer>
-
-    <!-- Scroll -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <!-- fin Scroll -->
-
-    <div id="preloader"></div>
-
-    <!-- Vendor JS Files (asumiendo que están en las rutas correctas) -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
-    <script src="../../../public/js/js.js"></script>
-    <script src="assets/js/js.js"></script>
-
-    <script>
-        // Inicializar AOS (si lo estás usando)
-        AOS.init({
-            duration: 1000,
-            easing: 'ease-in-out',
-            once: true,
-            mirror: false
-        });
-    </script>
 </body>
 
 </html>
