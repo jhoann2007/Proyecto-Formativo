@@ -2,17 +2,7 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil - Gymtech</title>
-    <!-- Tus enlaces a CSS y Fonts ... -->
-    <link href="/assets/vendor/bootstrap/css/perfil.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link href="/assets/css/main.css" rel="stylesheet">
+    <?php include 'assets/config/head.php'; ?>
 </head>
 
 <body class="index-page">
@@ -114,11 +104,11 @@
                         <!-- Mantenemos la estructura de Bootstrap para las habilidades si se desea responsive interno -->
                         <ul class="list-unstyled row">
                             <?php if (isset($user->observations)): // Mostrar solo si es aprendiz y tiene ficha 
-                                    ?>
-                                        <li><i class="bi bi-eye"></i> <strong>Observaciones:</strong> <span><?php echo htmlspecialchars($user->observations); ?></span></li>
-                                    <?php else: ?>
-                                        <li><i class="bi bi-eye"></i> <strong>Observaciones:</strong> <span>No emitida</span></li>
-                                    <?php endif; ?>
+                            ?>
+                                <li><i class="bi bi-eye"></i> <strong>Observaciones:</strong> <span><?php echo htmlspecialchars($user->observations); ?></span></li>
+                            <?php else: ?>
+                                <li><i class="bi bi-eye"></i> <strong>Observaciones:</strong> <span>No emitida</span></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>

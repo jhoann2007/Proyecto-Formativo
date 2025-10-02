@@ -1,0 +1,39 @@
+:root {
+    /* Variables ya definidas en header.css, las repito aquí por claridad si es un archivo separado */
+    --dark-blue1: #040B14;
+    --dark-blue2: #0A203C;
+    --light-text: #FFF;
+    --hover-yellow: #FDC300; /* Puedes usar este color para el texto resaltado */
+    --profile-name-color: #FFF; /* O para el nombre del sitio en el footer */
+}
+
+.container-footer {
+    /* ... tus estilos de fondo, color, padding, etc. ... */
+    background: linear-gradient(135deg, var(--dark-blue1), var(--dark-blue2));
+    color: var(--light-text);
+    padding: 20px 15px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: border-box;
+
+    position: fixed; /* Hacemos el footer fijo */
+    bottom: 0; /* Lo ancla a la parte inferior */
+    left: 250px; /* **AQUÍ ESTÁ LA CLAVE:** Desplázalo a la derecha del header */
+    width: calc(100% - 250px); /* Ocupa el 100% menos el ancho del header */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos si es necesario */
+}
+
+.container-footer .copyright-year {
+    display: block; /* Asegura que este span ocupe su propia línea */
+    margin-bottom: 5px; /* Pequeño espacio entre el copyright y el nombre del sitio */
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.container-footer .sitename {
+    color: var(--hover-yellow);
+    font-weight: 700;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}

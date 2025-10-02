@@ -1,8 +1,227 @@
-.sitename {
+:root {
+    --dark-blue1: #040B14;
+    --dark-blue2: #0A203C;
+    --light-text: #FFF;
+    --hover-yellow: #FDC300;
+    --icon-color: #FFF;
+    --profile-name-color: #FFF;
+    --menu-border: #00304D;
+    --dark-blue-text-on-yellow: #1a1e27;
+    --submenu-bg: rgba(0, 0, 0, 0.2);
+    --toggle-icon-color: #FFF; /* Color para el icono de chevron */
+    --dropdown-active-bg: rgba(255, 255, 255, 0.08); /* Fondo para el dropdown activo/seleccionado */
+    --submenu-border-left: #FDC300;
+    /* Fondo para el submenú */
+}
+
+/* Estilos generales del header */
+#header {
+    background: linear-gradient(135deg, var(--dark-blue1), var(--dark-blue2));
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 15px;
+    color: var(--light-text);
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: border-box;
+}
+
+/* Imagen de perfil */
+.profile-img {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-img img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--menu-border);
+    object-fit: cover;
+}
+
+/* Nombre del sitio/usuario */
+.sitename {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--profile-name-color);
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Navegación (menú) */
+.navmenu {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+
+    overflow-y: auto;
+
+    /* --- INICIO: Estilos para ocultar la barra de scroll --- */
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        background: transparent;
+    }
+
+    scrollbar-width: none;
+    /* --- FIN: Estilos para ocultar la barra de scroll --- */
+}
+
+.navmenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.navmenu ul li {
+    margin-bottom: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Estilos para los enlaces principales del menú */
+.navmenu ul a {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--light-text);
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.navmenu ul a .navicon {
+    font-size: 20px;
+    margin-right: 12px;
+    color: var(--icon-color);
+    line-height: 1; /* Asegura que el icono no tenga espacio extra */
+    display: flex; /* Permite una mejor alineación del icono */
+    align-items: center;
     justify-content: center;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 37px;
-    font: bold;
+}
+
+/* Estilos específicos para el toggle icon del dropdown */
+.navmenu .dropdown > a .toggle-icon {
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--toggle-icon-color);
+    transition: transform 0.3s ease;
+    display: flex; /* Alinea el icono de chevron */
+    align-items: center;
+}
+
+/* Estado hover de los enlaces principales */
+.navmenu ul a:hover {
+    background-color: var(--hover-yellow);
+    color: var(--dark-blue-text-on-yellow);
+    border: 1px solid var(--hover-yellow);
+}
+
+.navmenu ul a:hover .navicon,
+.navmenu ul a:hover .toggle-icon {
+    color: var(--dark-blue-text-on-yellow);
+}
+
+
+/* ESTILOS PARA EL DROPDOWN CUANDO ESTÁ ACTIVO/SELECCIONADO */
+.navmenu .dropdown.active-dropdown > a {
+    background-color: var(--dropdown-active-bg);
+    color: var(--light-text);
+    border: 1px solid var(--menu-border);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.navmenu .dropdown.active-dropdown > a .navicon,
+.navmenu .dropdown.active-dropdown > a .toggle-icon {
+    color: var(--hover-yellow);
+}
+
+/* Rotar el icono de chevron cuando el dropdown está activo */
+.navmenu .dropdown.active-dropdown > a .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Estilos para el submenú desplegable */
+.navmenu .dropdown ul {
+    display: none;
+    position: relative;
+    padding: 5px 0;
+    background-color: var(--submenu-bg);
+    border-radius: 0 0 4px 4px;
+    margin-top: -5px;
+    flex-direction: column;
+    border-left: 3px solid var(--submenu-border-left);
+    border-right: 1px solid var(--menu-border);
+    border-bottom: 1px solid var(--menu-border);
+}
+
+.navmenu .dropdown ul li {
+    margin-bottom: 0;
+}
+
+.navmenu .dropdown ul a {
+    padding: 8px 15px 8px 30px; /* Incrementa el padding izquierdo para la indentación */
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--light-text);
+    background: none;
+    border-radius: 0;
+    border: none;
+    display: flex; /* Asegura que los sub-items también estén alineados */
+    align-items: center;
+}
+
+.navmenu .dropdown ul a .navicon {
+    font-size: 16px; /* Ajusta el tamaño del icono en el submenú */
+    margin-right: 10px; /* Ajusta el margen para el icono del submenú */
+}
+
+.navmenu .dropdown ul a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--hover-yellow);
+}
+
+.navmenu .dropdown ul a:hover .navicon {
+    color: var(--hover-yellow);
+}
+
+/* Mostrar el submenú cuando el elemento principal tiene la clase 'active-dropdown' */
+.navmenu .dropdown.active-dropdown > ul {
+    display: block;
+}
+
+
+/* Estilo específico para "Cerrar Sesión" */
+.navmenu ul li:last-child {
+    margin-top: auto;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+}
+
+/* Ajuste general para todos los iconos dentro de los enlaces del menú */
+.navmenu ul a i {
+    margin-right: 12px; /* Margen a la derecha del icono */
+    /* Asegura que cualquier icono dentro de un 'a' tenga este margen */
+}
+
+/* Si necesitas un ajuste más fino para iconos dentro de submenús */
+.navmenu .dropdown ul a i {
+    margin-right: 10px; /* Un poco menos de margen para sub-elementos si lo prefieres */
 }
