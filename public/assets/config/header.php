@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 
 <div class="profile-img">
-  <img src="/assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
+  <img src="../img/gigachad.png" alt="" class="img-fluid rounded-circle">
 </div>
 
 <h1 class="sitename">
@@ -30,7 +30,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
     switch ($userRole) {
       case 'admin':
-        // Aquí creamos el elemento del menú desplegable para "Agregar"
         echo '
         <li class="dropdown">
           <a href="#" class="dropdown-toggle">
@@ -46,8 +45,6 @@ if (session_status() === PHP_SESSION_NONE) {
             <li><a href="/agregarAprendiz"><i class="bi bi-person-lines-fill"></i>Agregar Aprendiz</a></li>
           </ul>
         </li>';
-        
-        // El resto de los elementos del administrador
         echo "          
                         <li><a href='/controlProgreso'><i class='bi bi-speedometer'></i>Control Progreso</a></li>
                         <li><a href='/ejercicio'><i class='bi bi-clipboard-check navicon'></i>Crear ejercicio</a></li>
@@ -72,15 +69,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
     dropdownToggles.forEach(toggle => {
       toggle.addEventListener('click', function(e) {
-        e.preventDefault(); // Previene la navegación si el href es "#"
+        e.preventDefault(); 
 
-        // Encuentra el li.dropdown padre
         const parentDropdown = this.closest('.dropdown');
 
-        // Alterna la clase 'active-dropdown' en el padre li
         parentDropdown.classList.toggle('active-dropdown');
 
-        // Cierra otros dropdowns abiertos (opcional, pero buena UX)
         dropdownToggles.forEach(otherToggle => {
           const otherParentDropdown = otherToggle.closest('.dropdown');
           if (otherParentDropdown !== parentDropdown && otherParentDropdown.classList.contains('active-dropdown')) {

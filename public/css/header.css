@@ -8,10 +8,9 @@
     --menu-border: #00304D;
     --dark-blue-text-on-yellow: #1a1e27;
     --submenu-bg: rgba(0, 0, 0, 0.2);
-    --toggle-icon-color: #FFF; /* Color para el icono de chevron */
-    --dropdown-active-bg: rgba(255, 255, 255, 0.08); /* Fondo para el dropdown activo/seleccionado */
+    --toggle-icon-color: #FFF; 
+    --dropdown-active-bg: rgba(255, 255, 255, 0.08); 
     --submenu-border-left: #FDC300;
-    /* Fondo para el submenú */
 }
 
 /* Estilos generales del header */
@@ -31,7 +30,6 @@
     box-sizing: border-box;
 }
 
-/* Imagen de perfil */
 .profile-img {
     margin-bottom: 20px;
     text-align: center;
@@ -45,7 +43,6 @@
     object-fit: cover;
 }
 
-/* Nombre del sitio/usuario */
 .sitename {
     font-size: 24px;
     font-weight: 700;
@@ -55,7 +52,6 @@
     line-height: 1.2;
 }
 
-/* Navegación (menú) */
 .navmenu {
     width: 100%;
     flex-grow: 1;
@@ -65,7 +61,6 @@
 
     overflow-y: auto;
 
-    /* --- INICIO: Estilos para ocultar la barra de scroll --- */
     &::-webkit-scrollbar {
         display: none;
         width: 0;
@@ -73,7 +68,6 @@
     }
 
     scrollbar-width: none;
-    /* --- FIN: Estilos para ocultar la barra de scroll --- */
 }
 
 .navmenu ul {
@@ -91,10 +85,10 @@
     cursor: pointer;
 }
 
-/* Estilos para los enlaces principales del menú */
+
 .navmenu ul a {
     display: flex;
-    align-items: center; /* Alinea verticalmente los elementos */
+    align-items: center; 
     padding: 12px 15px;
     text-decoration: none;
     color: var(--light-text);
@@ -109,23 +103,21 @@
     font-size: 20px;
     margin-right: 12px;
     color: var(--icon-color);
-    line-height: 1; /* Asegura que el icono no tenga espacio extra */
-    display: flex; /* Permite una mejor alineación del icono */
+    line-height: 1; 
+    display: flex; 
     align-items: center;
     justify-content: center;
 }
 
-/* Estilos específicos para el toggle icon del dropdown */
 .navmenu .dropdown > a .toggle-icon {
     margin-left: auto;
     font-size: 14px;
     color: var(--toggle-icon-color);
     transition: transform 0.3s ease;
-    display: flex; /* Alinea el icono de chevron */
+    display: flex; 
     align-items: center;
 }
 
-/* Estado hover de los enlaces principales */
 .navmenu ul a:hover {
     background-color: var(--hover-yellow);
     color: var(--dark-blue-text-on-yellow);
@@ -137,8 +129,6 @@
     color: var(--dark-blue-text-on-yellow);
 }
 
-
-/* ESTILOS PARA EL DROPDOWN CUANDO ESTÁ ACTIVO/SELECCIONADO */
 .navmenu .dropdown.active-dropdown > a {
     background-color: var(--dropdown-active-bg);
     color: var(--light-text);
@@ -152,12 +142,10 @@
     color: var(--hover-yellow);
 }
 
-/* Rotar el icono de chevron cuando el dropdown está activo */
 .navmenu .dropdown.active-dropdown > a .toggle-icon {
     transform: rotate(180deg);
 }
 
-/* Estilos para el submenú desplegable */
 .navmenu .dropdown ul {
     display: none;
     position: relative;
@@ -176,20 +164,20 @@
 }
 
 .navmenu .dropdown ul a {
-    padding: 8px 15px 8px 30px; /* Incrementa el padding izquierdo para la indentación */
+    padding: 8px 15px 8px 30px; 
     font-size: 14px;
     font-weight: 500;
     color: var(--light-text);
     background: none;
     border-radius: 0;
     border: none;
-    display: flex; /* Asegura que los sub-items también estén alineados */
+    display: flex; 
     align-items: center;
 }
 
 .navmenu .dropdown ul a .navicon {
-    font-size: 16px; /* Ajusta el tamaño del icono en el submenú */
-    margin-right: 10px; /* Ajusta el margen para el icono del submenú */
+    font-size: 16px; 
+    margin-right: 10px; 
 }
 
 .navmenu .dropdown ul a:hover {
@@ -201,13 +189,10 @@
     color: var(--hover-yellow);
 }
 
-/* Mostrar el submenú cuando el elemento principal tiene la clase 'active-dropdown' */
 .navmenu .dropdown.active-dropdown > ul {
     display: block;
 }
 
-
-/* Estilo específico para "Cerrar Sesión" */
 .navmenu ul li:last-child {
     margin-top: auto;
     margin-bottom: 0;
@@ -215,13 +200,10 @@
     padding-top: 10px;
 }
 
-/* Ajuste general para todos los iconos dentro de los enlaces del menú */
 .navmenu ul a i {
-    margin-right: 12px; /* Margen a la derecha del icono */
-    /* Asegura que cualquier icono dentro de un 'a' tenga este margen */
+    margin-right: 12px; 
 }
 
-/* Si necesitas un ajuste más fino para iconos dentro de submenús */
 .navmenu .dropdown ul a i {
-    margin-right: 10px; /* Un poco menos de margen para sub-elementos si lo prefieres */
+    margin-right: 10px; 
 }
