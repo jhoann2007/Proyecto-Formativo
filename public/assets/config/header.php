@@ -6,6 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <div class="profile-img">
   <img src="../img/gigachad.png" alt="" class="img-fluid rounded-circle">
+  <!-- <img src="<?php echo htmlspecialchars($user->picture); ?>" alt="Foto de perfil" class="img-fluid rounded-circle"> -->
 </div>
 
 <h1 class="sitename">
