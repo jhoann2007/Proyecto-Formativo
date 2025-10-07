@@ -1,13 +1,15 @@
-<!-- Layout con sidebar y contenido principal -->
-<div class="container-fluid">
-    <div class="row">
+<!-- Layout con sidebar (asumo que está fuera de este fragmento) y contenido principal -->
+<!-- Usando clases de Bootstrap para espaciado y responsive -->
+<div class="container-fluid p-0">
+    <div class="row g-0">
         <!-- Contenido principal del calendario -->
-        <div class="col-md-9 col-lg-10 main-content">
+        <!-- col-md-9 col-lg-10 asumía un sidebar, si no hay sidebar directo, ajusta a col-12 -->
+        <div class="col-12 main-content py-4"> <!-- Añadido py-4 para padding vertical -->
             <div class="content-wrapper">
                 <div class="page-header mb-4">
                     <h2 class="page-titulo">Calendario del Gimnasio</h2>
                     <p class="page-subtitle">
-                        Bienvenido, <?= htmlspecialchars($userName) ?> -
+                        Bienvenido, <span class="fw-bold text-white"><?= htmlspecialchars($userName) ?></span> -
                         <?php if ($userRole === 'admin'): ?>
                             Gestiona los horarios y entrenadores del gimnasio (Administrador)
                         <?php elseif ($userRole === 'entrenador'): ?>
@@ -29,11 +31,13 @@
 
 <!-- Modal para registrar/editar evento (Admin/Entrenador) -->
 <?php if ($userRole === 'admin' || $userRole === 'entrenador'): ?>
+    <!-- Usando modal-xl para un tamaño más grande si lo necesitas, o modal-lg como lo tenías -->
     <div class="modal fade" id="eventoModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitle">Registrar Horario del Gimnasio</h5>
+                    <!-- El botón de cerrar ahora es blanco gracias a los estilos CSS ajustados -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="formEvento">
@@ -86,18 +90,18 @@
 
                         <!-- Sección para mostrar aprendices registrados -->
                         <div id="aprendicesSection" style="display: none;">
-                            <hr>
-                            <h6><i class="fas fa-users"></i> Aprendices Registrados</h6>
+                            <hr> <!-- Ya tiene estilos propios -->
+                            <h6><i class="fas fa-users me-2"></i> Aprendices Registrados</h6> <!-- me-2 para margen a la derecha del ícono -->
                             <div id="listaAprendices" class="listaAprendices">
                                 <!-- Se llena dinámicamente -->
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn01" data-bs-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-danger" id="btnEliminar"
                             style="display: none;">Eliminar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn02">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -120,7 +124,7 @@
                         <input type="hidden" id="calendarioIdAprendiz" name="id_calendario">
 
                         <div class="alert alert-info">
-                            <i class="fas fa-info-circle"></i>
+                            <i class="fas fa-info-circle me-2"></i> <!-- me-2 para margen a la derecha del ícono -->
                             <strong>Importante:</strong> Solo puedes registrar máximo 2 horas por día.
                         </div>
                         <div id="horarioDisponible" class="mb-3">
@@ -139,8 +143,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
+                        <button type="button" class="btn01" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn02">Registrar Asistencia</button>
                     </div>
                 </form>
             </div>
@@ -160,9 +164,9 @@
                 <!-- Contenido dinámico -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn01" data-bs-dismiss="modal">Cerrar</button>
                 <?php if ($userRole === 'admin' || $userRole === 'entrenador'): ?>
-                    <button type="button" class="btn btn-primary" id="btnEditar">Editar</button>
+                    <button type="button" class="btn02" id="btnEditar">Editar</button>
                 <?php endif; ?>
             </div>
         </div>

@@ -1,23 +1,38 @@
+/*
+ * inicio.css
+ * Cargar DESPUÉS de bootstrap.min.css en tu HTML para asegurar la prioridad.
+ */
+
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; 
+    min-height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif; 
-    background-color: #f4f4f4; 
+    /* Bootstrap resetea margin en body, pero confirmamos */
+    font-family: Arial, sans-serif;
+    /* Bootstrap tiene su propio font-family */
+    background-color: #f4f4f4;
+    /* Asegurar que no haya padding o border-box extra de Bootstrap */
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .main {
-    margin-left: 250px; 
-    flex-grow: 1; 
-    position: relative; 
-    display: flex; 
-    flex-direction: column; 
+    margin-left: 250px;
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* Resetear cualquier padding o margen que Bootstrap pudiera añadir a un contenedor genérico */
+    padding: 0;
+    margin-right: 0;
+    margin-bottom: 0;
 }
 
 #hero {
     position: relative;
     width: 100%;
+    /* Asegurar que el cálculo de altura sea correcto, anulando posibles box-sizing de Bootstrap si no fuera border-box */
     min-height: calc(100vh - var(--footer-height, 60px));
     background: url(../img/gym02.png) no-repeat center center/cover;
     display: flex;
@@ -27,7 +42,11 @@ body {
     text-align: center;
     overflow: hidden;
     box-sizing: border-box;
-    flex-grow: 1; 
+    /* Importante para el cálculo de altura y padding */
+    flex-grow: 1;
+    /* Resetear padding o margen de Bootstrap que pudiera afectar la sección */
+    padding: 0;
+    margin: 0;
 }
 
 #hero .overlay {
@@ -48,6 +67,8 @@ body {
     justify-content: center;
     max-width: 800px;
     padding: 20px;
+    /* Resetear posibles márgenes o paddings de Bootstrap */
+    margin: 0;
 }
 
 #hero .quote {
@@ -55,6 +76,8 @@ body {
     margin-bottom: 20px;
     color: #FDC300;
     font-weight: bold;
+    /* Asegurar que los estilos de texto no sean alterados por Bootstrap si afectara a p o span genéricos */
+    line-height: 1.5;
 }
 
 #hero h2 {
@@ -64,6 +87,8 @@ body {
     letter-spacing: 2px;
     font-weight: 900;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    /* Bootstrap puede tener margin-top/bottom para h2, aseguramos el nuestro */
+    margin-top: 0;
 }
 
 #hero .hero-buttons {
@@ -71,6 +96,9 @@ body {
     gap: 80px;
     flex-wrap: wrap;
     justify-content: center;
+    /* Resetear posibles márgenes o paddings de Bootstrap en este contenedor flex */
+    margin: 0;
+    padding: 0;
 }
 
 #hero .chart-container {
@@ -85,13 +113,33 @@ body {
     z-index: 3;
     color: white;
     max-width: calc(100% - 40px);
-    @media (max-width: 992px) {
+    /* Resetear posibles márgenes de Bootstrap */
+    margin: 0;
+
+    /* Utiliza la sintaxis estándar de CSS para media queries, la anidada es SCSS/Sass */
+    /* @media (max-width: 992px) { ... } */
+}
+
+/* Media query estándar para .chart-container */
+@media (max-width: 992px) {
+    #hero .chart-container {
         position: relative;
         top: auto;
         right: auto;
         margin-top: 20px;
         margin-left: auto;
         margin-right: auto;
+        /* Asegurar que se sobrescriban los estilos de posición absoluta */
+        left: auto;
+        bottom: auto;
+        display: flex;
+        /* Convierte el contenedor en un contenedor flex */
+        flex-direction: column;
+        /* Apila los elementos verticalmente (por defecto) */
+        align-items: center;
+        /* Centra los elementos hijos horizontalmente */
+        justify-content: center;
+        /* Centra los elementos hijos verticalmente (si hay espacio disponible) */
     }
 }
 
@@ -101,12 +149,18 @@ body {
     align-items: center;
     margin-bottom: 10px;
     font-size: 0.9em;
+    /* Resetear posibles paddings o márgenes de Bootstrap */
+    padding: 0;
+    margin-top: 0;
 }
 
 #hero .chart-header .arrow {
     cursor: pointer;
     font-size: 1.2em;
     padding: 0 5px;
+    /* Resetear line-height o display de Bootstrap que pudiera afectar a un span o i */
+    line-height: 1;
+    display: inline-block;
 }
 
 #hero .chart-header .date {
@@ -117,14 +171,19 @@ body {
 #hero .chart-header .dots {
     font-size: 1.5em;
     line-height: 0.5;
+    /* Resetear line-height o display de Bootstrap que pudiera afectar a un span o i */
+    display: inline-block;
 }
 
 #hero .chart-container img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+    /* Bootstrap podría añadir estilos a las imágenes, como display: block o margin */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
-
 
 #hero::after {
     content: '';
@@ -165,48 +224,54 @@ body {
 }
 
 .btn01 {
-    position: relative; 
+    position: relative;
     width: 100%;
-    padding: 15px; 
-    background-color: #000; 
+    padding: 15px;
+    background-color: #000;
     color: white;
-    border-radius: 25px; 
+    border-radius: 25px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
     margin-top: 10px;
-    margin: 10px auto 0 auto; 
-    border: none; 
-    display: flex; 
+    margin: 10px auto 0 auto;
+    border: none;
+    /* Asegurar que Bootstrap no añada bordes */
+    display: flex;
     justify-content: center;
     align-items: center;
+    /* Resetear posibles box-shadow o text-align de Bootstrap para botones */
+    box-shadow: none;
+    text-align: center;
+    line-height: 1;
+    /* Para controlar la altura del texto dentro del botón */
 }
 
 .btn01::before {
     content: '';
     position: absolute;
-    top: -5px; 
-    left: -5px; 
-    right: -5px; 
-    bottom: -5px; 
-    background: linear-gradient(to right, #FDC300, #FDFD00); 
-    border-radius: 30px; 
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(to right, #FDC300, #FDFD00);
+    border-radius: 30px;
     z-index: -1;
-    transition: all 0.3s; 
+    transition: all 0.3s;
 }
 
 .btn01 span {
     background-image: linear-gradient(to right, #FDC300, #FDFD00);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent; 
-    display: inline-block; 
-    line-height: 1; 
+    color: transparent;
+    display: inline-block;
+    line-height: 1;
 }
 
 .btn01:hover::before {
-    border-image: linear-gradient(to left, #FDC300, #FDFD00); 
+    border-image: linear-gradient(to left, #FDC300, #FDFD00);
     border-image-slice: 1;
     border-radius: 35px;
 }
@@ -216,22 +281,27 @@ body {
 }
 
 .btn02 {
-    width: 100%; 
+    width: 100%;
     padding: 15px;
     background: linear-gradient(to right, #FDC300, #FDFD00);
     border: none;
-    border-radius: 25px; 
-    color: white; 
+    /* Asegurar que Bootstrap no añada bordes */
+    border-radius: 25px;
+    color: white;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
     margin-top: 10px;
-    margin: 10px auto 0 auto; 
-    display: flex; 
-    justify-content: center; 
+    margin: 10px auto 0 auto;
+    display: flex;
+    justify-content: center;
     align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Resetear posibles text-align de Bootstrap para botones */
+    text-align: center;
+    line-height: 1;
+    /* Para controlar la altura del texto dentro del botón */
 }
 
 .btn02:hover {
@@ -243,5 +313,14 @@ body {
 }
 
 .btn02:hover span {
-    background-image: #000; 
+    /* Si quieres que el texto cambie de color a algo diferente de #000 al hover,
+       necesitarías especificarlo aquí. Si no, `color: #000;` seguirá aplicándose. */
+    /* background-image: #000; // Esto no es una propiedad válida para background-image. */
+    /* Si el objetivo es que el texto sea negro y no transparente con clip, entonces: */
+    color: #000;
+    /* Directamente negro */
+    background-image: none;
+    /* Anular el background-clip si antes se aplicó */
+    -webkit-background-clip: unset;
+    background-clip: unset;
 }

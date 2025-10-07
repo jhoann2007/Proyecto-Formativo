@@ -19,14 +19,14 @@
     <!-- fin header (Sidebar) -->
     <main class="main">
         <?php include_once $content; ?>
-
-        <!-- footer (GLOBAL) -->
-        <footer id="footer" class="footer position-relative dark-background">
-            <?php include 'assets/config/footer.php'; ?>
-            <!-- Asumo que assets/config/footer.php contendrá el HTML de tu footer global -->
-        </footer>
-        <!-- fin footer -->
     </main>
+
+    <!-- footer (GLOBAL) -->
+    <footer id="footer" class="footer position-relative dark-background">
+        <?php include 'assets/config/footer.php'; ?>
+        <!-- Asumo que assets/config/footer.php contendrá el HTML de tu footer global -->
+    </footer>
+    <!-- fin footer -->
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

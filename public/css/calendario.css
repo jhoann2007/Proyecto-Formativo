@@ -1,22 +1,131 @@
-main{
-    background: url(../img/gym02.png) no-repeat center center/cover;
+/*
+ * calendario.css
+ * Cargar DESPUÉS de bootstrap.min.css y de inicio.css
+ * Sobreescribe y complementa los estilos de Bootstrap y inicio.css para el calendario y modales.
+ */
+
+/* =====================================
+ * Variables Globales (Puedes moverlas a un archivo de variables si tienes uno)
+ * ===================================== */
+:root {
+    --primary-color: #FDC300;
+    /* Color principal de tu marca */
+    --secondary-color: #FDFD00;
+    /* Color secundario/de acento */
+    --dark-blue1: #1a2a3a;
+    --dark-blue2: #0f1a25;
+    --text-light: #e0e0e0;
+    --text-dark: #333;
+    --bg-light: #f9f9f9;
+    --border-color-light: #eee;
+    --primary-color-rgb: 253, 195, 0; /* FDC300 */
 }
 
+/* =====================================
+ * Main Content y Layout
+ * ===================================== */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    background: url(../img/gym02.png) no-repeat center center/cover !important;
+    flex-grow: 1; /* Esto es importante para que main ocupe el espacio disponible */
+    display: flex; /* Añadir flex para controlar el contenido interno */
+    flex-direction: column; /* Contenido apilado verticalmente */
+}
+
+main::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(to left, #FDC300, #FDFD00);
+    z-index: 0;
+    clip-path: polygon(80% 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 0.7;
+}
+
+.main-content {
+    padding-top: 20px;
+    padding-bottom: 90px; /* Ajustado para dejar espacio para el footer fijo */
+    flex-grow: 1; /* Asegura que el contenido crezca y empuje el footer hacia abajo si no fuera fijo */
+    position: relative; /* Puede ser útil si necesitas posicionar elementos dentro */
+    z-index: 1; /* Asegurar que el contenido esté por encima de la imagen de fondo si aplica */
+}
+
+.content-wrapper {
+    background: linear-gradient(135deg, var(--dark-blue1), var(--dark-blue2));
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 20px 10px;
+    /* z-index: 2; /* Puedes agregar esto si el calendario se superpone a algo más, pero no debería con el footer */
+}
+
+.page-header {
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 15px;
+    margin-bottom: 30px !important;
+    width: 100%;
+}
+
+.page-titulo {
+    font-size: 2.5em; /* Ligeramente más grande para laptop */
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    font-size: 1.2em; /* Ligeramente más grande */
+    color: var(--text-light);
+}
+
+.page-subtitle strong {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* =====================================
+ * Estilos del Modal (sin cambios para mantener la usabilidad)
+ * ===================================== */
+
+/* Fondo del modal cuando está abierto */
 .modal-backdrop.show {
-    opacity: 0.7; /* Puedes ajustar la opacidad si lo deseas */
+    opacity: 0.7;
 }
 
-/* Estilo general del contenido del modal */
+/* Contenido principal del modal */
 .modal-content {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border: none; /* Elimina el borde predeterminado de Bootstrap */
+    border: none;
+    background-color: #212529;
+    color: white;
 }
 
 /* Encabezado del modal */
 .modal-header {
-    background-color: #007bff; /* Color de tu marca principal */
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-dark);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     padding: 15px 20px;
@@ -25,20 +134,30 @@ main{
 
 .modal-title {
     font-weight: 600;
-    font-size: 1.25rem; /* Tamaño de fuente ligeramente más grande */
+    font-size: 1.25rem;
+    color: var(--text-dark);
 }
 
+/* Botón de cerrar del modal */
 .modal-header .btn-close {
-    filter: invert(1) grayscale(100%) brightness(200%); /* Hace que el botón de cerrar sea blanco */
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin: -0.5rem -0.5rem -0.5rem auto; /* Ajusta la posición del botón */
+    background-color: transparent;
+    color: var(--text-dark);
+    opacity: 1;
+    text-shadow: none;
+    filter: none;
+}
+
+/* Asegurar que el icono X sea visible sobre el fondo primario */
+.modal-header .btn-close:focus,
+.modal-header .btn-close:active {
+    outline: none;
+    box-shadow: none;
 }
 
 /* Cuerpo del modal */
 .modal-body {
     padding: 20px;
-    color: #333; /* Color de texto general */
+    color: #ffffff;
 }
 
 .modal-body .form-label {
@@ -50,25 +169,34 @@ main{
 .modal-body .form-control,
 .modal-body .form-select {
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid #495057;
     padding: 8px 12px;
+    background-color: #343a40;
+    color: white;
+}
+
+.modal-body .form-control::placeholder {
+    color: #adb5bd;
 }
 
 .modal-body .form-control:focus,
 .modal-body .form-select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(253, 195, 0, 0.25);
+    background-color: #343a40;
+    color: white;
 }
 
 /* Estilos específicos para la sección de aprendices */
 #aprendicesSection hr {
     margin-top: 20px;
     margin-bottom: 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #495057;
+    opacity: 0.5;
 }
 
 #aprendicesSection h6 {
-    color: #007bff;
+    color: var(--primary-color);
     margin-bottom: 15px;
     display: flex;
     align-items: center;
@@ -80,75 +208,58 @@ main{
 }
 
 .listaAprendices {
-    max-height: 150px; /* Limita la altura de la lista de aprendices */
-    overflow-y: auto; /* Agrega scroll si hay muchos aprendices */
-    border: 1px solid #eee;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #495057;
     border-radius: 5px;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #343a40;
+    color: white;
 }
 
 .listaAprendices p {
     margin-bottom: 5px;
     padding: 5px 0;
-    border-bottom: 1px dotted #e0e0e0;
+    border-bottom: 1px dotted #6c757d;
 }
 
 .listaAprendices p:last-child {
     border-bottom: none;
 }
 
-
 /* Pie de página del modal */
 .modal-footer {
-    border-top: 1px solid #e9ecef;
+    border-top: 1px solid #495057;
     padding: 15px 20px;
-    background-color: #f8f9fa;
+    background-color: #212529;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
+/* Botones en el footer del modal (Bootstrap ya maneja .btn, .btn-primary, etc.) */
 .modal-footer .btn {
     padding: 8px 18px;
     border-radius: 5px;
     font-weight: 500;
 }
 
-.modal-footer .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.modal-footer .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.modal-footer .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.modal-footer .btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #5a6268;
-}
-
 .modal-footer .btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
+    color: white;
 }
 
 .modal-footer .btn-danger:hover {
     background-color: #c82333;
     border-color: #c82333;
+    color: white;
 }
 
 /* Alertas dentro de los modales (ej. Aprendiz Modal) */
 .modal-body .alert-info {
-    background-color: #e0f7fa;
-    border-color: #b2ebf2;
-    color: #007bff;
+    background-color: rgba(var(--primary-color-rgb), 0.2);
+    border-color: rgba(var(--primary-color-rgb), 0.5);
+    color: var(--primary-color);
     padding: 12px 15px;
     border-radius: 5px;
     font-size: 0.95rem;
@@ -158,46 +269,64 @@ main{
     margin-right: 8px;
 }
 
+/* =====================================
+ * Estilos del Calendario FullCalendar para LAPTOP
+ * MODIFICADO: CALENDARIO MÁS PEQUEÑO VERTICALMENTE
+ * ===================================== */
+
 .calendar-container {
-    padding: 20px;
-    background-color: #00000000;
+    padding: 10px; /* Reducido para hacer el calendario más compacto */
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%; /* Asegura que no se desborde */
-    overflow: hidden; /* Oculta cualquier desbordamiento dentro del contenedor */
+    max-width: 900px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
 }
 
+/* Título del toolbar del calendario */
 .fc .fc-toolbar-title {
-    font-size: 1.75em;
+    font-size: 1.5em; /* Ligeramente más pequeño */
     font-weight: 700;
     color: #ffffff;
 }
 
+/* Grupo de botones del toolbar */
 .fc .fc-button-group > .fc-button {
-    background-color: #00000000;
-    border-color: #00000000;
-    color: #FDC300;
+    background-color: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
     border-radius: 5px;
     margin: 0 2px;
+    box-shadow: none;
+    font-weight: 600;
+    padding: 4px 8px; /* Reducido el padding */
+    font-size: 0.85em; /* Tamaño de fuente ligeramente más pequeño */
 }
 
 .fc .fc-button-group > .fc-button:hover {
-    background-color: #FDC300;
-    border-color: #FDC300;
-    color: #FFF;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-dark);
 }
 
 .fc .fc-button-group > .fc-button.fc-button-active {
-    background-color: #FDC300;
-    border-color: #FDC300;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-dark);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Botones de navegación (prev, next, today) */
 .fc .fc-prev-button,
 .fc .fc-next-button,
 .fc .fc-today-button {
-    background-color: #6c757d; /* Color secundario para navegación */
+    background-color: #6c757d;
     border-color: #6c757d;
+    color: white;
+    padding: 4px 8px; /* Reducido el padding */
+    font-size: 0.85em; /* Tamaño de fuente ligeramente más pequeño */
 }
 
 .fc .fc-prev-button:hover,
@@ -205,54 +334,68 @@ main{
 .fc .fc-today-button:hover {
     background-color: #5a6268;
     border-color: #5a6268;
+    color: white;
 }
 
 /* Estilos para los días de la semana */
 .fc .fc-col-header-cell {
-    background-color: #ff0000;
-    color: #ffffff;
+    background-color: var(--primary-color);
+    color: var(--text-dark);
     font-weight: 600;
-    padding: 10px 0;
-    border-bottom: 1px solid #00000000;
+    padding: 4px 0; /* Reducido el padding vertical */
+    border-bottom: 1px solid var(--primary-color);
+    font-size: 0.85em; /* Tamaño ligeramente más pequeño */
+}
+
+.fc .fc-col-header-cell a {
+    color: var(--text-dark);
+    text-decoration: none;
 }
 
 /* Estilos para las celdas del calendario */
 .fc .fc-daygrid-day {
-    background-color: #00000000;
-    border: 1px solid #FDC300;
+    background-color: transparent;
+    border: 1px solid rgba(var(--primary-color-rgb), 0.5);
+    height: 60px; /* Altura fija para las celdas, puedes ajustar este valor */
+    min-height: 60px; /* Asegura que la altura mínima también se respete */
 }
 
 .fc .fc-daygrid-day-number {
-    padding: 8px;
-    font-size: 1.1em;
+    padding: 3px; /* Reducido el padding */
+    font-size: 0.8em; /* Números más pequeños */
     font-weight: 600;
-    color: #343a40;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    display: block;
 }
 
 /* Días de otros meses */
 .fc .fc-day-other .fc-daygrid-day-number {
-    color: #ced4da;
+    color: #888;
 }
 
 /* Día de hoy */
 .fc .fc-day-today {
-    background-color: #fdc20057 !important; /* Un tono azul claro para el día actual */
-    border: 1px solid #FDC300;
+    background-color: rgba(var(--primary-color-rgb), 0.3) !important;
+    border: 1px solid var(--primary-color);
 }
 
 /* Eventos en el calendario */
 .fc-event {
-    background-color: #28a745; /* Color verde para los eventos */
+    background-color: #28a745;
     border-color: #28a745;
     color: white;
-    padding: 3px 7px;
-    border-radius: 3px;
-    font-size: 0.85em;
-    white-space: normal;
+    padding: 1px 3px; /* Muy reducido para hacerlos más compactos */
+    border-radius: 2px; /* Ligeramente más pequeño */
+    font-size: 0.7em; /* Más pequeño para que quepan más */
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 2px;
+    margin-bottom: 1px; /* Reducido el margen */
     cursor: pointer;
+    line-height: 1.2; /* Ajustar altura de línea para que ocupe menos espacio */
 }
 
 .fc-event-title {
@@ -261,96 +404,216 @@ main{
 
 /* Variaciones de eventos (ej. por estado o tipo) */
 .fc-event.event-inactivo {
-    background-color: #6c757d; /* Gris para eventos inactivos */
+    background-color: #6c757d;
     border-color: #6c757d;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 /* Estilos al pasar el ratón por encima de un evento */
 .fc-event:hover {
     opacity: 0.9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+}
+
+.btn01 {
+    position: relative; 
+    width: 70%;
+    padding: 15px; 
+    background-color: #000; 
+    color: white;
+    border-radius: 25px; 
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    margin: 10px auto 0 auto; 
+    border: none; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.btn01::before {
+    content: '';
+    position: absolute;
+    top: -5px; 
+    left: -5px; 
+    right: -5px; 
+    bottom: -5px; 
+    background: linear-gradient(to right, #FDC300, #FDFD00); 
+    border-radius: 30px; 
+    z-index: -1;
+    transition: all 0.3s; 
+}
+
+.btn01 span {
+    background-image: linear-gradient(to right, #FDC300, #FDFD00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+    display: inline-block; 
+    line-height: 1; 
+}
+
+.btn01:hover::before {
+    border-image: linear-gradient(to left, #FDC300, #FDFD00); 
+    border-image-slice: 1;
+    border-radius: 35px;
+}
+
+.btn01:hover span {
+    background-image: linear-gradient(to left, #FDC300, #FDFD00);
+}
+
+.btn02 {
+    width: 70%; 
+    padding: 15px;
+    background: linear-gradient(to right, #FDC300, #FDFD00);
+    border: none;
+    border-radius: 25px; 
+    color: white; 
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    margin-top: 10px;
+    margin: 10px auto 0 auto; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn02:hover {
+    background: linear-gradient(to left, #FDC300, #FDFD00);
+}
+
+.btn02 span {
+    color: #000;
+}
+
+.btn02:hover span {
+    background-image: #000; 
 }
 
 /* Ajustes responsivos para el calendario */
 @media (max-width: 768px) {
+    /* Aquí se mantienen los estilos originales para móviles, que son más compactos */
+    .main-content {
+        padding-bottom: 70px;
+    }
+    .calendar-container {
+        max-width: 320px;
+        padding: 8px; /* Ajuste para móvil también */
+    }
     .fc .fc-toolbar-title {
-        font-size: 1.5em;
+        font-size: 0.9em; /* Aún más pequeño en móvil */
     }
 
     .fc .fc-toolbar.fc-header-toolbar {
-        display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .fc .fc-toolbar-chunk:nth-child(2) { /* Título */
+    .fc .fc-toolbar-chunk:nth-child(2) {
         order: 1;
-        margin-bottom: 15px;
+        margin-bottom: 8px; /* Ajuste */
     }
-    .fc .fc-toolbar-chunk:nth-child(1) { /* Botones de navegación */
+
+    .fc .fc-toolbar-chunk:nth-child(1) {
         order: 2;
-        margin-bottom: 10px;
+        margin-bottom: 3px; /* Ajuste */
     }
-    .fc .fc-toolbar-chunk:nth-child(3) { /* Vistas */
+
+    .fc .fc-toolbar-chunk:nth-child(3) {
         order: 3;
     }
 
     .fc .fc-button-group {
-        display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
 
     .fc .fc-button-group > .fc-button {
-        margin: 5px;
+        margin: 2px; /* Ajuste */
+        padding: 1px 3px; /* Más compacto */
+        font-size: 0.65em; /* Más pequeño */
+    }
+
+    .fc .fc-prev-button,
+    .fc .fc-next-button,
+    .fc .fc-today-button {
+        padding: 1px 3px; /* Más compacto */
+        font-size: 0.65em; /* Más pequeño */
+    }
+
+    .fc .fc-col-header-cell {
+        padding: 3px 0; /* Más compacto */
+        font-size: 0.7em; /* Más pequeño */
+    }
+
+    .fc .fc-daygrid-day {
+        height: 50px; /* Altura más pequeña para móvil */
+        min-height: 50px;
+    }
+
+    .fc .fc-daygrid-day-number {
+        font-size: 0.65em; /* Más pequeño */
+        padding: 2px; /* Más compacto */
+    }
+
+    .fc .fc-event {
+        font-size: 0.55em; /* Aún más pequeño */
+        padding: 0 1px; /* Muy compacto */
+        line-height: 1.1; /* Línea más apretada */
+        margin-bottom: 0px; /* Sin margen entre eventos */
     }
 }
 
-
-/* =====================================
- * Estilos para el Contenido Principal
- * (ajustes mínimos para el layout)
- * ===================================== */
-
-.main-content {
-    padding-top: 20px;
-    padding-bottom: 20px;
+@media (max-width: 1440px) {
+    .content-wrapper {
+        padding: 6px 15px;
+    }
 }
 
-.content-wrapper {
-    background: linear-gradient(135deg, var(--dark-blue1), var(--dark-blue2));
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; 
-    justify-content: center;
-    max-width: 900px; /* Reducido para hacerlo más pequeño */
-    width: 90%; /* Ajustado ligeramente, puedes probar otros valores */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-}
-
-.page-header {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-    margin-bottom: 30px !important;
-}
-
-.page-titulo {
-    font-size: 2.2em;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 5px;
-}
-
-.page-subtitle {
-    font-size: 1.1em;
-    color: #e0e0e0;
-}
-
-.page-subtitle strong {
-    font-weight: 600;
-    color: #333;
+/* Estilos adicionales para pantallas medianas (tablets en modo horizontal, laptops pequeñas) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .content-wrapper {
+        padding: 5px 10px;
+    }
+    .main-content {
+        padding-bottom: 80px;
+    }
+    .calendar-container {
+        max-width: 700px;
+        padding: 12px; /* Ajuste */
+    }
+    .fc .fc-toolbar-title {
+        font-size: 1.3em; /* Ajuste */
+    }
+    .fc .fc-button-group > .fc-button,
+    .fc .fc-prev-button,
+    .fc .fc-next-button,
+    .fc .fc-today-button {
+        padding: 3px 6px; /* Ajuste */
+        font-size: 0.75em; /* Ajuste */
+    }
+    .fc .fc-col-header-cell {
+        padding: 3px 0; /* Ajuste */
+        font-size: 0.8em; /* Ajuste */
+    }
+    .fc .fc-daygrid-day {
+        height: 70px; /* Ajuste de altura para pantallas medianas */
+        min-height: 70px;
+    }
+    .fc .fc-daygrid-day-number {
+        font-size: 0.75em; /* Ajuste */
+    }
+    .fc .fc-event {
+        font-size: 0.65em; /* Ajuste */
+        padding: 1px 3px; /* Ajuste */
+        line-height: 1.2; /* Ajuste */
+        margin-bottom: 1px; /* Ajuste */
+    }
 }

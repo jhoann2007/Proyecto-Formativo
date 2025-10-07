@@ -8,8 +8,8 @@
     --menu-border: #00304D;
     --dark-blue-text-on-yellow: #1a1e27;
     --submenu-bg: rgba(0, 0, 0, 0.2);
-    --toggle-icon-color: #FFF; 
-    --dropdown-active-bg: rgba(255, 255, 255, 0.08); 
+    --toggle-icon-color: #FFF;
+    --dropdown-active-bg: rgba(255, 255, 255, 0.08);
     --submenu-border-left: #FDC300;
 }
 
@@ -28,6 +28,7 @@
     align-items: center;
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     box-sizing: border-box;
+    z-index: 1030; /* Asegura que el header esté por encima de elementos de Bootstrap como navbars */
 }
 
 .profile-img {
@@ -58,8 +59,11 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
-
     overflow-y: auto;
+    /* Resetear posibles estilos de Bootstrap en el contenedor principal del menú */
+    margin: 0;
+    padding-left: 0; /* Asegurar que no haya padding de Bootstrap */
+
 
     &::-webkit-scrollbar {
         display: none;
@@ -73,7 +77,7 @@
 .navmenu ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0; /* Asegurar que no haya margen de Bootstrap en las ULs */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -83,12 +87,13 @@
     margin-bottom: 5px;
     position: relative;
     cursor: pointer;
+    /* Resetear posibles estilos de Bootstrap para LIs */
+    padding: 0;
 }
-
 
 .navmenu ul a {
     display: flex;
-    align-items: center; 
+    align-items: center;
     padding: 12px 15px;
     text-decoration: none;
     color: var(--light-text);
@@ -97,14 +102,16 @@
     transition: all 0.3s ease;
     border-radius: 4px;
     border: 1px solid transparent;
+    /* Resetear posibles estilos de Bootstrap para enlaces */
+    background-color: transparent;
 }
 
 .navmenu ul a .navicon {
     font-size: 20px;
     margin-right: 12px;
     color: var(--icon-color);
-    line-height: 1; 
-    display: flex; 
+    line-height: 1;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -114,7 +121,7 @@
     font-size: 14px;
     color: var(--toggle-icon-color);
     transition: transform 0.3s ease;
-    display: flex; 
+    display: flex;
     align-items: center;
 }
 
@@ -157,27 +164,34 @@
     border-left: 3px solid var(--submenu-border-left);
     border-right: 1px solid var(--menu-border);
     border-bottom: 1px solid var(--menu-border);
+    /* Asegurar que las UL anidadas también reseteen márgenes/paddings de Bootstrap */
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .navmenu .dropdown ul li {
     margin-bottom: 0;
+    /* Resetear posibles estilos de Bootstrap para LIs del submenú */
+    padding: 0;
 }
 
 .navmenu .dropdown ul a {
-    padding: 8px 15px 8px 30px; 
+    padding: 8px 15px 8px 30px;
     font-size: 14px;
     font-weight: 500;
     color: var(--light-text);
     background: none;
     border-radius: 0;
     border: none;
-    display: flex; 
+    display: flex;
     align-items: center;
+    /* Resetear posibles estilos de Bootstrap para enlaces del submenú */
+    background-color: transparent;
 }
 
 .navmenu .dropdown ul a .navicon {
-    font-size: 16px; 
-    margin-right: 10px; 
+    font-size: 16px;
+    margin-right: 10px;
 }
 
 .navmenu .dropdown ul a:hover {
@@ -201,9 +215,35 @@
 }
 
 .navmenu ul a i {
-    margin-right: 12px; 
+    margin-right: 12px;
 }
 
 .navmenu .dropdown ul a i {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
+
+/* Agrega media queries si necesitas que este header se comporte de manera diferente en móviles,
+   ya que Bootstrap es responsive por defecto. */
+/*
+@media (max-width: 991px) {
+    #header {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .profile-img, .sitename {
+        margin-bottom: 10px;
+    }
+    .navmenu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+    .navmenu.show { // Clase para mostrar el menú en móvil
+        max-height: 500px; // O un valor adecuado
+    }
+}
+*/
