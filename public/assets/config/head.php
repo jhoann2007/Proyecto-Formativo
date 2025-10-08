@@ -15,4 +15,4 @@
 <link rel="stylesheet" href="css/inicio.css">
 <link rel="stylesheet" href="css/perfil.css">
 <link rel="stylesheet" href="css/calendario.css">
-<link rel="stylesheet" href="css/agregar_entrenador.css">
+<link rel="stylesheet" href="css/agregar_aprendiz.css">

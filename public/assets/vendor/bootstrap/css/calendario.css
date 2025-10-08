@@ -1,0 +1,603 @@
+/**
+* Template Name: iPortfolio (Versión Mejorada - Tema Oscuro SENA)
+* Description: Fusión de la estructura de iPortfolio con una estética moderna,
+*              tema oscuro, colores SENA, fondo animado y efecto glassmorphism.
+* Updated: Jul 29 2024
+*/
+
+/*--------------------------------------------------------------
+# Importación de Fuentes
+--------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+
+/*--------------------------------------------------------------
+# Variables de Fuentes y Colores (Tema Oscuro SENA)
+--------------------------------------------------------------*/
+
+:root {
+  /* Fuentes */
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --heading-font: "Raleway", sans-serif;
+  --nav-font: "Poppins", sans-serif;
+
+  /* Paleta de Colores Principal (SENA Dark Mode) */
+  --accent-color: #FFCE40; /* Amarillo SENA */
+  --accent-color-hover: #e2b839; /* Amarillo SENA más oscuro para hover */
+  
+  --background-color-start: #1a1a2e; /* Color oscuro para el gradiente */
+  --background-color-end: #00324D; /* Azul oscuro SENA para el gradiente */
+
+  --default-color: #e5e7eb;   /* Texto principal claro */
+  --heading-color: #ffffff;   /* Títulos, blanco puro para mayor impacto */
+  --muted-color: #9ca3af;     /* Color de texto secundario/atenuado */
+
+  /* Colores para Superficies y Contraste (Glassmorphism) */
+  --surface-color: rgba(25, 25, 46, 0.25);  /* Fondo de tarjeta semitransparente */
+  --border-color: rgba(255, 255, 255, 0.1); /* Borde sutil para el efecto cristal */
+  --contrast-color: #00324D; /* Texto oscuro sobre el color de acento (ej. botones) */
+
+  /* Colores del Menú de Navegación */
+  --nav-color: var(--muted-color);
+  --nav-hover-color: #ffffff;
+  --nav-mobile-background-color: #1a1a2e;
+  --nav-dropdown-background-color: rgba(26, 26, 46, 0.5); /* Ligeramente traslúcido */
+  --nav-dropdown-color: var(--muted-color);
+  --nav-dropdown-hover-color: #ffffff;
+
+  /* Smooth scroll */
+  scroll-behavior: smooth;
+}
+
+
+/*--------------------------------------------------------------
+# Estilos Generales y Compartidos
+--------------------------------------------------------------*/
+body {
+  font-family: var(--default-font);
+  color: var(--default-color);
+  /* Fondo con gradiente dinámico */
+  background: linear-gradient(135deg, var(--background-color-start) 0%, var(--background-color-end) 100%);
+  position: relative;
+  overflow-x: hidden; /* Previene scroll horizontal por las formas */
+}
+
+/* --- Fondo Animado --- */
+.background-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Detrás de todo el contenido */
+}
+
+.background-shapes .shape {
+  position: absolute;
+  background-color: rgba(255, 206, 64, 0.08); /* Amarillo SENA muy tenue */
+  border-radius: 50%;
+  filter: blur(80px); /* Desenfoque más pronunciado */
+  z-index: -1;
+}
+
+.shape1 {
+  width: 350px;
+  height: 350px;
+  top: -80px;
+  left: -120px;
+  animation: float 20s infinite ease-in-out alternate;
+}
+
+.shape2 {
+  width: 450px;
+  height: 450px;
+  bottom: -150px;
+  right: -200px;
+  animation: float 25s infinite ease-in-out alternate-reverse;
+}
+
+.shape3 {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  animation: float 22s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  100% { transform: translateY(40px) translateX(-30px) rotate(180deg); }
+}
+
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color-hover);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  font-family: var(--heading-font);
+}
+
+/*--------------------------------------------------------------
+# Estilos Globales de Sección
+--------------------------------------------------------------*/
+section, .section {
+  background-color: transparent; /* Las secciones son transparentes para mostrar el fondo */
+  padding: 60px 0;
+  overflow: clip;
+  position: relative; /* Para z-index si es necesario */
+  z-index: 2;
+}
+
+/* Títulos de Sección */
+.section-title {
+  padding-bottom: 60px;
+  position: relative;
+  text-align: center;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.section-title h2:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent-color);
+  /* Corrección: centrado automático */
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+.section-title p {
+  margin-bottom: 0;
+  color: var(--muted-color);
+}
+
+
+/*--------------------------------------------------------------
+# Header / Menú Lateral
+--------------------------------------------------------------*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  transition: all ease-in-out 0.3s;
+  overflow-y: auto;
+  z-index: 997;
+  padding: 20px 15px;
+  
+  /* --- Efecto Glassmorphism --- */
+  background: var(--surface-color);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-right: 1px solid var(--border-color);
+}
+
+.header .profile-img img {
+  margin: 15px auto;
+  display: block;
+  width: 120px;
+  border-radius: 50%;
+  border: 8px solid var(--accent-color); /* Borde que se integra con el fondo glass */
+}
+
+.header .logo h1 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.header .social-links a {
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--default-color);
+  margin: 0 4px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s ease;
+}
+
+.header .social-links a:hover {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+.header .header-toggle {
+  color: var(--contrast-color);
+  background-color: var(--accent-color);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  z-index: 9999;
+  transition: background-color 0.3s;
+}
+
+.header .header-toggle:hover {
+  background-color: var(--accent-color-hover);
+}
+
+
+/*--------------------------------------------------------------
+# Menú de Navegación
+--------------------------------------------------------------*/
+.navmenu {
+  padding: 20px 0 0 0;
+}
+
+.navmenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navmenu a {
+  color: var(--nav-color);
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  font-family: var(--nav-font);
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: 0.3s;
+  border-radius: 8px;
+}
+
+.navmenu a i {
+  font-size: 20px;
+  margin-right: 10px;
+  color: var(--nav-color);
+  transition: 0.3s;
+}
+
+.navmenu a:hover,
+.navmenu .active,
+.navmenu .active:focus {
+  color: var(--nav-hover-color);
+  background: rgba(255, 206, 64, 0.15); /* Fondo sutil amarillo al seleccionar */
+}
+
+.navmenu a:hover i,
+.navmenu .active i,
+.navmenu .active:focus i {
+  color: var(--accent-color);
+}
+
+/* Resto de estilos de navegación y dropdown se mantienen en gran parte iguales
+   ya que son funcionales y heredan los nuevos colores a través de las variables.
+   Aseguramos que el dropdown tenga el efecto glass.
+*/
+.navmenu .dropdown ul {
+  position: static;
+  display: none;
+  z-index: 99;
+  padding: 10px 0;
+  margin: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.5s ease-in-out;
+  /* --- Efecto Glassmorphism para Dropdown --- */
+  background: var(--nav-dropdown-background-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+
+/*--------------------------------------------------------------
+# Sección Hero
+--------------------------------------------------------------*/
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding: 0; /* Sin padding para que la imagen ocupe todo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.hero img.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.hero:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.6); /* Capa oscura más pronunciada para legibilidad */
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+.hero h2 {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.hero p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 15px 0 30px 0;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.hero p span {
+  color: #fff;
+  border-bottom: 3px solid var(--accent-color);
+  padding-bottom: 6px;
+}
+
+/* Se mantienen tus estilos personalizados para #pipe y #letra */
+#pipe{
+  width: 110px;
+  height: auto;
+  position: absolute;
+  left: 210px;
+  top: -12px;
+}
+#letra{
+  color: #50790546;
+}
+
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 38px;
+  }
+  .hero p {
+    font-size: 18px;
+  }
+}
+
+
+/*--------------------------------------------------------------
+# Sección de Contacto y Formularios
+--------------------------------------------------------------*/
+.contact .info-wrap {
+  height: 100%;
+  padding: 30px;
+  border-radius: 8px;
+  /* --- Efecto Glassmorphism --- */
+  background: var(--surface-color);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--border-color);
+}
+
+.contact .info-item i {
+  font-size: 20px;
+  color: var(--accent-color);
+  background: rgba(255, 206, 64, 0.1);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+  margin-right: 15px;
+}
+
+.contact .info-item:hover i {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+/* Formulario */
+.contact .php-email-form {
+  height: 100%;
+  padding: 30px;
+  border-radius: 8px;
+  /* --- Efecto Glassmorphism --- */
+  background: var(--surface-color);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--border-color);
+}
+
+.contact .php-email-form input[type=text],
+.contact .php-email-form input[type=email],
+.contact .php-email-form textarea {
+  font-size: 14px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: none;
+  color: var(--default-color);
+  background-color: rgba(255, 255, 255, 0.05); /* Fondo sutil para inputs */
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.contact .php-email-form input[type=text]:focus,
+.contact .php-email-form input[type=email]:focus,
+.contact .php-email-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(255, 206, 64, 0.3);
+}
+
+.contact .php-email-form button[type=submit] {
+  background: var(--accent-color);
+  border: 0;
+  padding: 12px 35px;
+  color: var(--contrast-color);
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact .php-email-form button[type=submit]:hover {
+  background: var(--accent-color-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 206, 64, 0.3);
+}
+
+
+/*--------------------------------------------------------------
+# Preloader y Botón Scroll Top
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  overflow: hidden;
+  background: var(--background-color-end); /* Usa un color sólido del tema */
+  transition: all 0.6s ease-out;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid var(--accent-color);
+  border-color: var(--accent-color) transparent var(--accent-color) transparent;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: animate-preloader 1.5s linear infinite;
+}
+
+.scroll-top {
+  background-color: var(--accent-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-top:hover {
+  background-color: var(--accent-color-hover);
+  transform: translateY(-3px);
+}
+
+/*--------------------------------------------------------------
+# Otros Estilos (About, Footer, etc.)
+--------------------------------------------------------------*/
+/* Estos componentes heredarán los colores y la estética general.
+   Se pueden hacer ajustes finos si es necesario. */
+.about .content ul i {
+  color: var(--accent-color);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 13px;
+  text-align: center;
+  z-index: 998;
+  
+  /* Efecto Glassmorphism */
+  background: rgba(10, 25, 47, 0.85); /* Un poco más oscuro y opaco para legibilidad */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--muted-color);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Ajuste para el menú lateral en escritorio */
+@media (min-width: 1100px) {
+  .footer {
+    left: 300px;
+    width: calc(100% - 300px);
+  }
+}
+
+/* Se mantiene tu estilo personalizado para img-fluid */
+.img-fluid {
+  border-radius:50%;
+  border: solid black 4px;
+  object-fit: cover;
+  width: 15rem;
+  margin: 75px 20px;
+}
+
+
+/* Se mantienen los demás estilos de la plantilla original que no
+   requieren cambios visuales drásticos, como php-email-form-messages,
+   breadcrumbs, etc., ya que ahora usan las nuevas variables de color. */
+
+/*
+   ... (El resto de los estilos del archivo original como .page-title,
+   .php-email-form messages, etc., pueden permanecer aquí. Ya se adaptarán
+   automáticamente gracias al uso de variables CSS) ...
+*/
+
+/* Media queries para responsividad (ejemplo de la plantilla original) */
+@media (min-width: 1100px) {
+  .header~main{
+    margin-left: 315px;
+  }
+
+  .header~#footer {
+    margin-left: 30px;
+    padding-bottom: 60px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .header {
+    left: -100%;
+  }
+}
+
+.header.header-show {
+  left: 0;
+}
+
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}

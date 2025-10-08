@@ -38,7 +38,7 @@
                     $id_trainingcenter = property_exists($aprendiz, 'id_trainingcenter') ? $aprendiz->id_trainingcenter : (property_exists($aprendiz, 'id_trainingcenter') ? $aprendiz->id_trainingcenter : '');
 
                     echo "<tr data-ficha='{$id_group}'>
-                        <td>{$name}</td>
+                        <td class='name'><i class='bi bi-person-fill'></i><span>{$name}</span></td>
                         <td>{$document_type}</td>
                         <td>{$document}</td>
                         <td>{$email}</td>

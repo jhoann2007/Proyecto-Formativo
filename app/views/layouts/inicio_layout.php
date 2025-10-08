@@ -9,14 +9,14 @@
 
   <!-- header (Sidebar) -->
   <header id="header" class="header dark-background d-flex flex-column">
-        <?php
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        // El include del header se mantiene
-        include 'assets/config/header.php';
-        ?>
-    </header>
+    <?php
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+    // El include del header se mantiene
+    include 'assets/config/header.php';
+    ?>
+  </header>
   <!-- fin header (Sidebar) -->
 
   <!-- main -->
@@ -29,13 +29,13 @@
           <p class="quote">EL DOLOR ES TEMPORAL, LA SATISFACCIÓN DE LOGRAR TUS METAS ES PARA SIEMPRE</p>
           <h2>GymTech SENA</h2>
           <div class="hero-buttons">
-            <form action="/calendario" method="Post"> 
+            <form action="/calendario" method="Post">
               <div class="form-group">
                 <button type="submit" class="btn01"><span>Ver Calendario</span></button>
               </div>
             </form>
 
-            <form action="/agregarRutina" method="Post"> 
+            <form action="/agregarRutina" method="Post">
               <div class="form-group">
                 <button type="submit" class="btn02"><span>Iniciar Entrenamiento</span></button>
               </div>
