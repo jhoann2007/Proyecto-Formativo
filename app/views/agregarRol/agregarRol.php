@@ -16,11 +16,11 @@
                     $name = $role->name ?? '';
 
                     echo "<tr data-ficha='{$name}'>
-                        <td>{$id_role}</td>
-                        <td>{$name}</td>
-                        <td><button class='btn btn-sm btn-ver' data-bs-toggle='modal' data-bs-target='#modalView{$id_role}'><i class='bi bi-eye'></i></button></td>
-                        <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id_role}'><i class='bi bi-pencil-square'></i></button></td>
-                        <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id_role}'><i class='bi bi-trash'></i></button></td>
+                        <td class='name'><span>{$id_role}<span></td>
+                        <td class='data'>{$name}</td>
+                        <td class='data'><button class='btn btn-sm btn-ver' data-bs-toggle='modal' data-bs-target='#modalView{$id_role}'><i class='bi bi-eye'></i></button></td>
+                        <td class='data'><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id_role}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td class='data'><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id_role}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
 
                     // Modal para Ver Aprendiz

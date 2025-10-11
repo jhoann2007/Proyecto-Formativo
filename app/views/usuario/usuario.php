@@ -39,15 +39,15 @@
 
                     echo "<tr data-ficha='{$id_group}'>
                         <td class='name'><i class='bi bi-person-fill'></i><span>{$name}</span></td>
-                        <td>{$document_type}</td>
-                        <td>{$document}</td>
-                        <td>{$email}</td>
-                        <td>{$status}</td>
-                        <td><button class='btn-control' data-modal='modalControl{$id_user}'><i class='bi bi-person-fill-add'></i>Control</button></td>
-                        <td><button class='btn-observaciones' data-modal='modalObservaciones{$id_user}'><i class='bi bi-chat-left-text'></i></button></td>
-                        <td><button class='btn-ver' data-modal='modalView{$id_user}'><i class='bi bi-eye'></i></button></td>
-                        <td><button class='btn-editar' data-modal='modalEdit{$id_user}'><i class='bi bi-pencil-square'></i></button></td>
-                        <td><button class='btn-eliminar' data-modal='modalDelete{$id_user}'><i class='bi bi-trash'></i></button></td>
+                        <td class='data'>{$document_type}</td>
+                        <td class='data'>{$document}</td>
+                        <td class='data'>{$email}</td>
+                        <td class='data'>{$status}</td>
+                        <td class='data'><button class='btn-control' data-modal='modalControl{$id_user}'><i class='bi bi-person-fill-add'></i>Control</button></td>
+                        <td class='data'><button class='btn-observaciones' data-modal='modalObservaciones{$id_user}'><i class='bi bi-chat-left-text'></i></button></td>
+                        <td class='data'><button class='btn-ver' data-modal='modalView{$id_user}'><i class='bi bi-eye'></i></button></td>
+                        <td class='data'><button class='btn-editar' data-modal='modalEdit{$id_user}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td class='data'><button class='btn-eliminar' data-modal='modalDelete{$id_user}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
 
                     // Modal para Ver Aprendiz

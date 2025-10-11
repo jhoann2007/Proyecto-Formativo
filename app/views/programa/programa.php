@@ -1,6 +1,6 @@
 <div class="table-responsive">
-    <table class="table-vista">
-        <thead>
+    <table class="table-aprendiz">
+        <thead class="table-group">
             <tr>
                 <th>Ficha</th>
                 <th>Nombre</th>
@@ -20,9 +20,9 @@
                     $id_trainingcenter = property_exists($program, 'id_trainingcenter') ? $program->id_trainingcenter : (property_exists($program, 'id_trainingcenter') ? $program->id_trainingcenter : '');
 
                     echo "<tr data-ficha='{$token_number}'>
-                        <td>{$token_number}</td>
-                        <td>{$name}</td>
-                        <td>";
+                        <td class='name'><i class='bi bi-house'></i><span>{$token_number}</span></td>
+                        <td class='data'>{$name}</td>
+                        <td class='data'>";
                         
                         if (isset($centers) && is_array($centers)) {
                         foreach ($centers as $center) {
@@ -35,9 +35,9 @@
                         echo "<p>{$id_trainingcenter}</p>";
                     }
                         echo"</td>
-                        <td><button class='btn-ver' data-modal='#modalView{$id_trainingprogram}'><i class='bi bi-eye'></i></button></td>
-                        <td><button class='btn-editar' data-modal='#modalEdit{$id_trainingprogram}'><i class='bi bi-pencil-square'></i></button></td>
-                        <td><button class='btn-eliminar' data-modal='#modalDelete{$id_trainingprogram}'><i class='bi bi-trash'></i></button></td>
+                        <td class='data'><button class='btn-ver' data-modal='#modalView{$id_trainingprogram}'><i class='bi bi-eye'></i></button></td>
+                        <td class='data'><button class='btn-editar' data-modal='#modalEdit{$id_trainingprogram}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td class='data'><button class='btn-eliminar' data-modal='#modalDelete{$id_trainingprogram}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
 
                     // Modal para Ver Programa

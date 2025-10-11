@@ -1,6 +1,6 @@
 /* Estilos para el contenedor de la tabla responsiva */
 .table-responsive {
-    background-color: #00000000;
+    background-color: #00000000 !important;
     /* Fondo oscuro similar al de la imagen */
     border-radius: 8px;
     /* Bordes redondeados */
@@ -33,6 +33,7 @@
     font-weight: bold;
 }
 
+
 .table-aprendiz th {
     padding: 10px 20px;
     /* Relleno para las celdas del encabezado */
@@ -51,14 +52,21 @@
 
 /* Estilos para las filas del cuerpo de la tabla */
 .table-aprendiz tbody tr {
-    background: linear-gradient(135deg, var(--dark-blue1), var(--dark-blue2));
+    background: #00000000;
     /* Fondo de las filas del cuerpo */
-    border-bottom: 1px solid #3b4a60;
     /* Separador entre filas */
+}
+
+.data{
+    background-color: var(--dark-blue1) !important;
 }
 
 .table-aprendiz tbody tr:last-child {
     border-bottom: none;
+    position: relative;
+    /* Asegura que el texto esté por encima de cualquier pseudo-elemento */
+    z-index: 2;
+    margin-left: 20px;
     /* Eliminar el borde inferior de la última fila */
 }
 
@@ -73,7 +81,6 @@
     background-color: #00000000;
     gap: 10px;
     /* Espacio entre el icono y el nombre */
-    margin-top: 10px;
     align-items: center;
 }
 
@@ -86,11 +93,6 @@
 
     padding-left: 0;
     /* Ajustar padding si es necesario */
-}
-
-.table-aprendiz tbody tr:nth-child(even) td:first-child::before {
-    background-color: #0d6efd;
-    /* Azul para filas pares */
 }
 
 .name {

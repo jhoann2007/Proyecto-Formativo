@@ -6,15 +6,20 @@
 <!-- head -->
 <head>
     <?php include 'assets/config/head.php'; ?>
-    <link rel="stylesheet" href="/css/usuario.css">
 </head>
 <!-- fin head -->
 
 <body class="index-page">
 
     <!-- header -->
-    <header id="header" class="header dark-background">
-        <?php include 'assets/config/header.php'; ?>
+    <header id="header" class="header dark-background d-flex flex-column">
+        <?php
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        // El include del header se mantiene
+        include 'assets/config/header.php';
+        ?>
     </header>
     <!-- fin header -->
 

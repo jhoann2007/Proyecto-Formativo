@@ -25,14 +25,14 @@
                     $id_trainingprogram = property_exists($group, 'id_trainingprogram') ? $group->id_trainingprogram : (property_exists($group, 'id_trainingprogram') ? $group->id_trainingprogram : '');
 
                     echo "<tr data-ficha='{$token_number}'>
-                        <td>{$token_number}</td>
-                        <td>{$number_aprenttices}</td>
-                        <td>{$status}</td>
-                        <td>{$star_date}</td>
-                        <td>{$end_date}</td>
-                        <td><button class='btn btn-sm btn-ver' data-modal='modalView{$id_group}'><i class='bi bi-eye'></i></button></td>
-                        <td><button class='btn btn-sm btn-editar' data-modal='modalEdit{$id_group}'><i class='bi bi-pencil-square'></i></button></td>
-                        <td><button class='btn btn-sm btn-eliminar' data-modal='modalDelete{$id_group}'><i class='bi bi-trash'></i></button></td>
+                        <td class='name'><span>{$token_number}</span></td>
+                        <td class='data'>{$number_aprenttices}</td>
+                        <td class='data'>{$status}</td>
+                        <td class='data'>{$star_date}</td>
+                        <td class='data'>{$end_date}</td>
+                        <td class='data'><button class='btn btn-sm btn-ver' data-modal='modalView{$id_group}'><i class='bi bi-eye'></i></button></td>
+                        <td class='data'><button class='btn btn-sm btn-editar' data-modal='modalEdit{$id_group}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td class='data'><button class='btn btn-sm btn-eliminar' data-modal='modalDelete{$id_group}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
 
                     // Modal para Ver Aprendiz

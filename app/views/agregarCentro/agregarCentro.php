@@ -16,11 +16,11 @@
                     $name = $center->name ?? '';
 
                     echo "<tr data-ficha='{$name}'>
-                        <td>{$id_trainingcenter}</td>
-                        <td>{$name}</td>
-                        <td><button class='btn-ver' data-modal='modalView{$id_trainingcenter}'><i class='bi bi-eye'></i></button></td>
-                        <td><button class='btn-editar' data-modal='modalEdit{$id_trainingcenter}'><i class='bi bi-pencil-square'></i></button></td>
-                        <td><button class='btn-eliminar' data-modal='modalDelete{$id_trainingcenter}'><i class='bi bi-trash'></i></button></td>
+                        <td class='name'><span>{$id_trainingcenter}</span></td>
+                        <td class='data'>{$name}</td>
+                        <td class='data'><button class='btn-ver' data-modal='modalView{$id_trainingcenter}'><i class='bi bi-eye'></i></button></td>
+                        <td class='data'><button class='btn-editar' data-modal='modalEdit{$id_trainingcenter}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td class='data'><button class='btn-eliminar' data-modal='modalDelete{$id_trainingcenter}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
 
                     // Modal para Ver Aprendiz
