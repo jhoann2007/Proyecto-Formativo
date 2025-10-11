@@ -70,41 +70,53 @@ class AgregarUsuarioModel extends BaseModel
         }
     }
 
-    # Método para obtener solo los aprendices (rol 3)
-    public function getAprendicesOnly() {
+    # Método para obtener todos los usuarios 
+    public function getAllUsers() {
         try {
-            $sql = "SELECT * FROM $this->table WHERE id_role = 3";
+            $sql = "SELECT * FROM $this->table";
             $statement = $this->dbConnection->query($sql);
             return $statement->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $ex) {
-            echo "Error al obtener aprendices> ".$ex->getMessage();
+            echo "Error al obtener usuarios> ".$ex->getMessage();
             return [];
         }
     }
+
+    # Método para obtener solo los aprendices (rol 3)
+    // public function getAprendicesOnly() {
+    //     try {
+    //         $sql = "SELECT * FROM $this->table WHERE id_role = 3";
+    //         $statement = $this->dbConnection->query($sql);
+    //         return $statement->fetchAll(PDO::FETCH_OBJ);
+    //     } catch (PDOException $ex) {
+    //         echo "Error al obtener aprendices> ".$ex->getMessage();
+    //         return [];
+    //     }
+    // }
 
     # Método para obtener solo los entrenadores (rol 2)
-    public function getEntrenadoresOnly() {
-        try {
-            $sql = "SELECT * FROM $this->table WHERE id_role = 2";
-            $statement = $this->dbConnection->query($sql);
-            return $statement->fetchAll(PDO::FETCH_OBJ);
-        } catch (PDOException $ex) {
-            echo "Error al obtener entrenadores> ".$ex->getMessage();
-            return [];
-        }
-    }
+    // public function getEntrenadoresOnly() {
+    //     try {
+    //         $sql = "SELECT * FROM $this->table WHERE id_role = 2";
+    //         $statement = $this->dbConnection->query($sql);
+    //         return $statement->fetchAll(PDO::FETCH_OBJ);
+    //     } catch (PDOException $ex) {
+    //         echo "Error al obtener entrenadores> ".$ex->getMessage();
+    //         return [];
+    //     }
+    // }
 
     # Método para obtener solo los entrenadores (rol 1)
-    public function getAdminsOnly() {
-        try {
-            $sql = "SELECT * FROM $this->table WHERE id_role = 1";
-            $statement = $this->dbConnection->query($sql);
-            return $statement->fetchAll(PDO::FETCH_OBJ);
-        } catch (PDOException $ex) {
-            echo "Error al obtener administradores> ".$ex->getMessage();
-            return [];
-        }
-    }
+    // public function getAdminsOnly() {
+    //     try {
+    //         $sql = "SELECT * FROM $this->table WHERE id_role = 1";
+    //         $statement = $this->dbConnection->query($sql);
+    //         return $statement->fetchAll(PDO::FETCH_OBJ);
+    //     } catch (PDOException $ex) {
+    //         echo "Error al obtener administradores> ".$ex->getMessage();
+    //         return [];
+    //     }
+    // }
 
     # Método para obtener el ID del último registro insertado
     public function getLastInsertId() {
@@ -290,18 +302,18 @@ class AgregarUsuarioModel extends BaseModel
     }
     
     // Método para filtrar aprendices por grupo (ficha)
-    public function getAprendicesByGrupo($groupId) {
-        try {
-            $sql = "SELECT * FROM $this->table WHERE id_group = :groupId";
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":groupId", $groupId, PDO::PARAM_INT);
-            $statement->execute();
-            return $statement->fetchAll(PDO::FETCH_OBJ);
-        } catch (PDOException $ex) {
-            echo "Error al obtener aprendices por grupo> ".$ex->getMessage();
-            return [];
-        }
-    }
+    // public function getAprendicesByGrupo($groupId) {
+    //     try {
+    //         $sql = "SELECT * FROM $this->table WHERE id_group = :groupId";
+    //         $statement = $this->dbConnection->prepare($sql);
+    //         $statement->bindParam(":groupId", $groupId, PDO::PARAM_INT);
+    //         $statement->execute();
+    //         return $statement->fetchAll(PDO::FETCH_OBJ);
+    //     } catch (PDOException $ex) {
+    //         echo "Error al obtener aprendices por grupo> ".$ex->getMessage();
+    //         return [];
+    //     }
+    // }
 }
 
 ?>

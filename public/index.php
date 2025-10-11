@@ -21,6 +21,7 @@ require_once '../app/controllers/agregarCentroController.php';
 require_once '../app/controllers/agregarProgramaController.php';
 require_once '../app/controllers/agregarRolController.php';
 require_once '../app/controllers/ejercicioController.php';
+require_once '../app/controllers/agregarUsuarioController.php';
 
 
 

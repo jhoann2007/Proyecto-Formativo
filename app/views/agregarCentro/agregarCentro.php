@@ -18,43 +18,40 @@
                     echo "<tr data-ficha='{$name}'>
                         <td>{$id_trainingcenter}</td>
                         <td>{$name}</td>
-                        <td><button class='btn btn-sm btn-ver' data-bs-toggle='modal' data-bs-target='#modalView{$id_trainingcenter}'><i class='bi bi-eye'></i></button></td>
-                        <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id_trainingcenter}'><i class='bi bi-pencil-square'></i></button></td>
-                        <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id_trainingcenter}'><i class='bi bi-trash'></i></button></td>
+                        <td><button class='btn-ver' data-modal='modalView{$id_trainingcenter}'><i class='bi bi-eye'></i></button></td>
+                        <td><button class='btn-editar' data-modal='modalEdit{$id_trainingcenter}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td><button class='btn-eliminar' data-modal='modalDelete{$id_trainingcenter}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
 
                     // Modal para Ver Aprendiz
                     echo "
-                    <div class='modal fade' id='modalView{$id_trainingcenter}' tabindex='-1' aria-labelledby='modalViewLabel{$id_trainingcenter}' aria-hidden='true'>
-                        <div class='modal-dialog modal-lg'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalViewLabel{$id_trainingcenter}'>Detalles del Centro</h5>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
-                                </div>
-                                <div class='modal-body'>
-                                    <div class='row'>
-                                        <div class='col-md-6'>
-                                            <p><strong>ID:</strong> {$id_trainingcenter}</p>
-                                            <p><strong>Nombre:</strong> {$name}</p>
-                                        </div>
+                    <div class='modal' id='modalView{$id_trainingcenter}'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-titulo'>Detalles del Centro</h5>
+                                <button type='button' class='btn-close'>&times;</button>
+                            </div>
+                            <div class='modal-body'>
+                                <div class='row'>
+                                    <div class='col-md-6'>
+                                        <p><strong>ID:</strong> {$id_trainingcenter}</p>
+                                        <p><strong>Nombre:</strong> {$name}</p>
                                     </div>
                                 </div>
-                                <div class='modal-footer'>
-                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                </div>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn-cancelar'>Cerrar</button>
                             </div>
                         </div>
                     </div>";
 
                     // Modal para Editar Aprendiz
                     echo "
-                    <div class='modal fade' id='modalEdit{$id_trainingcenter}' tabindex='-1' aria-labelledby='modalEditLabel{$id_trainingcenter}' aria-hidden='true'>
-                        <div class='modal-dialog modal-lg'>
-                            <div class='modal-content'>
+                    <div class='modal' id='modalEdit{$id_trainingcenter}'>
+                        <div class='modal-content'>
                                 <div class='modal-header'>
                                     <h5 class='modal-title' id='modalEditLabel{$id_trainingcenter}'>Editar Centro</h5>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
+                                    <button type='button' class='btn-close'>&times;</button>
                                 </div>
                                 <div class='modal-body'>
                                     <form action='/centro/update' method='post'>
@@ -66,9 +63,9 @@
                                             </div>
                                         </div>
                                         <div class='modal-footer'>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
-                                            <button type='submit' class='btn btn-primary'>Guardar Cambios</button>
-                                        </div>
+                                    <button type='button' class='btn-cancelar'>Cancelar</button>
+                                    <button type='submit' class='btn-guardar'>Guardar Cambios</button>
+                                </div>
                                     </form>
                                 </div>
                             </div>
@@ -77,12 +74,11 @@
 
                     // Modal para Eliminar Centro
                     echo "
-                    <div class='modal fade' id='modalDelete{$id_trainingcenter}' tabindex='-1' aria-labelledby='modalDeleteLabel{$id_trainingcenter}' aria-hidden='true'>
-                        <div class='modal-dialog'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalDeleteLabel{$id_trainingcenter}'>Eliminar Centro</h5>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
+                    <div class='modal' id='modalDelete{$id_trainingcenter}'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-titulo'>Eliminar Centro</h5>
+                                <button type='button' class='btn-close'>&times;</button>
                                 </div>
                                 <div class='modal-body'>
                                     <p>¿Está seguro que desea eliminar al centro: <strong>{$name}</strong>?</p>
@@ -90,9 +86,9 @@
                                         <input type='hidden' name='txtIdTrainingCenter' value='{$id_trainingcenter}'>
                                         <input type='hidden' name='txtName' value='{$name}'>
                                         <div class='modal-footer'>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
-                                            <button type='submit' class='btn btn-danger'>Eliminar</button>
-                                        </div>
+                                    <button type='button' class='btn-cancelar'>Cancelar</button>
+                                    <button type='submit' class='btn-eliminar'>Eliminar</button>
+                                </div>
                                     </form>
                                 </div>
                             </div>
@@ -108,27 +104,25 @@
 </div>
 
 <!-- Modal para Agregar Centro de Formación -->
-<div class="modal fade" id="modalAprendiz" tabindex="-1" aria-labelledby="modalAprendizLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-titulo" id="modalAprendizLabel">Agregar Centro</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/centro/create" method="post">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" name="txtName" required>
-                        </div>
+<div class="modal" id="modalAprendiz">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-titulo">Agregar Centro</h5>
+            <button type="button" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form action="/centro/create" method="post">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="txtName" required>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

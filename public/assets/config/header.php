@@ -34,16 +34,14 @@ if (session_status() === PHP_SESSION_NONE) {
         echo '
         <li class="dropdown">
           <a href="#" class="dropdown-toggle">
-            <i class="bi bi-plus-circle navicon"></i><span>Agregar</span><i class="bi bi-chevron-down toggle-icon"></i>
+            <i class="bi bi-plus-circle navicon"></i><span>Gestionar</span><i class="bi bi-chevron-down toggle-icon"></i>
           </a>
           <ul>
-            <li><a href="/centro"><i class="bi bi-building"></i>Agregar Centro</a></li>
-            <li><a href="/programa"><i class="bi bi-file-earmark-code"></i>Agregar Programa</a></li>
-            <li><a href="/grupo"><i class="bi bi-people"></i>Agregar Grupo</a></li>
-            <li><a href="/rol"><i class="bi bi-person-badge"></i>Agregar Rol</a></li>
-            <li><a href="/agregarAdmin"><i class="bi bi-person-fill-gear"></i>Agregar Administrador</a></li>
-            <li><a href="/agregarEntrenador"><i class="bi bi-person-walking"></i>Agregar Entrenador</a></li>
-            <li><a href="/agregarAprendiz"><i class="bi bi-person-lines-fill"></i>Agregar Aprendiz</a></li>
+            <li><a href="/centro"><i class="bi bi-building"></i>Centros</a></li>
+            <li><a href="/programa"><i class="bi bi-file-earmark-code"></i>Programas</a></li>
+            <li><a href="/grupo"><i class="bi bi-people"></i>Grupos</a></li>
+            <li><a href="/rol"><i class="bi bi-person-badge"></i>Roles</a></li>
+            <li><a href="/usuario"><i class="bi bi-person-fill-gear"></i>Usuarios</a></li>
           </ul>
         </li>';
         echo "          

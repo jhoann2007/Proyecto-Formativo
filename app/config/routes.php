@@ -505,5 +505,35 @@ return [
         'controller' => 'App\Controller\CalendarioController',
         'action' => 'obtenerRegistrosAprendiz'
     ],
+
+    # Agregar usuario
+    '/usuario' => [
+        'controller' => 'App\Controller\AgregarUsuarioController',
+        'action' => 'index'
+    ],
+    '/usuario/create' => [ // Crea el aprendiz en la Base de Datos 
+        'controller' => 'App\Controller\AgregarUsuarioController',
+        'action' => 'create'
+    ],
+    '/usuario/view/(\d+)' => [ // Visualiza el aprendiz con el ID especificado 
+        'controller' => 'App\Controller\AgregarUsuarioController',  
+        'action' => 'view'
+    ],
+    '/usuario/edit/(\d+)' => [
+        'controller' => 'App\Controller\AgregarUsuarioController',
+        'action' => 'editUsuario'
+    ],
+    '/usuario/update' => [
+        'controller' => 'App\Controller\AgregarUsuarioController',
+        'action' => 'updateUsuario'
+    ],
+    '/usuario/delete/(\d+)' => [
+        'controller' => 'App\Controller\AgregarUsuarioController',
+        'action' => 'deleteUsuario'
+    ],
+    '/usuario/borrar' => [
+        'controller' => 'App\Controller\AgregarUsuarioController',
+        'action' => 'borrarUsuario'
+    ],
 ];
 ?>

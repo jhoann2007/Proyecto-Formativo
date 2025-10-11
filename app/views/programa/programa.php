@@ -1,6 +1,6 @@
 <div class="table-responsive">
-    <table class="table-aprendiz">
-        <thead class="table-group">
+    <table class="table-vista">
+        <thead>
             <tr>
                 <th>Ficha</th>
                 <th>Nombre</th>
@@ -35,26 +35,25 @@
                         echo "<p>{$id_trainingcenter}</p>";
                     }
                         echo"</td>
-                        <td><button class='btn btn-sm btn-ver' data-bs-toggle='modal' data-bs-target='#modalView{$id_trainingprogram}'><i class='bi bi-eye'></i></button></td>
-                        <td><button class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdit{$id_trainingprogram}'><i class='bi bi-pencil-square'></i></button></td>
-                        <td><button class='btn btn-sm btn-eliminar' data-bs-toggle='modal' data-bs-target='#modalDelete{$id_trainingprogram}'><i class='bi bi-trash'></i></button></td>
+                        <td><button class='btn-ver' data-modal='#modalView{$id_trainingprogram}'><i class='bi bi-eye'></i></button></td>
+                        <td><button class='btn-editar' data-modal='#modalEdit{$id_trainingprogram}'><i class='bi bi-pencil-square'></i></button></td>
+                        <td><button class='btn-eliminar' data-modal='#modalDelete{$id_trainingprogram}'><i class='bi bi-trash'></i></button></td>
                     </tr>";
 
-                    // Modal para Ver Aprendiz
+                    // Modal para Ver Programa
                     echo "
-                    <div class='modal fade' id='modalView{$id_trainingprogram}' tabindex='-1' aria-labelledby='modalViewLabel{$id_trainingprogram}' aria-hidden='true'>
-                        <div class='modal-dialog modal-lg'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalViewLabel{$id_trainingprogram}'>Detalles del Programa</h5>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
-                                </div>
-                                <div class='modal-body'>
-                                    <div class='row'>
-                                        <div class='col-md-6'>
-                                            <p><strong>ID:</strong> {$id_trainingprogram}</p>
-                                            <p><strong>Ficha:</strong> {$token_number}</p>
-                                            <p><strong>Nombre:</strong> {$name}</p>";
+                    <div class='modal' id='modalView{$id_trainingprogram}'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title'>Detalles del Programa</h5>
+                                <button type='button' class='btn-close'>&times;</button>
+                            </div>
+                            <div class='modal-body'>
+                                <div class='row'>
+                                    <div class='form-group'>
+                                        <p><strong>ID:</strong> {$id_trainingprogram}</p>
+                                        <p><strong>Ficha:</strong> {$token_number}</p>
+                                        <p><strong>Nombre:</strong> {$name}</p>";
 
                     // Mostrar nombre del centro en lugar del ID
                     if (isset($centers) && is_array($centers)) {
@@ -68,140 +67,131 @@
                         echo "<p><strong>Centro:</strong> {$id_trainingcenter}</p>";
                     }
                     echo "
-                                        </div>
                                     </div>
                                 </div>
-                                <div class='modal-footer'>
-                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                </div>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn-secondary'>Cerrar</button>
                             </div>
                         </div>
                     </div>";
 
-                    // Modal para Editar Aprendiz
+                    // Modal para Editar Programa
                     echo "
-                    <div class='modal fade' id='modalEdit{$id_trainingprogram}' tabindex='-1' aria-labelledby='modalEditLabel{$id_trainingprogram}' aria-hidden='true'>
-                        <div class='modal-dialog modal-lg'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalEditLabel{$id_trainingprogram}'>Editar Grupo</h5>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
-                                </div>
-                                <div class='modal-body'>
-                                    <form action='/programa/update' method='post'>
-                                        <input type='hidden' name='txtIdTrainingProgram' value='{$id_trainingprogram}'>
-                                        <div class='row mb-3'>
-                                            <div class='col-md-6'>
-                                                <label class='form-label'>Ficha</label>
-                                                <input type='text' class='form-control' name='txtTokenNumber' value='{$token_number}'>
-                                            </div>
-                                            <div class='col-md-6'>
-                                                <label class='form-label'>Nombre</label>
-                                                <input type='text' class='form-control' name='txtName' value='{$name}'>
-                                            </div>
+                    <div class='modal' id='modalEdit{$id_trainingprogram}'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title'>Editar Programa</h5>
+                                <button type='button' class='btn-close'>&times;</button>
+                            </div>
+                            <div class='modal-body'>
+                                <form action='/programa/update' method='post'>
+                                    <input type='hidden' name='txtIdTrainingProgram' value='{$id_trainingprogram}'>
+                                    <div class='row'>
+                                        <div class='form-group'>
+                                            <label class='form-label'>Ficha</label>
+                                            <input type='text' class='form-control' name='txtTokenNumber' value='{$token_number}'>
                                         </div>
-                                        <div class='row mb-3'>
-                                            <div class='col-md-6'>
-                                                <label class='form-label'>Centro de Formación</label>
-                                                <select class='form-control' name='txtIdTrainingCenter'>
-                                                    <option value=''>Seleccionar Centro</option>";
-                                                    if (isset($centers) && is_array($centers)) {
-                                                        foreach ($centers as $center) {
-                                                            $selected = ($id_trainingcenter == $center->id_trainingcenter) ? 'selected' : '';
-                                                            echo "<option value='{$center->id_trainingcenter}' {$selected}>{$center->name}</option>";
-                                                        }
-                                                    }                               
-                                                    echo "
-                                                </select>
-                                            </div>
+                                        <div class='form-group'>
+                                            <label class='form-label'>Nombre</label>
+                                            <input type='text' class='form-control' name='txtName' value='{$name}'>
                                         </div>
-                                        <div class='modal-footer'>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
-                                            <button type='submit' class='btn btn-primary'>Guardar Cambios</button>
+                                    </div>
+                                    <div class='row'>
+                                        <div class='form-group'>
+                                            <label class='form-label'>Centro de Formación</label>
+                                            <select class='form-control' name='txtIdTrainingCenter'>
+                                                <option value=''>Seleccionar Centro</option>";
+                                                if (isset($centers) && is_array($centers)) {
+                                                    foreach ($centers as $center) {
+                                                        $selected = ($id_trainingcenter == $center->id_trainingcenter) ? 'selected' : '';
+                                                        echo "<option value='{$center->id_trainingcenter}' {$selected}>{$center->name}</option>";
+                                                    }
+                                                }                               
+                                                echo "
+                                            </select>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn-secondary'>Cancelar</button>
+                                        <button type='submit' class='btn-primary'>Guardar Cambios</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>";
 
-                    // Modal para Eliminar Grupo
+                    // Modal para Eliminar Programa
                     echo "
-                    <div class='modal fade' id='modalDelete{$id_trainingprogram}' tabindex='-1' aria-labelledby='modalDeleteLabel{$id_trainingprogram}' aria-hidden='true'>
-                        <div class='modal-dialog'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalDeleteLabel{$id_trainingprogram}'>Eliminar Grupo</h5>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
-                                </div>
-                                <div class='modal-body'>
-                                    <p>¿Está seguro que desea eliminar al grupo <strong>{$token_number} - {$name}</strong>?</p>
-                                    <form action='/programa/borrar' method='post'>
-                                        <input type='hidden' name='txtIdTrainingProgram' value='{$id_trainingprogram}'>
-                                        <input type='hidden' name='txtTokenNumber' value='{$token_number}'>
-                                        <input type='hidden' name='txtName' value='{$name}'>
-                                        <input type='hidden' name='txtIdTrainingCenter' value='{$id_trainingcenter}'>
-                                        <div class='modal-footer'>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
-                                            <button type='submit' class='btn btn-danger'>Eliminar</button>
-                                        </div>
-                                    </form>
-                                </div>
+                    <div class='modal' id='modalDelete{$id_trainingprogram}'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title'>Eliminar Programa</h5>
+                                <button type='button' class='btn-close'>&times;</button>
+                            </div>
+                            <div class='modal-body'>
+                                <p>¿Está seguro que desea eliminar el programa <strong>{$token_number} - {$name}</strong>?</p>
+                                <form action='/programa/borrar' method='post'>
+                                    <input type='hidden' name='txtIdTrainingProgram' value='{$id_trainingprogram}'>
+                                    <input type='hidden' name='txtTokenNumber' value='{$token_number}'>
+                                    <input type='hidden' name='txtName' value='{$name}'>
+                                    <input type='hidden' name='txtIdTrainingCenter' value='{$id_trainingcenter}'>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn-secondary'>Cancelar</button>
+                                        <button type='submit' class='btn-primary'>Eliminar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>";
                 }
             } else {
-                echo "<tr class='no-data'><td colspan='9' class='text-center'>No hay Programas registrados</td></tr>";
+                echo "<tr class='no-data'><td colspan='9'>No hay Programas registrados</td></tr>";
             }
             ?>
         </tbody>
     </table>
 </div>
 
-<!-- Modal para Agregar Aprendiz -->
-<div class="modal fade" id="modalAprendiz" tabindex="-1" aria-labelledby="modalAprendizLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-titulo" id="modalAprendizLabel">Agregar Programa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/programa/create" method="post">
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Ficha</label>
-                            <input type="text" class="form-control" name="txtTokenNumber" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" name="txtName" required>
-                        </div>
+<!-- Modal para Agregar Programa -->
+<div class="modal" id="modalAprendiz">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-titulo">Agregar Programa</h5>
+            <button type="button" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form action="/programa/create" method="post">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="form-label">Ficha</label>
+                        <input type="text" class="form-control" name="txtTokenNumber" required>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Centros de Formación</label>
-                            <select class="form-control" name="txtIdTrainingCenter">
-                                <option value="">Seleccionar Centro</option>
-                                <?php
-                                if (isset($centers) && is_array($centers)) {
-                                    foreach ($centers as $center) {
-                                        echo "<option value='{$center->id_trainingcenter}'>{$center->name}</option>";
-                                    }
+                    <div class="form-group">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="txtName" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="form-label">Centro de Formación</label>
+                        <select class="form-control" name="txtIdTrainingCenter" required>
+                            <option value="">Seleccionar Centro</option>
+                            <?php
+                            if (isset($centers) && is_array($centers)) {
+                                foreach ($centers as $center) {
+                                    echo "<option value='{$center->id_trainingcenter}'>{$center->name}</option>";
                                 }
-                                ?>
-                            </select>
-                        </div>
+                            }
+                            ?>
+                        </select>
                     </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

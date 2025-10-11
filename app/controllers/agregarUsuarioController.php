@@ -1,20 +1,18 @@
 <?php
-
 namespace App\Controller;
-
 use App\Models\AgregarUsuarioModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
 require_once MAIN_APP_ROUTE . "../models/agregarUsuarioModel.php";
 
-class AgregarUsuarioController extends BaseController
+class agregarUsuarioController extends BaseController 
 {
     public function __construct()
     {
-        // Se define el layout para este controlador 
-        $this->layout = 'agregarUsuario_layout';
-        
-        // Iniciar sesión si no está iniciada
+        # Se define el layout para este controlador
+        $this->layout = 'usuario_layout';
+
+        # Iniciar sesión sino está iniciada
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -25,36 +23,24 @@ class AgregarUsuarioController extends BaseController
         # Crear una instancia del modelo
         $agregarUsuarioObj = new AgregarUsuarioModel();
 
-        # Obtener solo los ADMINISTRADORES (rol 1) desde el modelo 
-        $administradores = $agregarUsuarioObj->getAdminsOnly();
+        # Obtener los usuarios 
+        $usuarios = $agregarUsuarioObj->getAllUsers();
 
-        # Obtener solo los ENTRENADORES (rol 2) desde el modelo 
-        $entrenadores = $agregarUsuarioObj->getEntrenadoresOnly();
-        
-        # Obtener solo los APRENDICES (rol 3) desde el modelo 
-        $aprendices = $agregarUsuarioObj->getAprendicesOnly();
-        
-        # Obtener roles, grupos y centros de formación
+        # Obtener roles
         $roles = $agregarUsuarioObj->getRoles();
-        $grupos = $agregarUsuarioObj->getGrupos();
-        $centrosFormacion = $agregarUsuarioObj->getCentrosFormacion();
-        # Pasar los datos a la vista 
+
+        # Pasar los datos a la vista
         $data = [
-            'title' => 'Lista de Aprendices',
-            'administradores' => $administradores,
-            'entrenadores' => $entrenadores,
-            'aprendices' => $aprendices,
+            'title' => 'Lista de Usuarios',
+            'usuarios' => $usuarios,
             'roles' => $roles,
-            'grupos' => $grupos,
-            'centrosFormacion' => $centrosFormacion
         ];
-        
-        # Renderizar la vista a traves del metodo de BaseController
-        $this->render('agregarUsuario/agregarUsuario.php', $data);
+        # Renderizar la vista con los datos
+        $this->render('usuario/usuario.php', $data);
     }
 
-    # Guarda los datos del formulario
-    public function createAprendiz()
+    # Guardar los datos del formulario 
+    public function create()
     {
         $name = $_POST['txtNombre'] ?? null;
         $document_type = $_POST['txtTipoDocumento'] ?? null;
@@ -74,33 +60,32 @@ class AgregarUsuarioController extends BaseController
         $id_role = $_POST['txtFKidRol'] ?? null;
         $id_group = $_POST['txtFKidGrupo'] ?? null;
         $id_trainingcenter = $_POST['txtFKidCentroFormacion'] ?? null;
-        
+
         if ($name) {
-            $objUsuario = new AgregarUsuarioModel(null, $name, $document_type, $document,  $birthdate, $email, $gender, $status, $phone, $eps, $blood_type, $weight, $stature, $emergency_phone, $password, $observations, $id_role, $id_group, $id_trainingcenter);
-            $resp = $objUsuario->save();
-            
+            $objAprendiz = new AgregarUsuarioModel(null, $name, $document_type, $document, $birthdate, $email, $gender, $status, $phone, $eps, $blood_type, $weight, $stature, $emergency_phone, $password, $observations, $id_role, $id_group, $id_trainingcenter);
+            $resp = $objAprendiz->save();
             if ($resp) {
-                // Éxito al guardar
-                header('Location:/agregarAprendiz');
+                # Éxito al guardar
+                header('Location:/usuario');
                 exit();
             } else {
-                // Error al guardar
                 echo "Error al guardar el usuario. Por favor, inténtelo de nuevo.";
-                header('Refresh: 3; URL=/agregarAprendiz');
+                header('Refresh: 3; URL=/usuario');
                 exit();
             }
         } else {
-            // Datos incompletos
+            # Datos incompletos
             echo "Datos incompletos. Por favor, complete todos los campos obligatorios.";
-            header('Refresh: 3; URL=/agregarAprendiz');
+            header("Refresh: 3; URL=/usuario");
             exit();
         }
     }
 
-    public function viewAprendiz($id_user)
+    public function view($id_user)
     {
         $objUsuario = new AgregarUsuarioModel($id_user);
         $userInfo = $objUsuario->getUser();
+
         if (!empty($userInfo)) {
             $data = [
                 'id_user' => $userInfo[0]->id_user,
@@ -123,35 +108,35 @@ class AgregarUsuarioController extends BaseController
                 'id_group' => $userInfo[0]->id_group,
                 'id_trainingcenter' => $userInfo[0]->id_trainingcenter
             ];
-            $this->render("agregarAprendiz/viewOneAprendiz.php", $data);
+            $this->render("usuario/viewOneUsuario.php", $data);
         } else {
-            echo "Aprendiz no encontrado.";
-            header('Refresh: 3; URL=/agregarAprendiz');
+            echo "Usuario no encontrado.";
+            header('Refresh: 3; URL=/usuario');
             exit();
         }
     }
 
     # Mostrar lo que se quiere editar en el formulario
-    public function editAprendiz($id_user)
+    public function editUsuario($id_user)
     {
-        $objAprendiz = new AgregarUsuarioModel($id_user);
-        $aprendizInfo = $objAprendiz->getUser();
-        if (!empty($aprendizInfo)) {
+        $objUsuario = new AgregarUsuarioModel($id_user);
+        $userInfo = $objUsuario->getUser();
+        if (!empty($userInfo)) {
             # Obtener roles, grupos y centros de formación
-            $roles = $objAprendiz->getRoles();
-            $grupos = $objAprendiz->getGrupos();
-            $centrosFormacion = $objAprendiz->getCentrosFormacion();
+            $roles = $objUsuario->getRoles();
+            $grupos = $objUsuario->getGrupos();
+            $centrosFormacion = $objUsuario->getCentrosFormacion();
             
             $data = [
-                'infoReal' => $aprendizInfo[0],
+                'infoReal' => $userInfo[0],
                 'roles' => $roles,
                 'grupos' => $grupos,
                 'centrosFormacion' => $centrosFormacion
             ];
-            $this->render("agregarAprendiz/editAprendiz.php", $data);
+            $this->render("usuario/editUsuario.php", $data);
         } else {
-            echo "Aprendiz no encontrado.";
-            header('Refresh: 3; URL=/agregarAprendiz');
+            echo "Usuario no encontrado.";
+            header('Refresh: 3; URL=/usuario');
             exit();
         }
     }
@@ -180,51 +165,37 @@ class AgregarUsuarioController extends BaseController
             $fkIdGrupo = $_POST['txtFKidGrupo'] ?? null;
             $fkIdCentroFormacion = $_POST['txtFKidCentroFormacion'] ?? null;
             
-            // Si hay observaciones nuevas, agregarlas a la sesión
-            if (!empty($observaciones)) {
-                // Inicializar el array para este ID si no existe
-                if (!isset($_SESSION['observaciones_aprendiz'][$id])) {
-                    $_SESSION['observaciones_aprendiz'][$id] = [];
-                }
-                
-                // Agregar la nueva observación
-                $_SESSION['observaciones_aprendiz'][$id][] = [
-                    'texto' => $observaciones,
-                    'fecha' => date('Y-m-d H:i:s')
-                ];
-            }
-            
-            $aprendizObjEdit = new AgregarAprendizModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
-            $res = $aprendizObjEdit->editAprendiz();
+            $usuarioObjEdit = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
+            $res = $usuarioObjEdit->editUser();
             
             if ($res) {
-                header("Location:/agregarAprendiz");
+                header("Location:/usuario");
                 exit();
             } else {
-                echo "Error al actualizar el aprendiz. Por favor, inténtelo de nuevo.";
-                header('Refresh: 3; URL=/agregarAprendiz');
+                echo "Error al actualizar el usuario. Por favor, inténtelo de nuevo.";
+                header('Refresh: 3; URL=/usuario');
                 exit();
             }
         } else {
-            echo "ID de aprendiz no proporcionado.";
-            header('Refresh: 3; URL=/agregarAprendiz');
+            echo "ID de usuario no proporcionado.";
+            header('Refresh: 3; URL=/usuario');
             exit();
         }
     }
 
     # Muestra lo que se quiere eliminar
-    public function deleteUsuario($id)
+    public function deleteUsuario($id_user)
     {
-        $objAprendiz = new AgregarAprendizModel($id);
-        $aprendizInfo = $objAprendiz->getAprendiz();
-        if (!empty($aprendizInfo)) {
+        $objUsuario = new AgregarUsuarioModel($id_user);
+        $userInfo = $objUsuario->getUser();
+        if (!empty($userInfo)) {
             $data = [
-                'infoReal' => $aprendizInfo[0],
+                'infoReal' => $userInfo[0],
             ];
-            $this->render("agregarAprendiz/deleteAprendiz.php", $data);
+            $this->render("usuario/deleteUsuario.php", $data);
         } else {
-            echo "Aprendiz no encontrado.";
-            header('Refresh: 3; URL=/agregarAprendiz');
+            echo "Usuario no encontrado.";
+            header('Refresh: 3; URL=/usuario');
             exit();
         }
     }
@@ -253,62 +224,19 @@ class AgregarUsuarioController extends BaseController
             $fkIdGrupo = $_POST['txtFKidGrupo'] ?? null;
             $fkIdCentroFormacion = $_POST['txtFKidCentroFormacion'] ?? null;
             
-            $aprendizObjDelete = new AgregarAprendizModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
-            $res = $aprendizObjDelete->deleteAprendiz();
+            $usuarioObjDelete = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
+            $res = $usuarioObjDelete->deleteUser();
             
             if ($res) {
-                // Eliminar las observaciones de la sesión para este aprendiz
-                if (isset($_SESSION['observaciones_aprendiz'][$id])) {
-                    unset($_SESSION['observaciones_aprendiz'][$id]);
-                }
-                
-                header("Location:/agregarAprendiz");
+                echo "Error al eliminar el usuario. Por favor, inténtelo de nuevo.";
+                header('Refresh: 3; URL=/usuario');
                 exit();
-            } else {
-                echo "Error al eliminar el aprendiz. Por favor, inténtelo de nuevo.";
-                header('Refresh: 3; URL=/agregarAprendiz');
-                exit();
-            }
+            } 
         } else {
-            echo "ID de aprendiz no proporcionado.";
-            header('Refresh: 3; URL=/agregarAprendiz');
-            exit();
-        }
-    }
-    
-    # Método para agregar observaciones (usando sesiones)
-    public function agregarObservacion()
-    {
-        if (isset($_POST['txtId']) && isset($_POST['nuevaObservacion'])) {
-            $id = $_POST['txtId'] ?? null;
-            $nuevaObservacion = trim($_POST['nuevaObservacion']) ?? '';
-            
-            if ($id && $nuevaObservacion) {
-                // Inicializar el array para este ID si no existe
-                if (!isset($_SESSION['observaciones_aprendiz'][$id])) {
-                    $_SESSION['observaciones_aprendiz'][$id] = [];
-                }
-                
-                // Agregar la nueva observación con fecha
-                $_SESSION['observaciones_aprendiz'][$id][] = [
-                    'texto' => $nuevaObservacion,
-                    'fecha' => date('Y-m-d H:i:s')
-                ];
-                
-                // Redirigir de vuelta a la lista
-                header("Location:/agregarAprendiz");
-                exit();
-            } else {
-                echo "Datos incompletos para agregar observación.";
-                header('Refresh: 3; URL=/agregarAprendiz');
-                exit();
-            }
-        } else {
-            echo "Datos incompletos para agregar observación.";
-            header('Refresh: 3; URL=/agregarAprendiz');
+            echo "ID de usuario no proporcionado.";
+            header('Refresh: 3; URL=/usuario');
             exit();
         }
     }
 }
-
 ?>

@@ -107,28 +107,26 @@
     </table>
 </div>
 
-<!-- Modal para Agregar Centro de Formación -->
-<div class="modal fade" id="modalAprendiz" tabindex="-1" aria-labelledby="modalAprendizLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-titulo" id="modalAprendizLabel">Agregar Rol</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/rol/create" method="post">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" name="txtName" required>
-                        </div>
+<!-- Modal para Agregar Rol -->
+<div class="modal" id="modalAprendiz">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-titulo">Agregar Rol</h5>
+            <button type="button" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form action="/rol/create" method="post">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="txtName" required>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
