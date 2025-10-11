@@ -1,6 +1,6 @@
 <div class="table-responsive">
-    <table class="table table-bordered align-middle text-center">
-        <thead class="table-light">
+    <table class="table-entrenador">
+        <thead class="table-group">
             <tr>
                 <th>Nombre</th>
                 <th>Tipo Documento</th>
@@ -10,27 +10,31 @@
                 <th colspan="4">Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="tbody-entrenador">
             <?php
             if (isset($entrenadores) && is_array($entrenadores) && count($entrenadores) > 0) {
                 foreach ($entrenadores as $entrenador) {
                     // Asegurar que las propiedades existan o usar valores por defecto
-                    $id = $entrenador->id ?? 0;
-                    $nombre = $entrenador->nombre ?? '';
-                    $tipoDocumento = $entrenador->tipoDocumento ?? '';
-                    $documento = $entrenador->documento ?? '';
-                    $fechaNacimiento = $entrenador->fechaNacimiento ?? '';
+                    $id = $entrenador->id_user ?? 0;
+                    $nombre = $entrenador->name ?? '';
+                    $tipoDocumento = $entrenador->document_type ?? '';
+                    $documento = $entrenador->document ?? '';
+                    $fechaNacimiento = $entrenador->birthdate ?? '';
                     $email = $entrenador->email ?? '';
-                    $genero = $entrenador->genero ?? '';
-                    $estado = $entrenador->estado ?? '';
-                    $telefono = $entrenador->telefono ?? '';
+                    $genero = $entrenador->gender ?? '';
+                    $estado = $entrenador->status ?? '';
+                    $telefono = $entrenador->phone ?? '';
                     $eps = $entrenador->eps ?? '';
-                    $tipoSangre = $entrenador->tipoSangre ?? '';
-                    $telefonoEmergencia = $entrenador->telefonoEmergencia ?? '';
+                    $tipoSangre = $entrenador->blood_type ?? '';
+                    $telefonoEmerjencia = $entrenador->emergency_phone ?? '';
                     $password = $entrenador->password ?? '';
-                    $observaciones = $entrenador->observaciones ?? '';
+                    $observaciones = $entrenador->observations ?? '';
                     
-                    echo "<tr>
+                    // Verificar si existen las propiedades o usar valores por defecto
+                    $fkidRol = property_exists($entrenador, 'fkIdRol') ? $entrenador->fkIdRol : 
+                              (property_exists($entrenador, 'fkidRol') ? $entrenador->fkidRol : '');
+                    
+                    echo "<tr data-ficha='{}'>
                         <td>{$nombre}</td>
                         <td>{$tipoDocumento}</td>
                         <td>{$documento}</td>
@@ -128,7 +132,7 @@
                         <div class='modal-dialog modal-lg'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalViewLabel{$id}'>Detalles del Entrenador</h5>
+                                    <h5 class='modal-title' id='modalViewLabel{$id}'>Detalles del Aprendiz</h5>
                                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
                                 </div>
                                 <div class='modal-body'>
@@ -141,17 +145,29 @@
                                             <p><strong>Fecha Nacimiento:</strong> {$fechaNacimiento}</p>
                                             <p><strong>Email:</strong> {$email}</p>
                                             <p><strong>Género:</strong> {$genero}</p>
-                                        </div>
-                                        <div class='col-md-6'>
                                             <p><strong>Estado:</strong> {$estado}</p>
                                             <p><strong>Teléfono:</strong> {$telefono}</p>
+                                        </div>
+                                        <div class='col-md-6'>
                                             <p><strong>EPS:</strong> {$eps}</p>
                                             <p><strong>Tipo Sangre:</strong> {$tipoSangre}</p>
-                                            <p><strong>Teléfono Emergencia:</strong> {$telefonoEmergencia}</p>
+                                            <p><strong>Teléfono Emergencia:</strong> {$telefonoEmerjencia}</p>";
                                             
-                                            <!-- Mostrar observaciones -->
-                                            <p><strong>Observaciones:</strong></p>
-                                            <div class='p-2 border rounded' style='max-height: 150px; overflow-y: auto;'>";
+                                            // Mostrar nombre del rol en lugar del ID
+                                            if (isset($roles) && is_array($roles)) {
+                                                foreach ($roles as $rol) {
+                                                    if ($rol->id_role == $fkidRol) {
+                                                        echo "<p><strong>Rol:</strong> {$rol->nombre}</p>";
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                echo "<p><strong>Rol:</strong> {$fkidRol}</p>";
+                                            }
+                                            
+                                            // Mostrar observaciones
+                                            echo "<p><strong>Observaciones:</strong></p>";
+                                            echo "<div class='p-2 border rounded' style='max-height: 150px; overflow-y: auto;'>";
                                             
                                             // Mostrar observaciones desde la sesión
                                             if (isset($_SESSION['observaciones_entrenador'][$id]) && !empty($_SESSION['observaciones_entrenador'][$id])) {
@@ -207,12 +223,14 @@
                         <div class='modal-dialog modal-lg'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
-                                    <h5 class='modal-title' id='modalEditLabel{$id}'>Editar Entrenador</h5>
+                                    <h5 class='modal-title' id='modalEditLabel{$id}'>Editar Aprendiz</h5>
                                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
                                 </div>
                                 <div class='modal-body'>
                                     <form action='/agregarEntrenador/update' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
+                                        <!-- Campo oculto para el rol de entrenador (posición 2) -->
+                                        <input type='hidden' name='txtFKidRol' value='" . (isset($roles[1]) ? $roles[1]->id_role : '') . "'>
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Nombre</label>
@@ -220,7 +238,7 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Documento</label>
-                                                <select class='form-select' name='txtTipoDocumento'>
+                                                <select class='form-control' name='txtTipoDocumento'>
                                                     <option value='CC' ".($tipoDocumento == 'CC' ? 'selected' : '').">Cédula de ciudadanía</option>
                                                     <option value='CE' ".($tipoDocumento == 'CE' ? 'selected' : '').">Cédula de Extranjería</option>
                                                     <option value='TI' ".($tipoDocumento == 'TI' ? 'selected' : '').">Tarjeta de identidad</option>
@@ -246,7 +264,7 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Género</label>
-                                                <select class='form-select' name='txtGenero'>
+                                                <select class='form-control' name='txtGenero'>
                                                     <option value='M' ".($genero == 'M' ? 'selected' : '').">Masculino</option>
                                                     <option value='F' ".($genero == 'F' ? 'selected' : '').">Femenino</option>
                                                 </select>
@@ -255,7 +273,7 @@
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Estado</label>
-                                                <select class='form-select' name='txtEstado'>
+                                                <select class='form-control' name='txtEstado'>
                                                     <option value='activo' ".($estado == 'activo' ? 'selected' : '').">Activo</option>
                                                     <option value='inactivo' ".($estado == 'inactivo' ? 'selected' : '').">Inactivo</option>
                                                 </select>
@@ -272,7 +290,7 @@
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Tipo Sangre</label>
-                                                <select class='form-select' name='txtTipoSangre'>
+                                                <select class='form-control' name='txtTipoSangre'>
                                                     <option value='A+' ".($tipoSangre == 'A+' ? 'selected' : '').">A+</option>
                                                     <option value='A-' ".($tipoSangre == 'A-' ? 'selected' : '').">A-</option>
                                                     <option value='B+' ".($tipoSangre == 'B+' ? 'selected' : '').">B+</option>
@@ -287,18 +305,11 @@
                                         <div class='row mb-3'>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Teléfono Emergencia</label>
-                                                <input type='text' class='form-control' name='txtTelefonoEmergencia' value='{$telefonoEmergencia}'>
+                                                <input type='text' class='form-control' name='txtTelefonoEmergencia' value='{$telefonoEmerjencia}'>
                                             </div>
                                             <div class='col-md-6'>
                                                 <label class='form-label'>Contraseña</label>
                                                 <input type='password' class='form-control' name='txtPassword' placeholder='Dejar en blanco para mantener la actual'>
-                                            </div>
-                                        </div>
-                                        <div class='row mb-3'>
-                                            <div class='col-md-12'>
-                                                <label class='form-label'>Observaciones</label>
-                                                <textarea class='form-control' name='txtObservaciones'></textarea>
-                                                <small class='text-muted'>Deje este campo en blanco si no desea agregar una nueva observación.</small>
                                             </div>
                                         </div>
                                         <div class='modal-footer'>
@@ -321,7 +332,7 @@
                                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Cerrar'></button>
                                 </div>
                                 <div class='modal-body'>
-                                    <p>¿Está seguro que desea eliminar al entrenador <strong>{$nombre}</strong>?</p>
+                                    <p>¿Está seguro que desea eliminar al Entrenador <strong>{$nombre}</strong>?</p>
                                     <form action='/agregarEntrenador/borrar' method='post'>
                                         <input type='hidden' name='txtId' value='{$id}'>
                                         <input type='hidden' name='txtNombre' value='{$nombre}'>
@@ -334,9 +345,10 @@
                                         <input type='hidden' name='txtTelefono' value='{$telefono}'>
                                         <input type='hidden' name='txtEps' value='{$eps}'>
                                         <input type='hidden' name='txtTipoSangre' value='{$tipoSangre}'>
-                                        <input type='hidden' name='txtTelefonoEmergencia' value='{$telefonoEmergencia}'>
+                                        <input type='hidden' name='txtTelefonoEmergencia' value='{$telefonoEmerjencia}'>
                                         <input type='hidden' name='txtPassword' value='{$password}'>
                                         <input type='hidden' name='txtObservaciones' value='{$observaciones}'>
+                                        <input type='hidden' name='txtFKidRol' value='{$fkidRol}'>
                                         <div class='modal-footer'>
                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
                                             <button type='submit' class='btn btn-danger'>Eliminar</button>
@@ -348,7 +360,7 @@
                     </div>";
                 }
             } else {
-                echo "<tr class='no-data'><td colspan='9' class='text-center'>No hay entrenadores registrados</td></tr>";
+                echo "<tr class='no-data'><td colspan='9' class='text-center'>No hay Entrenadores registrados</td></tr>";
             }
             ?>
         </tbody>
@@ -356,15 +368,30 @@
 </div>
 
 <!-- Modal para Agregar Entrenador -->
-<div class="modal fade" id="modalEntrenador" tabindex="-1" aria-labelledby="modalEntrenadorLabel" aria-hidden="true">
+<div class="modal fade" id="modalAprendiz" tabindex="-1" aria-labelledby="modalAprendizLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEntrenadorLabel">Agregar Entrenador</h5>
+                <h5 class="modal-titulo" id="modalAprendizLabel">Agregar Entrenador</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
                 <form action="/agregarEntrenador/create" method="post">
+                    <!-- Campo oculto para asignar automáticamente el rol de Entrenador (posición 2) -->
+                    <!-- <input type="hidden" name="txtFKidRol" value="<?php echo isset($roles[1]) ? $roles[1]->id_user : ''; ?>"> -->
+                    <?php
+                    $entrenadorRoleId = '';
+                    if (isset($roles) && is_array($roles)) {
+                        foreach ($roles as $rol) {
+                            if (strtolower($rol->name) === 'entrenador' || $rol->id_role == 2) {
+                                $entrenadorRoleId = $rol->id_role;
+                                break;
+                            }
+                        }
+                    }
+                    ?>
+                    <input type="hidden" name="txtFKidRol" value="<?php echo $entrenadorRoleId; ?>">
+                    
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Nombre</label>
@@ -372,7 +399,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tipo de Documento</label>
-                            <select class="form-select" name="txtTipoDocumento" required>
+                            <select class="form-control" name="txtTipoDocumento" required>
                                 <option value="">Seleccionar</option>
                                 <option value="CC">Cédula de ciudadanía</option>
                                 <option value="CE">Cédula de Extranjería</option>
@@ -399,7 +426,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Género</label>
-                            <select class="form-select" name="txtGenero" required>
+                            <select class="form-control" name="txtGenero" required>
                                 <option value="">Seleccionar</option>
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
@@ -409,7 +436,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Estado</label>
-                            <select class="form-select" name="txtEstado" required>
+                            <select class="form-control" name="txtEstado" required>
                                 <option value="">Seleccionar</option>
                                 <option value="activo">Activo</option>
                                 <option value="inactivo">Inactivo</option>
@@ -427,7 +454,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tipo Sangre</label>
-                            <select class="form-select" name="txtTipoSangre" required>
+                            <select class="form-control" name="txtTipoSangre" required>
                                 <option value="">Seleccionar Tipo de Sangre</option>
                                 <option value="A+">A+</option>
                                 <option value="A-">A-</option>
@@ -448,12 +475,6 @@
                         <div class="col-md-6">
                             <label class="form-label">Contraseña</label>
                             <input type="password" class="form-control" name="txtPassword" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <label class="form-label">Observaciones</label>
-                            <textarea class="form-control" name="txtObservaciones"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

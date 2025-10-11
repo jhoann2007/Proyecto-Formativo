@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 require_once MAIN_APP_ROUTE . "../models/baseModel.php";
 
 use DateTime;
@@ -65,6 +67,18 @@ class AgregarAprendizModel extends BaseModel
         } catch (PDOException $ex) {
             echo "Error validando login> ". $ex->getMessage();
             return false;
+        }
+    }
+
+    // Método para obtener solo los aprendices (rol 3)
+    public function getAprendicesOnly() {
+        try {
+            $sql = "SELECT * FROM $this->table WHERE fkIdRol = 3";
+            $statement = $this->dbConnection->query($sql);
+            return $statement->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $ex) {
+            echo "Error al obtener aprendices> ".$ex->getMessage();
+            return [];
         }
     }
 
@@ -265,4 +279,5 @@ class AgregarAprendizModel extends BaseModel
         }
     }
 }
+
 ?>

@@ -1,0 +1,268 @@
+/* Estilos para el contenedor de la tabla responsiva */
+.table-responsive {
+    background-color: #00000000;
+    /* Fondo oscuro similar al de la imagen */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    padding: 15px;
+    /* Espaciado interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra suave */
+    /*overflow: hidden; */ /* Evita que el contenido sobresalga del contenedor */
+}
+
+/* Estilos generales de la tabla */
+.table-aprendiz {
+    width: 100%;
+    margin-bottom: 0;
+    /* Elimina el margen inferior por defecto de Bootstrap */
+    color: #e0e0e0;
+    /* Color de texto general para la tabla */
+    border-collapse: separate;
+    /* Permite bordes redondeados en las celdas */
+    border-spacing: 0;
+    /* Elimina el espacio entre celdas */
+}
+
+/* Estilos para el encabezado de la tabla */
+.table-aprendiz thead {
+    background-color: #3b4a6000;
+    /* Fondo más claro para el encabezado */
+    color: #ffffff;
+    /* Texto blanco en el encabezado */
+    font-weight: bold;
+}
+
+.table-aprendiz th {
+    padding: 10px 20px;
+    /* Relleno para las celdas del encabezado */
+    text-align: left;
+    /* Borde inferior para separar el encabezado del cuerpo */
+}
+
+/* Bordes redondeados para las esquinas del encabezado */
+.table-aprendiz thead tr th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.table-aprendiz thead tr th:last-child {
+    border-top-right-radius: 8px;
+}
+
+/* Estilos para las filas del cuerpo de la tabla */
+.table-aprendiz tbody tr {
+    background: linear-gradient(135deg, var(--dark-blue1), var(--dark-blue2));
+    /* Fondo de las filas del cuerpo */
+    border-bottom: 1px solid #3b4a60;
+    /* Separador entre filas */
+}
+
+.table-aprendiz tbody tr:last-child {
+    border-bottom: none;
+    /* Eliminar el borde inferior de la última fila */
+}
+
+/* Estilos para las celdas del cuerpo de la tabla */
+.table-aprendiz td {
+    padding: 10px 15px;
+    /* Relleno para las celdas del cuerpo */
+    vertical-align: middle;
+    /* Alineación vertical */
+    border-top: none;
+    /* Eliminar el borde superior por defecto de Bootstrap */
+    background-color: #00000000;
+    gap: 10px;
+    /* Espacio entre el icono y el nombre */
+    margin-top: 10px;
+    align-items: center;
+}
+
+/* Estilos para las celdas de nombre (con el icono y el fondo amarillo/azul) */
+.table-aprendiz tbody tr td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espacio entre el icono y el nombre */
+
+    padding-left: 0;
+    /* Ajustar padding si es necesario */
+}
+
+.table-aprendiz tbody tr:nth-child(even) td:first-child::before {
+    background-color: #0d6efd;
+    /* Azul para filas pares */
+}
+
+.name {
+    background-color: #FDC300 !important;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+}
+
+
+
+/* Estilos para el icono de persona */
+.table-aprendiz tbody tr td:first-child i.bi-person-fill {
+    font-size: 1.5rem;
+    color: #212529;
+    /* Color oscuro para el icono */
+    z-index: 2;
+    /* Asegura que el icono esté por encima del fondo */
+    position: relative;
+    /* Para que el z-index funcione */
+    left: 10px;
+    /* Ajustar posición del icono */
+}
+
+.table-aprendiz tbody tr:nth-child(even) td:first-child i.bi-person-fill {
+    color: #ffffff;
+    /* Icono blanco en filas azules */
+}
+
+.table-aprendiz tbody tr td:first-child span {
+    position: relative;
+    /* Asegura que el texto esté por encima de cualquier pseudo-elemento */
+    z-index: 2;
+    margin-left: 20px;
+    /* Empuja el texto más allá del icono y su fondo */
+}
+
+
+/* Estilos específicos para la columna de estado */
+.table-aprendiz tbody tr td:nth-child(5) {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.table-aprendiz tbody tr td:nth-child(5):contains('activo') {
+    color: #28a745;
+    /* Verde para activo */
+}
+
+.table-aprendiz tbody tr td:nth-child(5):contains('inactivo') {
+    color: #dc3545;
+    /* Rojo para inactivo */
+}
+
+/* Estilos para los botones de acción */
+.table-aprendiz .btn-control,
+.table-aprendiz .btn-observaciones,
+.table-aprendiz .btn-ver,
+.table-aprendiz .btn-editar,
+.table-aprendiz .btn-eliminar {
+    background-color: transparent;
+    /* Fondo transparente */
+    border: none;
+    color: #a0a0a0;
+    /* Color de icono gris */
+    padding: 5px 8px;
+    font-size: 1.1rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.table-aprendiz .btn-control:hover,
+.table-aprendiz .btn-observaciones:hover,
+.table-aprendiz .btn-ver:hover,
+.table-aprendiz .btn-editar:hover,
+.table-aprendiz .btn-eliminar:hover {
+    color: #ffffff;
+    /* Color blanco al pasar el ratón */
+}
+
+/* Colores específicos para iconos de acción */
+.table-aprendiz .btn-control i {
+    color: #0dcaf0;
+}
+
+/* Info/Cyan */
+.table-aprendiz .btn-observaciones i {
+    color: #ffc107;
+}
+
+/* Warning/Amarillo */
+.table-aprendiz .btn-ver i {
+    color: #0d6efd;
+}
+
+/* Primary/Azul */
+.table-aprendiz .btn-editar i {
+    color: #198754;
+}
+
+/* Success/Verde */
+.table-aprendiz .btn-eliminar i {
+    color: #dc3545;
+}
+
+/* Danger/Rojo */
+
+/* Quitar bordes y fondo de los modales para que se integren mejor con el tema oscuro */
+.modal-content {
+    background-color: #2e3b4e;
+    color: #e0e0e0;
+    border: 1px solid #3b4a60;
+}
+
+.modal-header {
+    border-bottom: 1px solid #3b4a60;
+    color: #ffffff;
+}
+
+.modal-title {
+    color: #ffffff;
+}
+
+.modal-footer {
+    border-top: 1px solid #3b4a60;
+}
+
+/* Estilos para los botones del modal */
+.modal .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.modal .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+.modal .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* Mejorar el aspecto de los selects y inputs en los modales */
+.modal .form-control,
+.modal .form-select {
+    background-color: #3b4a60;
+    color: #e0e0e0;
+    border-color: #4a5a70;
+}
+
+.modal .form-control::placeholder {
+    color: #a0a0a0;
+}
+
+.modal .form-control:focus,
+.modal .form-select:focus {
+    background-color: #4a5a70;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    color: #e0e0e0;
+}
+
+/* Estilos para los labels en los modales */
+.modal .form-label {
+    color: #a0a0a0;
+}
+
+/* Estilo para filas sin datos */
+.table-aprendiz .no-data td {
+    color: #a0a0a0;
+    font-style: italic;
+    padding: 20px;
+}

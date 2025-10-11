@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Controller;
-use App\Models\AgregarAprendizModel;
+
+use App\Models\AgregarUsuarioModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/agregarAprendizModel.php";
+require_once MAIN_APP_ROUTE . "../models/agregarUsuarioModel.php";
 
 class AgregarAprendizController extends BaseController
 {
@@ -26,10 +28,10 @@ class AgregarAprendizController extends BaseController
     public function index()
     {
         # Crear una instancia del modelo
-        $agregarAprendizObj = new AgregarAprendizModel();
+        $agregarAprendizObj = new AgregarUsuarioModel();
         
-        # Obtener todos los aprendices desde el modelo 
-        $aprendices = $agregarAprendizObj->getAll();
+        # Obtener solo los aprendices (rol 3) desde el modelo 
+        $aprendices = $agregarAprendizObj->getAprendicesOnly();
         
         # Obtener roles, grupos y centros de formación
         $roles = $agregarAprendizObj->getRoles();
@@ -52,27 +54,27 @@ class AgregarAprendizController extends BaseController
     # Guarda los datos del formulario
     public function create()
     {
-        $nombre = $_POST['txtNombre'] ?? null;
-        $tipoDocumento = $_POST['txtTipoDocumento'] ?? null;
-        $documento = $_POST['txtDocumento'] ?? null;
-        $fechaNacimiento = $_POST['txtFechaNacimiento'] ?? null;
+        $name = $_POST['txtNombre'] ?? null;
+        $document_type = $_POST['txtTipoDocumento'] ?? null;
+        $document = $_POST['txtDocumento'] ?? null;
+        $birthdate = $_POST['txtFechaNacimiento'] ?? null;
         $email = $_POST['txtEmail'] ?? null;
-        $genero = $_POST['txtGenero'] ?? null;
-        $estado = $_POST['txtEstado'] ?? null;
-        $telefono = $_POST['txtTelefono'] ?? null;
+        $gender = $_POST['txtGenero'] ?? null;
+        $status = $_POST['txtEstado'] ?? null;
+        $phone = $_POST['txtTelefono'] ?? null;
         $eps = $_POST['txtEps'] ?? null;
-        $tipoSangre = $_POST['txtTipoSangre'] ?? null;
-        $peso = $_POST['txtPeso'] ?? null;
-        $estatura = $_POST['txtEstatura'] ?? null;
-        $telefonoEmerjencia = $_POST['txtTelefonoEmergencia'] ?? null;
+        $blood_type = $_POST['txtTipoSangre'] ?? null;
+        $weight = $_POST['txtPeso'] ?? null;
+        $stature = $_POST['txtEstatura'] ?? null;
+        $emergency_phone = $_POST['txtTelefonoEmergencia'] ?? null;
         $password = $_POST['txtPassword'] ?? null;
-        $observaciones = $_POST['txtObservaciones'] ?? null;
-        $fkIdRol = $_POST['txtFKidRol'] ?? null;
-        $fkIdGrupo = $_POST['txtFKidGrupo'] ?? null;
-        $fkIdCentroFormacion = $_POST['txtFKidCentroFormacion'] ?? null;
+        $observations = $_POST['txtObservaciones'] ?? null;
+        $id_role = $_POST['txtFKidRol'] ?? null;
+        $id_group = $_POST['txtFKidGrupo'] ?? null;
+        $id_trainingcenter = $_POST['txtFKidCentroFormacion'] ?? null;
         
-        if ($nombre) {
-            $objAprendiz = new AgregarAprendizModel(null, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
+        if ($name) {
+            $objAprendiz = new AgregarUsuarioModel(null, $name, $document_type, $document, $birthdate, $email, $gender, $status, $phone, $eps, $blood_type, $weight, $stature, $emergency_phone, $password, $observations, $id_role, $id_group, $id_trainingcenter);
             $resp = $objAprendiz->save();
             
             if ($resp) {
@@ -111,32 +113,31 @@ class AgregarAprendizController extends BaseController
         }
     }
 
-    public function view($id)
+    public function view($id_user)
     {
-        $objAprendiz = new AgregarAprendizModel($id);
-        $aprendizInfo = $objAprendiz->getAprendiz();
-
-        if (!empty($aprendizInfo)) {
+        $objUsuario = new AgregarUsuarioModel($id_user);
+        $userInfo = $objUsuario->getUser();
+        if (!empty($userInfo)) {
             $data = [
-                'id' => $aprendizInfo[0]->id,
-                'nombre' => $aprendizInfo[0]->nombre,
-                'tipoDocumento' => $aprendizInfo[0]->tipoDocumento,
-                'documento' => $aprendizInfo[0]->documento,
-                'fechaNacimiento' => $aprendizInfo[0]->fechaNacimiento,
-                'email' => $aprendizInfo[0]->email,
-                'genero' => $aprendizInfo[0]->genero, 
-                'estado' => $aprendizInfo[0]->estado, 
-                'telefono' => $aprendizInfo[0]->telefono, 
-                'eps' => $aprendizInfo[0]->eps,
-                'tipoSangre' => $aprendizInfo[0]->tipoSangre,
-                'peso' => $aprendizInfo[0]->peso, 
-                'estatura' => $aprendizInfo[0]->estatura,
-                'telefonoEmerjencia' => $aprendizInfo[0]->telefonoEmerjencia,
-                'password' => $aprendizInfo[0]->password, 
-                'observaciones' => $aprendizInfo[0]->observaciones,
-                'fkIdRol' => $aprendizInfo[0]->fkIdRol,
-                'fkIdGrupo' => $aprendizInfo[0]->fkIdGrupo,
-                'fkIdCentroFormacion' => $aprendizInfo[0]->fkIdCentroFormacion
+                'id_user' => $userInfo[0]->id_user,
+                'name' => $userInfo[0]->name,
+                'document_type' => $userInfo[0]->document_type,
+                'document' => $userInfo[0]->document,
+                'birthdate' => $userInfo[0]->birthdate,
+                'email' => $userInfo[0]->email,
+                'gender' => $userInfo[0]->gender, 
+                'status' => $userInfo[0]->status, 
+                'phone' => $userInfo[0]->phone, 
+                'eps' => $userInfo[0]->eps,
+                'blood_type' => $userInfo[0]->blood_type,
+                'weight' => $userInfo[0]->weight, 
+                'stature' => $userInfo[0]->stature,
+                'emergency_phone' => $userInfo[0]->emergency_phone,
+                'password' => $userInfo[0]->password, 
+                'observations' => $userInfo[0]->observations,
+                'id_role' => $userInfo[0]->id_role,
+                'id_group' => $userInfo[0]->id_group,
+                'id_trainingcenter' => $userInfo[0]->id_trainingcenter
             ];
             $this->render("agregarAprendiz/viewOneAprendiz.php", $data);
         } else {
@@ -147,11 +148,10 @@ class AgregarAprendizController extends BaseController
     }
 
     # Mostrar lo que se quiere editar en el formulario
-    public function editUsuario($id)
+    public function editUsuario($id_user)
     {
-        $objAprendiz = new AgregarAprendizModel($id);
-        $aprendizInfo = $objAprendiz->getAprendiz();
-
+        $objAprendiz = new AgregarUsuarioModel($id_user);
+        $aprendizInfo = $objAprendiz->getUser();
         if (!empty($aprendizInfo)) {
             # Obtener roles, grupos y centros de formación
             $roles = $objAprendiz->getRoles();
@@ -210,8 +210,8 @@ class AgregarAprendizController extends BaseController
                 ];
             }
             
-            $aprendizObjEdit = new AgregarAprendizModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
-            $res = $aprendizObjEdit->editAprendiz();
+            $aprendizObjEdit = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
+            $res = $aprendizObjEdit->editUser();
             
             if ($res) {
                 header("Location:/agregarAprendiz");
@@ -229,11 +229,10 @@ class AgregarAprendizController extends BaseController
     }
 
     # Muestra lo que se quiere eliminar
-    public function deleteUsuario($id)
+    public function deleteUsuario($id_user)
     {
-        $objAprendiz = new AgregarAprendizModel($id);
-        $aprendizInfo = $objAprendiz->getAprendiz();
-
+        $objAprendiz = new AgregarUsuarioModel($id_user);
+        $aprendizInfo = $objAprendiz->getUser();
         if (!empty($aprendizInfo)) {
             $data = [
                 'infoReal' => $aprendizInfo[0],
@@ -270,8 +269,8 @@ class AgregarAprendizController extends BaseController
             $fkIdGrupo = $_POST['txtFKidGrupo'] ?? null;
             $fkIdCentroFormacion = $_POST['txtFKidCentroFormacion'] ?? null;
             
-            $aprendizObjDelete = new AgregarAprendizModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
-            $res = $aprendizObjDelete->deleteAprendiz();
+            $aprendizObjDelete = new AgregarUsuarioModel($id, $nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmerjencia, $password, $observaciones, $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion);
+            $res = $aprendizObjDelete->deleteUser();
             
             if ($res) {
                 // Eliminar las observaciones de la sesión para este aprendiz
@@ -327,4 +326,5 @@ class AgregarAprendizController extends BaseController
         }
     }
 }
+
 ?>

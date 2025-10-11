@@ -1,119 +1,309 @@
-/* === ESTILOS EXISTENTES (los que me pasaste) === */
-.profile-layout-container {
-    display: flex;
-    min-height: 80vh;
-    width: 100%;
-}
-
-.profile-left-panel {
-    flex: 0 0 50%;
-    padding: 20px;
-    background-color: #f8f9fa;
-    display: flex;
-    flex-direction: column; /* Mantiene la dirección vertical para los hijos directos */
-    /* align-items: center; <--- REMOVEMOS ESTO si estaba, o no lo añadimos */
-    border-right: 1px solid #dee2e6;
-}
-
-.profile-left-panel .user-image-container {
-    text-align: center; /* Centra la imagen horizontalmente si el contenedor es más ancho */
-    margin-bottom: 20px;
-    /* No necesita ser un item flex para centrarse, text-align en su contenedor es suficiente */
-}
-
-.profile-left-panel .user-image-container img {
-    max-width: 200px;
-    border: 3px solid #28a745;
-}
-
-/* Contenedor para la descripción y los detalles del usuario */
-.profile-left-panel .user-info-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra los hijos de este contenedor (descripción y user-info-details) */
-    width: 100%; /* Asegura que ocupe todo el ancho del panel izquierdo */
-}
-
-/* Estilos para el párrafo de descripción (opcional, si quieres que tenga un ancho máximo o algo) */
-.profile-left-panel .user-info-content .fst-italic {
-    text-align: center; /* Centra el texto dentro del párrafo */
-    max-width: 90%; /* Ejemplo: limita el ancho para que no sea demasiado extenso */
-    margin-bottom: 15px; /* Espacio antes de los detalles */
-}
-
-/* Estilos para la sección de detalles del usuario (las listas <ul>) */
-.profile-left-panel .user-info-details {
-    /* Ya está dentro de .user-info-content que tiene align-items: center,
-       así que no necesita más para centrarse horizontalmente.
-       Si las listas <ul> ocupan menos del 100% de .user-info-details,
-       se centrarán por el align-items:center del padre. */
-    width: 100%; /* Para que la row de Bootstrap funcione bien */
-}
-
-
-/* ... (resto de tus estilos .profile-right-panel, etc., sin cambios) ... */
-
-.profile-right-panel {
-    flex: 0 0 50%;
-    display: flex;
-    flex-direction: column;
-}
-
-.profile-right-top {
-    flex: 1;
-    padding: 20px;
-    background-color: #e9ecef;
-    border-bottom: 1px solid #dee2e6;
-    overflow-y: auto;
-}
-
-.profile-right-bottom {
-    flex: 1;
-    padding: 20px;
-    background-color: #e0e0e0;
-    overflow-y: auto;
-}
-
-.profile-right-top h3,
-.profile-right-bottom h3 {
-    margin-top: 0;
-}
-
-@media (max-width: 992px) {
-    .profile-layout-container {
-        flex-direction: column;
-    }
-
-    .profile-left-panel,
-    .profile-right-panel {
-        flex: 1 1 100%;
-        border-right: none;
-    }
-
-    .profile-right-panel {
-        border-top: 1px solid #dee2e6;
-    }
-
-    .profile-right-top,
-    .profile-right-bottom {
-        flex: none;
-        min-height: auto;
-    }
-}
-
-/* === ESTILOS PARA EL STICKY FOOTER (sin cambios respecto a la última vez) === */
+/*
+ * perfil.css
+ * Asegúrate de que este archivo se carga DESPUÉS de bootstrap.min.css y otros CSS globales.
+ */
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    /* Bootstrap resetea margin en body, pero confirmamos */
+    font-family: Arial, sans-serif;
+    /* Bootstrap tiene su propio font-family */
+    background-color: #f4f4f4;
+    /* Asegurar que no haya padding o border-box extra de Bootstrap */
+    padding: 0;
+    box-sizing: border-box;
 }
 
-main.main {
-    flex-grow: 1;
+.about.section {
+    background: url(../img/gym02.png) no-repeat center center/cover !important; /* Mantenemos !important si la imagen de fondo es persistente */
+    background-size: cover;
+    background-position: center;
+    color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* Resetear posibles paddings/margenes que Bootstrap pueda añadir a secciones */
+    padding: 0;
+    margin: 0;
 }
 
-#footer {
+.about.section::-webkit-scrollbar {
+    display: none;
+}
+
+.about .section-title h2 {
+    color: #FDC300 !important;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 2.2em;
+    font-weight: 700;
+    /* Resetear margin-top de Bootstrap para h2 */
+    margin-top: 0;
+}
+
+.about .section-title p {
+    color: #ccc;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    font-size: 0.95em;
+    /* Resetear line-height o margin de Bootstrap para p */
+    line-height: 1.6;
+    margin-top: 0;
+}
+
+.profile-layout-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1300px;
+    width: 95%;
+    margin: 0 auto;
+    /* Asegurar que no haya paddings o márgenes de Bootstrap en este contenedor */
+    padding: 0;
+}
+
+.about.section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(to left, #FDC300, #FDFD00);
+    z-index: 0;
+    clip-path: polygon(80% 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 0.7;
+}
+
+.profile-left-panel {
+    background-color: rgba(0, 0, 0, 0); /* Mantenemos esto transparente */
+    padding: 25px;
+    border-radius: 10px;
+    flex: 1.2;
+    min-width: 280px;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    /* Resetear cualquier margen o padding de Bootstrap que pudiera afectar a un contenedor genérico */
+    margin: 0;
+}
+
+.user-image-container {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #00304D;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Resetear cualquier estilo de Bootstrap para img */
+    vertical-align: middle; /* o top, bottom, etc. dependiendo de lo que se busque */
+    border-style: none; /* Asegura que no haya bordes inesperados de Bootstrap */
+}
+
+.user-info-details {
     text-align: center;
     width: 100%;
+}
+
+.user-info-details .sitename {
+    color: #FDC300;
+    font-size: 1.6em;
+    margin-bottom: 15px;
+    font-weight: 600;
+    /* Resetear margin-top de Bootstrap si .sitename es un h* o p */
+    margin-top: 0;
+}
+
+.user-info-details ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    text-align: left;
+    /* Resetear márgenes y paddings de Bootstrap para ULs */
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.user-info-details ul li {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    color: #e0e0e0;
+    /* Resetear padding de Bootstrap para LIs */
+    padding: 0;
+}
+
+.user-info-details ul li strong {
+    color: #FDC300;
+    margin-right: 6px;
+    min-width: 100px;
+    white-space: nowrap;
+    /* Resetear font-weight de Bootstrap */
+    font-weight: 600; /* O el que desees */
+}
+
+.user-info-details ul li i {
+    color: #FDC300;
+    margin-right: 8px;
+    font-size: 1.1em;
+    /* Asegurar que los íconos (si son de Bootstrap Icons u otra fuente) mantengan tu color */
+    vertical-align: middle;
+}
+
+.profile-right-panel {
+    flex: 2;
+    min-width: 400px;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+    /* Resetear márgenes y paddings */
+    margin: 0;
+    padding: 0;
+}
+
+.profile-right-top,
+.profile-right-bottom {
+    background-color: rgba(0, 0, 0, 0); /* Mantenemos esto transparente */
+    padding: 25px;
+    border-radius: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    /* Resetear cualquier margen o padding de Bootstrap */
+    margin: 0;
+}
+
+.profile-right-top .row {
+    margin-left: -10px;
+    margin-right: -10px;
+    flex-grow: 1;
+    /* Si Bootstrap está causando problemas en el "row", puedes intentar añadir !important aquí
+       pero es mejor cambiar el nombre de la clase 'row' en tu HTML si es posible. */
+    /* margin-left: -10px !important; */
+    /* margin-right: -10px !important; */
+}
+
+.profile-right-top h3,
+.profile-right-bottom h3 {
+    color: #FDC300 !important;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(253, 195, 0, 0.2);
+    padding-bottom: 8px;
+    /* Resetear margin-top de Bootstrap para h3 */
+    margin-top: 0;
+}
+
+.profile-right-top ul,
+.profile-right-bottom ul {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* Resetear márgenes y paddings de Bootstrap para ULs */
+    margin: 0;
+    padding-left: 0;
+}
+
+.profile-right-top ul li,
+.profile-right-bottom ul li {
+    margin-bottom: 5px;
+    font-size: 0.95em;
+    display: flex;
+    align-items: flex-start;
+    color: #e0e0e0;
+    /* Resetear padding de Bootstrap para LIs */
+    padding: 0;
+}
+
+.profile-right-top ul li strong,
+.profile-right-bottom ul li strong {
+    color: #FDC300;
+    margin-right: 6px;
+    min-width: 100px;
+    white-space: nowrap;
+    /* Resetear font-weight de Bootstrap */
+    font-weight: 600;
+}
+
+.profile-right-top ul li i,
+.profile-right-bottom ul li i {
+    color: #FDC300;
+    margin-right: 8px;
+    font-size: 1.1em;
+    /* Asegurar que los íconos mantengan tu color */
+    vertical-align: middle;
+}
+
+.profile-right-bottom ul {
+    justify-content: flex-start;
+}
+.profile-right-bottom ul li {
+    margin-bottom: 0;
+}
+
+.bi {
+    /* Si 'bi' es la clase base de Bootstrap Icons, estos estilos se aplicarán sobre los de Bootstrap */
+    display: inline-block;
+    vertical-align: -0.125em;
+    fill: currentColor;
+    /* Si el color no se aplica, puedes necesitar !important */
+    /* color: inherit !important; */
+}
+
+/* Media queries para responsividad, si las necesitas para ajustar el layout en pantallas más pequeñas */
+@media (max-width: 991.98px) {
+    .profile-layout-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-left-panel,
+    .profile-right-panel {
+        max-width: 95%; /* Ajustar para ocupar casi todo el ancho */
+        min-width: unset; /* Permitir que se encojan */
+        width: 100%; /* Ocupar todo el ancho disponible */
+    }
+    .about.section::after {
+        display: none; /* Ocultar la forma decorativa en pantallas pequeñas si no es adecuada */
+    }
+}
+
+@media (max-width: 767.98px) {
+    .about .section-title h2 {
+        font-size: 1.8em;
+    }
+    .profile-left-panel {
+        padding: 15px;
+    }
+    .profile-right-top,
+    .profile-right-bottom {
+        padding: 15px;
+    }
 }

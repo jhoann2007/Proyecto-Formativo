@@ -1,8 +1,249 @@
-.sitename {
-    display: flex;
-    justify-content: center;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 37px;
-    font: bold;
+:root {
+    --dark-blue1: #040B14;
+    --dark-blue2: #0A203C;
+    --light-text: #FFF;
+    --hover-yellow: #FDC300;
+    --icon-color: #FFF;
+    --profile-name-color: #FFF;
+    --menu-border: #00304D;
+    --dark-blue-text-on-yellow: #1a1e27;
+    --submenu-bg: rgba(0, 0, 0, 0.2);
+    --toggle-icon-color: #FFF;
+    --dropdown-active-bg: rgba(255, 255, 255, 0.08);
+    --submenu-border-left: #FDC300;
 }
+
+/* Estilos generales del header */
+#header {
+    background: linear-gradient(135deg, var(--dark-blue1), var(--dark-blue2));
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 15px;
+    color: var(--light-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: border-box;
+    z-index: 1030; /* Asegura que el header esté por encima de elementos de Bootstrap como navbars */
+}
+
+.profile-img {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-img img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--menu-border);
+    object-fit: cover;
+}
+
+.sitename {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--profile-name-color);
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.navmenu {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    /* Resetear posibles estilos de Bootstrap en el contenedor principal del menú */
+    margin: 0;
+    padding-left: 0; /* Asegurar que no haya padding de Bootstrap */
+
+
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        background: transparent;
+    }
+
+    scrollbar-width: none;
+}
+
+.navmenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Asegurar que no haya margen de Bootstrap en las ULs */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.navmenu ul li {
+    margin-bottom: 5px;
+    position: relative;
+    cursor: pointer;
+    /* Resetear posibles estilos de Bootstrap para LIs */
+    padding: 0;
+}
+
+.navmenu ul a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--light-text);
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    /* Resetear posibles estilos de Bootstrap para enlaces */
+    background-color: transparent;
+}
+
+.navmenu ul a .navicon {
+    font-size: 20px;
+    margin-right: 12px;
+    color: var(--icon-color);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navmenu .dropdown > a .toggle-icon {
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--toggle-icon-color);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.navmenu ul a:hover {
+    background-color: var(--hover-yellow);
+    color: var(--dark-blue-text-on-yellow);
+    border: 1px solid var(--hover-yellow);
+}
+
+.navmenu ul a:hover .navicon,
+.navmenu ul a:hover .toggle-icon {
+    color: var(--dark-blue-text-on-yellow);
+}
+
+.navmenu .dropdown.active-dropdown > a {
+    background-color: var(--dropdown-active-bg);
+    color: var(--light-text);
+    border: 1px solid var(--menu-border);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.navmenu .dropdown.active-dropdown > a .navicon,
+.navmenu .dropdown.active-dropdown > a .toggle-icon {
+    color: var(--hover-yellow);
+}
+
+.navmenu .dropdown.active-dropdown > a .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.navmenu .dropdown ul {
+    display: none;
+    position: relative;
+    padding: 5px 0;
+    background-color: var(--submenu-bg);
+    border-radius: 0 0 4px 4px;
+    margin-top: -5px;
+    flex-direction: column;
+    border-left: 3px solid var(--submenu-border-left);
+    border-right: 1px solid var(--menu-border);
+    border-bottom: 1px solid var(--menu-border);
+    /* Asegurar que las UL anidadas también reseteen márgenes/paddings de Bootstrap */
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.navmenu .dropdown ul li {
+    margin-bottom: 0;
+    /* Resetear posibles estilos de Bootstrap para LIs del submenú */
+    padding: 0;
+}
+
+.navmenu .dropdown ul a {
+    padding: 8px 15px 8px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--light-text);
+    background: none;
+    border-radius: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    /* Resetear posibles estilos de Bootstrap para enlaces del submenú */
+    background-color: transparent;
+}
+
+.navmenu .dropdown ul a .navicon {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.navmenu .dropdown ul a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--hover-yellow);
+}
+
+.navmenu .dropdown ul a:hover .navicon {
+    color: var(--hover-yellow);
+}
+
+.navmenu .dropdown.active-dropdown > ul {
+    display: block;
+}
+
+.navmenu ul li:last-child {
+    margin-top: auto;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+}
+
+.navmenu ul a i {
+    margin-right: 12px;
+}
+
+.navmenu .dropdown ul a i {
+    margin-right: 10px;
+}
+
+/* Agrega media queries si necesitas que este header se comporte de manera diferente en móviles,
+   ya que Bootstrap es responsive por defecto. */
+/*
+@media (max-width: 991px) {
+    #header {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .profile-img, .sitename {
+        margin-bottom: 10px;
+    }
+    .navmenu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+    .navmenu.show { // Clase para mostrar el menú en móvil
+        max-height: 500px; // O un valor adecuado
+    }
+}
+*/

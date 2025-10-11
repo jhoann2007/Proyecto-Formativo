@@ -1,14 +1,26 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// ------------------------------------------
+
 require_once '../app/config/global.php';
 require_once '../app/controllers/homeController.php';
 require_once '../app/controllers/perfilController.php';
 require_once '../app/controllers/agregarAprendizController.php';
 require_once '../app/controllers/agregarEntrenadorController.php';
+require_once '../app/controllers/agregarAdminController.php';
 require_once '../app/controllers/calendarioController.php';
 require_once '../app/controllers/codigoVerificacionController.php';
 require_once '../app/controllers/inicioController.php';
 require_once '../app/controllers/olvidoContraseniaController.php';
 require_once '../app/controllers/ingresoController.php';
+require_once '../app/controllers/rutinaController.php';
+require_once '../app/controllers/agregarGrupoController.php';
+require_once '../app/controllers/agregarCentroController.php';
+require_once '../app/controllers/agregarProgramaController.php';
+require_once '../app/controllers/agregarRolController.php';
+require_once '../app/controllers/ejercicioController.php';
 
 
 

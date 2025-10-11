@@ -1,87 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- head -->
-
 <head>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GymTech SENA</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
-  <link href="../css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/inicio.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Estilos propios -->
-    <link rel="stylesheet" href="/css/header.css">
-
-  <div class="background-shapes">
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
-    <div class="shape shape3"></div>
-  </div>
+  <?php include 'assets/config/head.php'; ?>
 </head>
-<!-- fin head -->
 
 <body class="index-page">
 
-  <!-- header -->
+  <!-- header (Sidebar) -->
   <header id="header" class="header dark-background d-flex flex-column">
-    <?php include 'assets/config/header.php'; ?>
+    <?php
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+    // El include del header se mantiene
+    include 'assets/config/header.php';
+    ?>
   </header>
-  <!-- fin header -->
+  <!-- fin header (Sidebar) -->
 
   <!-- main -->
-  <main class="main ">
+  <main class="main">
     <!-- Hero Section -->
-    <section id="hero" class="hero section white-background">
+    <section id="hero" class="hero section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>GymTech</h2>
-        <strong>
-          <p id="letra">Bienvenido al <span class="typed" data-typed-items=" aplicativo gimnasio SENA"></span><span
-              class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span
-              class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
-        </strong>
+        <div class="overlay"></div>
+        <div class="content">
+          <p class="quote">EL DOLOR ES TEMPORAL, LA SATISFACCIÓN DE LOGRAR TUS METAS ES PARA SIEMPRE</p>
+          <h2>GymTech SENA</h2>
+          <div class="hero-buttons">
+            <form action="/calendario" method="Post">
+              <div class="form-group">
+                <button type="submit" class="btn01"><span>Ver Calendario</span></button>
+              </div>
+            </form>
+
+            <form action="/agregarRutina" method="Post">
+              <div class="form-group">
+                <button type="submit" class="btn02"><span>Iniciar Entrenamiento</span></button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-
+      <div class="chart-container">
+        <div class="chart-header">
+          <span class="arrow">&lt;</span>
+          <span class="date">2023 %</span>
+          <span class="arrow">&gt;</span>
+          <span class="dots">...</span>
+        </div>
+        <img src="https://mastermetrics.com/wp-content/uploads/2024/05/grafica-de-datos-ES-Capterra-hea.jpg"
+          alt="Gráfico de progreso">
+      </div>
     </section><!-- /Hero Section -->
-
-
   </main>
   <!-- fin main -->
 
-  <!-- footer -->
-  <footer id="footer" class="footer position-relative light-background">
+  <!-- footer (GLOBAL) -->
+  <footer id="footer" class="footer position-relative dark-background">
     <?php include 'assets/config/footer.php'; ?>
+    <!-- Asumo que assets/config/footer.php contendrá el HTML de tu footer global -->
   </footer>
   <!-- fin footer -->
 
-  <!-- Scroll -->
+  <!-- Scroll y Preloader -->
   <?php include 'assets/config/scroll.php'; ?>
-  </a>
-  <!-- fin Scroll -->
-
-  <!-- Preloader -->
   <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <?php include 'assets/config/scripts.php'; ?>
-
-  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <!-- js calendario -->
   <script src="assets/js/js.js"></script>
 </body>
 

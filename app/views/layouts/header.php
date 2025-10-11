@@ -1,7 +1,7 @@
 <i class="header-toggle d-xl-none bi bi-list"></i>
 
 <div class="profile-img">
-  <img src="assets/img/gigachad.png" alt="" class="img-fluid rounded-circle">
+  <img src="<?php echo htmlspecialchars($user->picture); ?>" alt="Foto de perfil" class="img-fluid rounded-circle">
 </div>
 
 <h1 class="sitename">
