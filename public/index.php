@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 // ------------------------------------------
 
 require_once '../app/config/global.php';
+require_once '../vendor/autoload.php';
 require_once '../app/controllers/homeController.php';
 require_once '../app/controllers/perfilController.php';
 require_once '../app/controllers/agregarAprendizController.php';
@@ -28,13 +29,48 @@ require_once '../app/controllers/agregarUsuarioController.php';
 // Acceder a lo que llegue en la URL
 $url = $_SERVER["REQUEST_URI"];
 
+// Limpiar la URL quitando parámetros de consulta
+$url = parse_url($url, PHP_URL_PATH);
+
+// Normalizar base path cuando la app corre bajo subcarpeta (e.g., /Proyecto-Formativo/public)
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+$basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+if ($basePath && strpos($url, $basePath) === 0) {
+    $url = substr($url, strlen($basePath));
+    if ($url === '' || $url === false) {
+        $url = '/';
+    }
+}
+
+// Debug: mostrar la URL que llega
+error_log("URL recibida: " . $url);
+
 $routesList = require_once '../app/config/routes.php';
+
+// CORS básico para desarrollo cuando el frontend corre en 8080
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    $origin = $_SERVER['HTTP_ORIGIN'];
+    if (preg_match('/^https?:\\/\\/localhost:8080$/', $origin)) {
+        header('Access-Control-Allow-Origin: ' . $origin);
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+        header('Vary: Origin');
+    }
+}
+
+// Responder preflight de CORS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
 
 $matchedRoute = null;
 foreach ($routesList as $route => $routeConfig) {
     if (preg_match("#^$route$#", $url, $matches)) {
         // Se asigna el Array requerido con el Controller y Action a ejecutar 
         $matchedRoute = $routeConfig;
+        error_log("Ruta encontrada: " . $route);
         break;
     }
 }
@@ -42,16 +78,29 @@ foreach ($routesList as $route => $routeConfig) {
 if ($matchedRoute) {
     $controllerName = $matchedRoute['controller'];
     $actionName = $matchedRoute['action'];
-    if (class_exists($controllerName) && method_exists($controllerName, $actionName)) {
-        //Capturar los parametros que llegan por URL
-        $parameters = array_slice($matches, 1);
-        $controller = new $controllerName();
-        // Se llama al metodo del controller correspondiente
-        $controller->$actionName(...$parameters);
-        exit;
+    
+    // Debug: mostrar información de la ruta
+    error_log("Ruta encontrada: " . $url);
+    error_log("Controlador: " . $controllerName);
+    error_log("Acción: " . $actionName);
+    error_log("Clase existe: " . (class_exists($controllerName) ? 'Sí' : 'No'));
+    
+    if (class_exists($controllerName)) {
+        error_log("Método existe: " . (method_exists($controllerName, $actionName) ? 'Sí' : 'No'));
+        if (method_exists($controllerName, $actionName)) {
+            //Capturar los parametros que llegan por URL
+            $parameters = array_slice($matches, 1);
+            $controller = new $controllerName();
+            // Se llama al metodo del controller correspondiente
+            $controller->$actionName(...$parameters);
+            exit;
+        } else {
+            http_response_code(404);
+            echo "El método '$actionName' no existe en el controlador '$controllerName'";
+        }
     } else {
         http_response_code(404);
-        echo "La accion y/o controlador no existen en la aplicacion ";
+        echo "El controlador '$controllerName' no existe";
     }
 } else {
     http_response_code(404);

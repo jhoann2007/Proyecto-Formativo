@@ -99,7 +99,7 @@ return [
         'controller' => 'App\Controller\CodigoVerificacionController',
         'action' => 'index'
     ],
-
+    
     # Inicio
     '/inicio' => [
         'controller' => 'App\Controller\InicioController',
@@ -107,9 +107,29 @@ return [
     ],
 
     # Olvido Contraseña
-    '/olvido' => [
+    '/olvido-contrasenia/solicitar' => [
         'controller' => 'App\Controller\OlvidoContraseniaController',
-        'action' => 'index' 
+        'action' => 'mostrarFormularioSolicitud'
+    ],
+    '/olvido-contrasenia/procesar-solicitud' => [
+        'controller' => 'App\Controller\OlvidoContraseniaController',
+        'action' => 'procesarSolicitud'
+    ],
+    '/olvido-contrasenia/verificar' => [
+        'controller' => 'App\Controller\OlvidoContraseniaController',
+        'action' => 'mostrarFormularioVerificacion'
+    ],
+    '/olvido-contrasenia/procesar-verificacion' => [
+        'controller' => 'App\Controller\OlvidoContraseniaController',
+        'action' => 'procesarVerificacion'
+    ],
+    '/olvido-contrasenia/cambiar' => [
+        'controller' => 'App\Controller\OlvidoContraseniaController',
+        'action' => 'mostrarFormularioCambio'
+    ],
+    '/olvido-contrasenia/procesar-cambio' => [
+        'controller' => 'App\Controller\OlvidoContraseniaController',
+        'action' => 'procesarCambio'
     ],
 
     # Ingreso Sistema

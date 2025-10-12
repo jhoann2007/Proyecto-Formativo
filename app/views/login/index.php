@@ -75,15 +75,15 @@
                     <p>Digita Tu Correo De Recuperacion</p>
                 </div>
 
-                <form id="recoveryForm">
+                <form action="/olvido-contrasenia/solicitar" method="post" id="recoveryForm">
                     <div class="form-group">
                         <i class="input-icon fas fa-envelope"></i>
-                        <input type="email" id="email" name="email" required placeholder=" ">
-                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="recoveryEmail" name="email" required placeholder=" ">
+                        <label for="recoveryEmail">Correo Electrónico</label>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn02"><span>Verificar Código</span></button>
+                        <button type="submit" class="btn02"><span>Enviar Código</span></button>
                     </div>
                 </form>
                 <div class="extra-links">
@@ -112,6 +112,97 @@
             showLogin.addEventListener('click', function() {
                 formContainer.classList.remove('recovery-active');
             });
+
+            // Manejar el envío del formulario de recuperación
+            if (recoveryForm) {
+                recoveryForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('recoveryEmail').value;
+                    
+                    // Mostrar loading
+                    Swal.fire({
+                        title: 'Procesando...',
+                        text: 'Enviando código de recuperación',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    
+                    // Determinar base de la API: si la app se sirve en 8080, apuntar a 8000
+                    const apiBase = (window.location.port === '8080') ? 'http://localhost:8000' : '';
+
+                    // Enviar solicitud AJAX al endpoint que responde JSON
+                    fetch(`${apiBase}/olvido-contrasenia/procesar-solicitud`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'email=' + encodeURIComponent(email)
+                    })
+                    .then(async (response) => {
+                        let data = null;
+                        try {
+                            data = await response.json();
+                        } catch (e) {
+                            // Si no es JSON, continuar con manejo de error
+                        }
+                        if (!response.ok) {
+                            const msg = (data && data.message) ? data.message : `Error ${response.status}`;
+                            throw new Error(msg);
+                        }
+                        return data || { success: false, message: 'Respuesta inválida del servidor.' };
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Código enviado!',
+                                text: 'Se ha enviado un código de verificación a tu correo electrónico.',
+                                confirmButtonText: 'Continuar',
+                                customClass: {
+                                    popup: 'swal2-dark-popup',
+                                    title: 'swal2-dark-title',
+                                    content: 'swal2-dark-content',
+                                    confirmButton: 'swal2-dark-button'
+                                }
+                            }).then(() => {
+                                // Redirigir a la página de verificación (usar base si es 8080)
+                                const apiBase = (window.location.port === '8080') ? 'http://localhost:8000' : '';
+                                window.location.href = `${apiBase}/olvido-contrasenia/verificar?email=` + encodeURIComponent(email);
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: data.message || 'Ha ocurrido un error al enviar el código.',
+                                confirmButtonText: 'Entendido',
+                                customClass: {
+                                    popup: 'swal2-dark-popup',
+                                    title: 'swal2-dark-title',
+                                    content: 'swal2-dark-content',
+                                    confirmButton: 'swal2-dark-button'
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '¡Error!',
+                            text: (error && error.message) ? error.message : 'Ha ocurrido un error al procesar la solicitud.',
+                            confirmButtonText: 'Entendido',
+                            customClass: {
+                                popup: 'swal2-dark-popup',
+                                title: 'swal2-dark-title',
+                                content: 'swal2-dark-content',
+                                confirmButton: 'swal2-dark-button'
+                            }
+                        });
+                    });
+                });
+            }
 
             <?php
             if (isset($_SESSION['login_error'])) {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualización</title>
+    <title>GymTech SENA - Login</title>
 </head>
 <body>
     <header>
