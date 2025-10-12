@@ -67,9 +67,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
     <script>
-        // El formulario se enviará de forma estándar al endpoint
-        // '/olvido-contrasenia/procesar-cambio' que maneja
-        // validaciones, cambios y redirección al login.
+        // Si el frontend corre en 8080, apuntar al backend Apache
+        const changeForm = document.getElementById('changePasswordForm');
+        if (window.location.port === '8080') {
+            changeForm.action = 'http://localhost/Proyecto-Formativo/public/olvido-contrasenia/procesar-cambio';
+        }
     </script>
 </body>
 </html>

@@ -108,7 +108,18 @@ main::after {
 
 /* Fondo del modal cuando está abierto */
 .modal-backdrop.show {
-    opacity: 0.7;
+    opacity: 0.4;
+}
+
+/* Evitar overlay que bloquea por completo en la página de calendario */
+.calendario-page .modal-backdrop {
+    display: none !important;
+}
+
+/* Asegurar que body no quede bloqueado por clases del modal */
+.calendario-page body.modal-open {
+    overflow: auto;
+    padding-right: 0 !important;
 }
 
 /* Contenido principal del modal */
@@ -191,6 +202,29 @@ main::after {
     margin-bottom: 20px;
     border-top: 1px solid #495057;
     opacity: 0.5;
+}
+
+.estilo-aprendices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #495057;
+    margin-bottom: 8px;
+}
+
+.estilo-aprendices strong {
+    color: #ffffff;
+}
+
+.color-hora-aprendices {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-dark);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
 }
 
 #aprendicesSection h6 {

@@ -74,8 +74,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="capacidad_max" class="form-label">Capacidad Máxima</label>
-                                <input type="number" class="form-control" id="capacidad_max" name="capacidad_max" min="1"
-                                    max="100" required>
+                                <input type="number" class="form-control" id="capacidad_max" name="capacidad_max" value="30" readonly>
                             </div>
                         </div>
 

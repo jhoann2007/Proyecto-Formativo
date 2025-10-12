@@ -261,4 +261,13 @@ class CalendarioModel extends BaseModel
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public function getCalendarioById($id_calendar): mixed
+    {
+        $sql = "SELECT id_calendar, date, start_time, end_time, max_capacity, status, id_user FROM calendar WHERE id_calendar = :id_calendar";
+        $stmt = $this->dbConnection->prepare($sql);
+        $stmt->bindParam(':id_calendar', $id_calendar, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }

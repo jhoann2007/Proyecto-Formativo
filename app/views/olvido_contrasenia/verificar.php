@@ -155,8 +155,8 @@
                     }
                 });
                 
-                // Determinar base del API si corremos frontend en 8080
-                const apiBase = (window.location.port === '8080') ? 'http://localhost:8000' : '';
+                // Determinar base del API si corremos frontend en 8080 (backend Apache)
+                const apiBase = (window.location.port === '8080') ? 'http://localhost/Proyecto-Formativo/public' : '';
                 // Enviar solicitud AJAX al endpoint JSON correcto
                 fetch(`${apiBase}/olvido-contrasenia/procesar-verificacion`, {
                     method: 'POST',
@@ -182,7 +182,7 @@
                             }
                         }).then(() => {
                             // Redirigir a la página de cambio de contraseña
-                            const apiBase = (window.location.port === '8080') ? 'http://localhost:8000' : '';
+                            const apiBase = (window.location.port === '8080') ? 'http://localhost/Proyecto-Formativo/public' : '';
                             window.location.href = `${apiBase}/olvido-contrasenia/cambiar?email=` + encodeURIComponent(email) + '&codigo=' + encodeURIComponent(code);
                         });
                     } else {

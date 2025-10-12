@@ -65,34 +65,34 @@ return [
     ],
 
     # Calendario
-    // '/calendario' => [
-    //     'controller' => 'App\Controller\CalendarioController',
-    //     'action' => 'index'
-    // ],
-    // '/calendario/guardarEvento' => [
-    //     'controller' => 'App\Controller\CalendarioController',
-    //     'action' => 'guardarEvento'
-    // ],
-    // '/calendario/obtenerEvento' => [
-    //     'controller' => 'App\Controller\CalendarioController',
-    //     'action' => 'obtenerEvento'
-    // ],
-    // '/calendario/obtenerEventos' => [
-    //     'controller' => 'App\Controller\CalendarioController',
-    //     'action' => 'obtenerEventos'
-    // ],
-    // '/calendario/eliminarEvento' => [
-    //     'controller' => 'App\Controller\CalendarioController',
-    //     'action' => 'eliminarEvento'
-    // ],
-    // '/calendario/registrarAprendiz' => [
-    //     'controller' => 'App\Controller\CalendarioController',
-    //     'action' => 'registrarAprendiz'
-    // ],
-    // '/calendario/obtenerRegistrosAprendiz' => [
-    //     'controller' => 'App\Controller\CalendarioController',
-    //     'action' => 'obtenerRegistrosAprendiz'
-    // ],
+    '/calendario' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'index'
+    ],
+    '/calendario/guardarEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'guardarEvento'
+    ],
+    '/calendario/obtenerEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerEvento'
+    ],
+    '/calendario/obtenerEventos' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerEventos'
+    ],
+    '/calendario/eliminarEvento' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'eliminarEvento'
+    ],
+    '/calendario/registrarAprendiz' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'registrarAprendiz'
+    ],
+    '/calendario/obtenerRegistrosAprendiz' => [
+        'controller' => 'App\Controller\CalendarioController',
+        'action' => 'obtenerRegistrosAprendiz'
+    ],
 
     # Codigo de Verificacion
     '/codigo' => [

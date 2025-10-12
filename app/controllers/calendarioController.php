@@ -19,7 +19,8 @@ class CalendarioController extends BaseController
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        return $_SESSION['user_rol_nombre'] ?? 'aprendiz';
+        // Usar nombre de rol consistente con login.php
+        return $_SESSION['user_role_name'] ?? 'aprendiz';
     }
 
     private function getUserId()
@@ -114,8 +115,8 @@ class CalendarioController extends BaseController
                     ]
                 ];
 
-                // Si es admin o entrenador, traer registros de aprendices
-                if ($userRole === 'admin' || $userRole === 'entrenador') {
+                // Si es admin, administrador o entrenador, traer registros de aprendices
+                if ($userRole === 'admin' || $userRole === 'administrador' || $userRole === 'entrenador') {
                     $registrosAprendices = $model->getRegistrosAprendicesPorEvento($evento['id_calendar']);
                     $eventoFormateado['extendedProps']['aprendices'] = $registrosAprendices;
                 }
@@ -142,7 +143,8 @@ class CalendarioController extends BaseController
         header('Access-Control-Allow-Headers: Content-Type');
         
         $userRole = $this->getUserRole();
-        
+
+        // Solo bloquear a aprendices; permitir admin y entrenador
         if ($userRole === 'aprendiz') {
             echo json_encode([
                 "status" => "error",
@@ -154,8 +156,11 @@ class CalendarioController extends BaseController
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $data = $_POST;
 
+            // Forzar capacidad fija a 30 en backend, ignorando entrada del cliente
+            $data["capacidad_max"] = 30;
+
             if (empty($data["fecha"]) || empty($data["hora_inicio"]) || empty($data["hora_cierre"]) ||
-                empty($data["id_encargado"]) || empty($data["capacidad_max"]) || empty($data["estado"])) {
+                empty($data["id_encargado"]) || empty($data["estado"])) {
                 echo json_encode([
                     "status" => "error",
                     "message" => "Todos los campos son requeridos"
@@ -191,7 +196,7 @@ class CalendarioController extends BaseController
                         $data["hora_inicio"],
                         $data["hora_cierre"],
                         (int)$data["id_encargado"],
-                        (int)$data["capacidad_max"],
+                        30,
                         $data["estado"]
                     );
                     $success = $evento->save();
@@ -283,7 +288,8 @@ class CalendarioController extends BaseController
                 
                 // Convertir a enteros
                 $userIdInt = (int)$userId;
-                $calendarioIdInt = (int)$data["id_calendar"];
+                // Ajuste: el frontend envía 'id_calendario'
+                $calendarioIdInt = (int)$data["id_calendario"];
                 
                 // Verificar que el usuario existe usando el método del modelo
                 if (!$model->verificarUsuarioExiste($userIdInt)) {
@@ -299,6 +305,37 @@ class CalendarioController extends BaseController
                     echo json_encode([
                         "status" => "error",
                         "message" => "El horario seleccionado no existe o no está disponible"
+                    ]);
+                    exit;
+                }
+
+                // Validar que el rango de horas esté dentro del evento
+                $evento = $model->getCalendarioById($calendarioIdInt);
+                if (!$evento || empty($evento['start_time']) || empty($evento['end_time'])) {
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "No se pudo validar el horario del evento"
+                    ]);
+                    exit;
+                }
+
+                try {
+                    $horaEntradaObj = new \DateTime($data["hora_entrada"]);
+                    $horaSalidaObj = new \DateTime($data["hora_salida"]);
+                    $eventoInicioObj = new \DateTime($evento['start_time']);
+                    $eventoFinObj = new \DateTime($evento['end_time']);
+                } catch (\Exception $e) {
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "Formato de hora inválido"
+                    ]);
+                    exit;
+                }
+
+                if ($horaEntradaObj < $eventoInicioObj || $horaSalidaObj > $eventoFinObj) {
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "Debes registrar dentro del horario del evento: " . $evento['start_time'] . " - " . $evento['end_time']
                     ]);
                     exit;
                 }

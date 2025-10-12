@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-08-2025 a las 21:56:55
+-- Tiempo de generación: 12-10-2025 a las 07:30:31
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `mydb`
+-- Base de datos: `gymtech`
 --
 
 -- --------------------------------------------------------
@@ -200,6 +200,21 @@ INSERT INTO `musclegroup` (`id_musclegroup`, `name`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `id` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expires_at` datetime NOT NULL,
+  `used` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `progresscontrol`
 --
 
@@ -344,7 +359,11 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `name`, `picture`, `document_type`, `document`, `birthdate`, `email`, `gender`, `status`, `phone`, `eps`, `blood_type`, `weight`, `stature`, `emergency_phone`, `password`, `observations`, `id_role`, `id_group`, `id_trainingcenter`) VALUES
 (1, 'Admin', 'https://pbs.twimg.com/media/Bhf_XUwCYAAfY2A.jpg', 'CC', '123456789', '2007-05-11', 'admin@gmail.com', 'M', 'activo', '123456789', 'Salud Total S.A.S', 'B+', 66, 165, '123456789', '$2y$10$9Tn3darIHZ29CYM4GFw2gutN3ayIUDlGr9Dwge5COBtX.2g284MZC', NULL, 1, NULL, NULL),
 (2, 'Entrenador', 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2021/12/cyberpunk-2077-johnny-silverhand-keanu-reeves-2567861.jpg?tf=1200x1200', 'CC', '123456788', '2007-05-11', 'entrenador@gmail.com', 'M', 'activo', '123456788', 'Salud Total S.A.S', 'B+', 66, 165, '123456788', '$2y$10$BGQlOv1/eWrXvlffMUFz2ea34Vg8Bo4R6gInZsALtCn5eEf9uNWu.', NULL, 2, NULL, NULL),
-(3, 'Aprendiz', 'https://image-cdn.flowgpt.com/trans-images/1751467202353-8ed9cdc2-b149-484e-bedd-2f4bcd788e10.webp', 'CC', '123456787', '2007-05-11', 'aprendiz@gmail.com', 'M', 'activo', '123456787', 'Salud Total S.A.S', 'B+', 66, 165, '123456787', '$2y$10$FxAqCRLIO1KciStk.gfbRedz9nJCmKPr2FLW1zL6ACgnqdrdUfVtq', 'La vida es una serie de cambios naturales y espontáneos.', 3, 1, 2);
+(3, 'Aprendiz', 'https://image-cdn.flowgpt.com/trans-images/1751467202353-8ed9cdc2-b149-484e-bedd-2f4bcd788e10.webp', 'CC', '123456787', '2007-05-11', 'aprendiz@gmail.com', 'M', 'activo', '123456787', 'Salud Total S.A.S', 'B+', 66, 165, '123456787', '$2y$10$FxAqCRLIO1KciStk.gfbRedz9nJCmKPr2FLW1zL6ACgnqdrdUfVtq', 'La vida es una serie de cambios naturales y espontáneos.', 3, 1, 2),
+(4, 'Admin Two ', NULL, 'CC', '1232123234', '2007-05-11', 'admin2@gmail.com', 'M', 'activo', '1233214543', 'Salud Total S.A.S', 'B+', NULL, NULL, '1233214547', '$2y$10$63g7NkUeBNM9beziN93MfuLpTkS0/WvmcnmS0AYN8BRwRSC.PAqoi', NULL, 1, NULL, NULL),
+(5, 'Entrenador Two', NULL, 'CC', '1233214542', '2007-05-11', 'entrenador2@gmail.com', 'M', 'activo', '1233214543', 'Salud Total S.A.S', 'B-', NULL, NULL, '1233214547', '$2y$10$g60kktilo8E7UnRuktpXweRdXrtN/BXD0myHCCK3QkgRisg6AC.B6', NULL, 2, NULL, NULL),
+(6, 'Daniel Salazar Loaiza', NULL, 'CC', '1028820219', '2007-05-11', 'daniielsalazarloaiza@gmail.com', 'M', 'activo', '3106025654', 'Salud Total S.A.S', 'B+', 66, 166, '3116227510', '$2y$10$T73zA2YfP9V2qtC5eUpAo.42jjkEJ4xKZ8J9k8nVgKFKkNqPC1zfK', '', 3, 1, 1),
+(7, 'Valeria Gomez Aranzazu', NULL, 'TI', '1053804083', '2008-07-05', 'aranzazuvaleria6@gmail.com', 'M', 'activo', '3113055703', 'Salud Total EPS', 'A+', 56, 158, '3106025654', '$2y$10$PGU6f8IfqQy0HxS.ZsZ9LuL6tuBdQVSofG5IG.BOoJu.AXO9qWyy6', '', 3, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -407,6 +426,14 @@ ALTER TABLE `incomerecord`
 --
 ALTER TABLE `musclegroup`
   ADD PRIMARY KEY (`id_musclegroup`);
+
+--
+-- Indices de la tabla `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `email` (`email`),
+  ADD KEY `token` (`token`);
 
 --
 -- Indices de la tabla `progresscontrol`
@@ -496,7 +523,7 @@ ALTER TABLE `exerciseroutine`
 -- AUTO_INCREMENT de la tabla `group`
 --
 ALTER TABLE `group`
-  MODIFY `id_group` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_group` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `incomerecord`
@@ -511,6 +538,12 @@ ALTER TABLE `musclegroup`
   MODIFY `id_musclegroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `progresscontrol`
 --
 ALTER TABLE `progresscontrol`
@@ -520,7 +553,7 @@ ALTER TABLE `progresscontrol`
 -- AUTO_INCREMENT de la tabla `role`
 --
 ALTER TABLE `role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `routine`
@@ -532,19 +565,19 @@ ALTER TABLE `routine`
 -- AUTO_INCREMENT de la tabla `trainingcenter`
 --
 ALTER TABLE `trainingcenter`
-  MODIFY `id_trainingcenter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_trainingcenter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `trainingprogram`
 --
 ALTER TABLE `trainingprogram`
-  MODIFY `id_trainingprogram` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_trainingprogram` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

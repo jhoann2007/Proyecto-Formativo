@@ -5,7 +5,7 @@
     <?php include 'assets/config/head.php'; ?>
 </head>
 
-<body class="index-page">
+<body class="index-page calendario-page">
     <!-- header (Sidebar) -->
     <header id="header" class="header dark-background d-flex flex-column">
         <?php
@@ -39,8 +39,17 @@
 
     <script src="assets/js/main.js"></script>
 
+<?php
+        $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+        $basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+        if ($basePath === '/') { $basePath = ''; }
+    ?>
+    <script>
+        // Base URL dinámica según ubicación de index.php
+        window.BASE_URL = '<?= $basePath ?>';
+    </script>
     <!-- Calendario -->
-    <script src="/js/calendario.js"></script>
+    <script src="<?= $basePath ?>/js/calendario.js"></script>
 
 </body>
 

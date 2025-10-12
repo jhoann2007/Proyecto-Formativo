@@ -65,7 +65,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
     <script>
-        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+        const form = document.getElementById('forgotPasswordForm');
+        // Si estamos en 8080, redirigir el action al backend Apache
+        if (window.location.port === '8080') {
+            form.action = 'http://localhost/Proyecto-Formativo/public/olvido-contrasenia/procesar-solicitud';
+        }
+        form.addEventListener('submit', function(e) {
             const email = document.getElementById('email').value;
             
             if (!email) {

@@ -175,9 +175,22 @@ class OlvidoContraseniaController {
      * Muestra el formulario para cambiar la contraseña
      */
     public function mostrarFormularioCambio() {
+        // Fallback: si falta sesión pero vienen parámetros por GET desde redirección (frontend 8080)
         if (!isset($_SESSION['email_recuperacion']) || !isset($_SESSION['codigo_verificado'])) {
-            header('Location: /olvido-contrasenia/solicitar');
-            exit;
+            $emailGet = $_GET['email'] ?? null;
+            $codigoGet = $_GET['codigo'] ?? null;
+            if ($emailGet && $codigoGet) {
+                // Validar que el código sea válido antes de setear sesión
+                $verificado = $this->model->verificarCodigo($emailGet, $codigoGet);
+                if ($verificado) {
+                    $_SESSION['email_recuperacion'] = $emailGet;
+                    $_SESSION['codigo_verificado'] = $codigoGet;
+                }
+            }
+            if (!isset($_SESSION['email_recuperacion']) || !isset($_SESSION['codigo_verificado'])) {
+                header('Location: /olvido-contrasenia/solicitar');
+                exit;
+            }
         }
         
         require_once MAIN_APP_ROUTE . "../views/olvido_contrasenia/cambiar.php";

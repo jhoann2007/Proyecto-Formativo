@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         allDaySlot: true,
 
         events: function (fetchInfo, successCallback) {
-            fetch('/calendario/obtenerEventos', {
+            fetch((window.BASE_URL || '') + '/calendario/obtenerEventos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             })
@@ -70,11 +70,21 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('btnEliminar').style.display = 'none';
         document.getElementById('aprendicesSection').style.display = 'none';
 
-        new bootstrap.Modal(document.getElementById('eventoModal')).show();
+        // Forzar capacidad máxima fija en UI
+        const capInput = document.getElementById('capacidad_max');
+        if (capInput) {
+            capInput.value = 30;
+            capInput.readOnly = true;
+            capInput.setAttribute('min', '30');
+            capInput.setAttribute('max', '30');
+        }
+
+        const modalEvento = new bootstrap.Modal(document.getElementById('eventoModal'), { backdrop: false, keyboard: true });
+        modalEvento.show();
     }
 
     function mostrarModalAprendiz(fecha) {
-        fetch('/calendario/obtenerRegistrosAprendiz', {
+        fetch((window.BASE_URL || '') + '/calendario/obtenerRegistrosAprendiz', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `fecha=${fecha}`
@@ -107,7 +117,18 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('hora_entrada').value = '';
             document.getElementById('hora_salida').value = '';
 
-            new bootstrap.Modal(document.getElementById('aprendizModal')).show();
+            // Restringir inputs de tiempo al horario del evento
+            const start = evento.extendedProps.hora_inicio;
+            const end = evento.extendedProps.hora_cierre;
+            const horaEntradaInput = document.getElementById('hora_entrada');
+            const horaSalidaInput = document.getElementById('hora_salida');
+            horaEntradaInput.min = start;
+            horaEntradaInput.max = end;
+            horaSalidaInput.min = start;
+            horaSalidaInput.max = end;
+
+            const modalAprendiz = new bootstrap.Modal(document.getElementById('aprendizModal'), { backdrop: false, keyboard: true });
+            modalAprendiz.show();
         })
         .catch(err => {
             console.error('Error:', err);
@@ -127,14 +148,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
         `;
 
-        if ((window.userRole === 'admin' || window.userRole === 'entrenador') && evento.extendedProps.aprendices) {
+        if (((window.userRole === 'admin' || window.userRole === 'administrador' || window.userRole === 'entrenador')) && evento.extendedProps.aprendices) {
             if (evento.extendedProps.aprendices.length) {
                 content += `<hr><h6><i class="fas fa-users"></i> Aprendices Registrados (${evento.extendedProps.aprendices.length})</h6>`;
                 evento.extendedProps.aprendices.forEach(aprendiz => {
                     content += `
                         <div class="estilo-aprendices">
                             <span><strong>${aprendiz.nombre_aprendiz}</strong></span>
-                            <span class="color-hora-aprendices">${aprendiz.hora_entrada} - ${aprendiz.hora_salida}</span>
+                            <span class="color-hora-aprendices">${aprendiz.entry_time} - ${aprendiz.departure_time}</span>
                         </div>
                     `;
                 });
@@ -146,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
         content += `</div>`;
         document.getElementById('infoContent').innerHTML = content;
 
-        if (window.userRole === 'admin' || window.userRole === 'entrenador') {
+        if (window.userRole === 'admin' || window.userRole === 'administrador' || window.userRole === 'entrenador') {
             document.getElementById('btnEditar').onclick = function () {
                 bootstrap.Modal.getInstance(document.getElementById('infoModal')).hide();
                 const fechaEvento = evento.start.toISOString().split('T')[0];
@@ -154,11 +175,12 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         }
 
-        new bootstrap.Modal(document.getElementById('infoModal')).show();
+        const modalInfo = new bootstrap.Modal(document.getElementById('infoModal'), { backdrop: false, keyboard: true });
+        modalInfo.show();
     }
 
     function editarEvento(eventoId, fecha) {
-        fetch('/calendario/obtenerEvento', {
+        fetch((window.BASE_URL || '') + '/calendario/obtenerEvento', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `fecha=${fecha}`
@@ -172,8 +194,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('eventoId').value = ev.id_calendario;
                 document.getElementById('hora_inicio').value = ev.hora_inicio;
                 document.getElementById('hora_cierre').value = ev.hora_cierre;
-                document.getElementById('id_encargado').value = ev.id_encargado;
-                document.getElementById('capacidad_max').value = ev.capacidad_max;
+                document.getElementById('id_encargado').value = ev.id_user;
+                // Forzar capacidad máxima fija en UI durante edición
+                const capInput = document.getElementById('capacidad_max');
+                if (capInput) {
+                    capInput.value = 30;
+                    capInput.readOnly = true;
+                    capInput.setAttribute('min', '30');
+                    capInput.setAttribute('max', '30');
+                }
                 document.getElementById('estado').value = ev.estado;
                 document.getElementById('btnEliminar').style.display = 'inline-block';
 
@@ -183,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         html += `
                             <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded mb-2">
                                 <span><strong>${a.nombre_aprendiz}</strong></span>
-                                <span class="badge bg-primary">${a.hora_entrada} - ${a.hora_salida}</span>
+                                <span class="badge bg-primary">${a.entry_time} - ${a.departure_time}</span>
                             </div>
                         `;
                     });
@@ -193,7 +222,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('aprendicesSection').style.display = 'none';
                 }
 
-                new bootstrap.Modal(document.getElementById('eventoModal')).show();
+                const modalEventoEditar = new bootstrap.Modal(document.getElementById('eventoModal'), { backdrop: false, keyboard: true });
+                modalEventoEditar.show();
             } else {
                 showAlert('error', 'No se pudo cargar el evento');
             }
@@ -206,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('formEvento')) {
         document.getElementById('formEvento').addEventListener('submit', function (e) {
             e.preventDefault();
-            fetch('/calendario/guardarEvento', { method: 'POST', body: new FormData(this) })
+            fetch((window.BASE_URL || '') + '/calendario/guardarEvento', { method: 'POST', body: new FormData(this) })
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'ok') {
@@ -227,6 +257,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const horaEntrada = document.getElementById('hora_entrada').value;
             const horaSalida = document.getElementById('hora_salida').value;
+            const minHora = document.getElementById('hora_entrada').min;
+            const maxHora = document.getElementById('hora_salida').max;
 
             if (horaEntrada >= horaSalida) {
                 return showAlert('error', 'La hora de entrada debe ser menor que la de salida');
@@ -237,7 +269,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 return showAlert('error', 'Solo puedes registrar máximo 2 horas');
             }
 
-            fetch('/calendario/registrarAprendiz', { method: 'POST', body: new FormData(this) })
+            // Validar que el rango esté dentro del horario del evento
+            if ((minHora && horaEntrada < minHora) || (maxHora && horaSalida > maxHora)) {
+                return showAlert('error', `Debes registrar dentro del horario del evento: ${minHora} - ${maxHora}`);
+            }
+
+            fetch((window.BASE_URL || '') + '/calendario/registrarAprendiz', { method: 'POST', body: new FormData(this) })
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'ok') {
@@ -258,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData();
             formData.append('id', document.getElementById('eventoId').value);
 
-            fetch('/calendario/eliminarEvento', { method: 'POST', body: formData })
+            fetch((window.BASE_URL || '') + '/calendario/eliminarEvento', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'ok') {
